@@ -5,6 +5,7 @@ function fett_form_system_theme_settings_alter(&$form, $form_state) {
   // Variables
   $path_fett = drupal_get_path('theme', 'fett');
   $sonar_enabled = module_exists('sonar');
+  $current_theme = arg(3);
 
   // Includes
   include_once './' . $path_fett . '/inc/foundation.inc';
@@ -40,13 +41,28 @@ function fett_form_system_theme_settings_alter(&$form, $form_state) {
 
 
   //////////////////////////////////////////////////////////////////////////////
-  // Foundation
+  // CSS
   //////////////////////////////////////////////////////////////////////////////
 
   $form['fett']['css'] = array(
       '#type'        => 'fieldset',
       '#title'       => t('CSS'),
   );
+
+ $description = t('This is the _settings.scss file that ships with Foundation and it used for changing the many variables that Foundation uses.');
+ $disabled = FALSE;
+ $filepath = drupal_get_path('theme', $current_theme) . '/assets/scss/libraries';
+ if(!file_exists($filepath . '/_settings.scss')){
+  $description .= ' ' . t('The Foundation _settings.scss file must be placed in !filepath.', array('!filepath' => $filepath));
+  $disabled = TRUE;
+ }
+ $form['fett']['css']['fett_foundation_settings'] = array(
+    '#type'          => 'checkbox',
+    '#title'         => t('Use Foundation settings SCSS file'),
+    '#description'   => $description,
+    '#default_value' => theme_get_setting('fett_foundation_settings'),
+    '#disabled' => $disabled,
+ );
 
  $form['fett']['css']['fett_css_onefile'] = array(
     '#type'          => 'checkbox',

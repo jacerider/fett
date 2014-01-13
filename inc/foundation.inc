@@ -16,14 +16,20 @@ function fett_foundation_add_css(){
 
   if(@is_array($scss) && $sonar_enabled){
     $fett_path = drupal_get_path('theme', 'fett');
+    $current_path = drupal_get_path('theme', $theme_key);
     $path = $fett_path . '/assets/foundation/scss';
-    $override = drupal_get_path('theme', $theme_key).'/assets/scss/override';
+    $override = $current_path . '/assets/scss/override';
 
     // Add normalize no matter what
     drupal_add_css($fett_path . '/assets/scss/theme.scss', $options);
 
     // Add normalize no matter what
     drupal_add_css($path . '/normalize.scss', $options);
+
+    if(theme_get_setting('fett_foundation_settings')){
+      // Add custom Foundation SCSS settings file.
+      drupal_add_css($current_path . '/assets/scss/libraries/_settings.scss', $options);
+    }
 
     $path .= '/foundation/components';
 
@@ -100,6 +106,5 @@ function fett_foundation_get_js($options = FALSE) {
       $names[$file] = ucwords(preg_replace('/(foundation\.)?(.*)(\.js)/', '$2', $file));
     }
   }
-
   return $names;
 }
