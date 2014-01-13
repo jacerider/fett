@@ -34,3 +34,14 @@ Foundation requires no less than jQuery 1.10. Using the jQuery Update module
 (https://drupal.org/project/jquery_update) is the recommended way of updating
 Drupal's version of jQuery. Currently, the dev version of this module is the
 only one that support 1.10.
+
+### Modernizr.js ###
+
+Modernizr.js is required and is automatically added via CDN. As Modernizr is
+a toolkit containing many components it is recommended that a customized version
+is used instead.
+
+To add your own version, visit http://modernizr.com/download/ and customize to
+your needs. Then place the file so that the path to it is
+THEME/assets/js/modernizr.min.js. If done correctly, this file will be
+automatically used instead of the CDN version.
