@@ -1,5 +1,5 @@
 # Fett
-### He's no good to me dead.
+##### He's no good to me dead. #####
 
       _____       __    __
     _/ ____\_____/  |__/  |_
@@ -8,6 +8,6 @@
      |__|  \___  >__|  |__|
                \/
 
-##### Images #####
+### Images ###
 
 This is the directory for all your image files.
