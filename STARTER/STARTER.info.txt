@@ -1,0 +1,60 @@
+name = Fett Sub-theme Starter
+description = Custom sub-theme based on the the Fett base theme of awesomeness.
+screenshot = assets/images/screenshot.png
+core = 7.x
+engine = phptemplate
+base theme = fett
+
+
+;-------------- F E A T U R E S -------------
+features[] = logo
+features[] = favicon
+features[] = name
+features[] = slogan
+; features[] = node_user_picture
+features[] = comment_user_picture
+features[] = comment_user_verification
+features[] = main_menu
+features[] = secondary_menu
+
+
+;-------------- R E G I O N S -------------
+regions[header]         = Header
+regions[navigation]     = Navigation
+regions[help]           = Help
+regions[highlighted]    = Highlighted
+regions[content]        = Content
+regions[sidebar_first]  = Left Sidebar
+regions[sidebar_second] = Right Sidebar
+regions[footer_first]   = Footer first
+regions[footer_middle]  = Footer middle
+regions[footer_last]    = Footer last
+
+
+;-------------- S C S S -------------
+; Libraries
+styles[assets/sass/libraries/_variables.scss][options][media]       = all
+styles[assets/sass/libraries/_mixins.scss][options][media]          = all
+
+; Components
+; These files are empty, just uncomment this line and start editing!
+; styles[assets/sass/components/_typography.scss][options][media]  = all
+; styles[assets/sass/components/_header.scss][options][media]      = all
+; styles[assets/sass/components/_footer.scss][options][media]      = all
+; styles[assets/sass/components/_blocks.scss][options][media]      = all
+
+; Sections
+styles[assets/sass/sections/_global.scss][options][media]          = all
+styles[assets/sass/sections/_front.scss][options][media]           = all
+
+
+;-------------- S C R I P T -------------
+; This file is empty, just uncomment this line and start editing!
+; scripts[] = assets/js/theme.js
+
+
+;-------------- S E T T I N G S -------------
+settings[fett_css_onefile] = 1
+settings[fett_js_footer] = 1
+settings[fett_js_onefile] = 1
+settings[fett_html_tags] = 1

@@ -1,0 +1,18 @@
+#status-messages{
+  .krumo-root{
+    color:#656565;
+
+    .krumo-child{
+      font-size:.7em;
+    }
+  }
+}
+
+html.js input.form-autocomplete{
+  background-image: image-url('throbber.gif');
+  background-position: 100% 11px;
+
+  &.throbbing{
+    background-position: 100% -119px; /* LTR */
+  }
+}

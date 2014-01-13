@@ -1,0 +1,60 @@
+
+//////////////////////////////////////////////////////////////////////////////
+//// Theme Settings
+//////////////////////////////////////////////////////////////////////////////
+
+#help{
+  display:none;
+}
+
+body{
+
+  #page{
+    background-image: url("/sites/all/themes/fett/assets/images/themeSettings-bg.jpg") !important;
+    background-repeat: no-repeat !important;
+    background-position: 20px 0 !important;
+  }
+
+  #block-system-main{
+    margin-top: 98px;
+  }
+}
+
+#system-theme-settings{
+
+  .merge-up{
+    font-size:.9em;
+  }
+
+  #edit-fett-status,
+  #edit-fett-icons{
+
+    .fieldset-wrapper{
+      padding:15px 10px 0 0;
+
+      #edit-status{
+        margin:0;
+        padding:0;
+      }
+
+      .status-title{
+        font-weight:bold;
+      }
+
+      table.system-status-report tr.ok{
+        background-color: #bbc4cb;
+        text-shadow: 0 1px 0 #d3dde7;
+      }
+
+      table.system-status-report tr.info{
+        background-color: #7b9a81;
+        text-shadow: 0 1px 0 #a4ccaf;
+      }
+
+      table.system-status-report tr.warning{
+        background-color: #f6ecb0;
+        text-shadow: 0 1px 0 #fffdd3;
+      }
+    }
+  }
+}
