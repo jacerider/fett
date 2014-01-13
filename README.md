@@ -1,5 +1,5 @@
 # Fett
-### He's no good to me dead.
+##### He's no good to me dead. #####
 
       _____       __    __
     _/ ____\_____/  |__/  |_
@@ -8,7 +8,7 @@
      |__|  \___  >__|  |__|
                \/
 
-##### Sub Theme Creation #####
+### Sub Theme Creation ###
 
 **Never modify the Fett base theme.**
 
