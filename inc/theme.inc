@@ -410,12 +410,13 @@ function fett_links__topbar_secondary_menu($vars) {
  * @see fett_links__system_main_menu()
  * @see fett_links__system_secondary_menu()
  */
-function _fett_links($links, $use_icon = FALSE, $tip_direction = 'right') {
+function _fett_links($links, $use_icon = FALSE, $use_tip = FALSE) {
   $output = '';
 
   foreach (element_children($links) as $key) {
     if(theme_get_setting('fett_top_bar_fawesome') && $use_icon){
-      fett_icon_link($links[$key]['#title'], $links[$key]['#localized_options'], TRUE, FALSE);
+      $tip = empty($links[$key]['#below']) ? $use_tip : FALSE;
+      fett_icon_link($links[$key]['#title'], $links[$key]['#localized_options'], TRUE, $tip);
     }
     $output .= _fett_render_link($links[$key]);
   }

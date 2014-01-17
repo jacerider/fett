@@ -16,3 +16,15 @@ html.js input.form-autocomplete{
     background-position: 100% -119px; /* LTR */
   }
 }
+
+#quickbar-top-bar{
+  background:#404040;
+
+  .top-bar-section li a:not(.button){
+    background:#404040;
+  }
+
+  .top-bar-section li a:hover:not(.button){
+    background:#272727;
+  }
+}

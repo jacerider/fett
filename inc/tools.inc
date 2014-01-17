@@ -32,19 +32,28 @@ function fett_icon_link(&$text, &$options, $hide_title, $tooltip = FALSE, $direc
  */
 function fett_icon(&$text, $hide_title, $tooltip = FALSE, $direction = 'bottom'){
   if(module_exists('fawesome')){
+    $icons = &drupal_static(__FUNCTION__);
     $t = strtolower($text);
-    $icons = array(
-      'view' => 'eye',
-      'edit' => 'edit',
-      'devel' => 'code',
-      'log out' => 'power-off',
-      'my account' => 'user',
-      'home' => 'home',
-      'manage display' => 'desktop',
-    );
+    if (!isset($icons)) {
+      $icons = array(
+        t('view')           => 'eye',
+        t('edit')           => 'edit',
+        t('devel')          => 'code',
+        t('log out')        => 'power-off',
+        t('my account')     => 'user',
+        t('home')           => 'home',
+        t('manage display') => 'desktop',
+        t('dashboard')      => 'dashboard',
+        t('create')         => 'plus-square',
+        t('menus')          => 'sitemap',
+        t('taxonomy')       => 'tag',
+        t('users')          => 'users',
+        t('translations')   => 'bullhorn'
+      );
 
-    // Allow others to add their own icons.
-    drupal_alter('fett_icons', $icons);
+      // Allow others to add their own icons.
+      drupal_alter('fett_icons', $icons);
+    }
 
     $icon = isset($icons[$t]) ? $icons[$t] : FALSE;
 
