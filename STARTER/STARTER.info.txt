@@ -32,20 +32,21 @@ regions[footer_last]    = Footer last
 
 
 ;-------------- S C S S -------------
+; These files are empty, just uncomment this line and start editing!
+
 ; Libraries
-styles[assets/sass/libraries/_variables.scss][options][media]       = all
-styles[assets/sass/libraries/_mixins.scss][options][media]          = all
+; stylesheets[all][] = assets/scss/libraries/_variables.scss
+; stylesheets[all][] = assets/scss/libraries/_mixins.scss
 
 ; Components
-; These files are empty, just uncomment this line and start editing!
-; styles[assets/sass/components/_typography.scss][options][media]  = all
-; styles[assets/sass/components/_header.scss][options][media]      = all
-; styles[assets/sass/components/_footer.scss][options][media]      = all
-; styles[assets/sass/components/_blocks.scss][options][media]      = all
+; stylesheets[all][] = assets/scss/components/_typography.scss
+; stylesheets[all][] = assets/scss/components/_header.scss
+; stylesheets[all][] = assets/scss/components/_footer.scss
+; stylesheets[all][] = assets/scss/components/_blocks.scss
 
 ; Sections
-styles[assets/sass/sections/_global.scss][options][media]          = all
-styles[assets/sass/sections/_front.scss][options][media]           = all
+; stylesheets[all][] = assets/scss/sections/_global.scss
+; stylesheets[all][] = assets/scss/sections/_front.scss
 
 
 ;-------------- S C R I P T -------------

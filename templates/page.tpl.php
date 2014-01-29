@@ -13,44 +13,43 @@
     <!-- Title, slogan and menu -->
     <?php if ($alt_header): ?>
       <section class="row <?php print $alt_header_classes; ?>">
+        <div class="large-12 columns">
 
-        <?php if ($linked_logo): print $linked_logo; endif; ?>
+          <?php if ($linked_logo): print $linked_logo; endif; ?>
 
-        <?php if ($site_name): ?>
-          <?php if ($title): ?>
-            <div id="site-name" class="element-invisible">
-              <strong>
+          <?php if ($site_name): ?>
+            <?php if ($title): ?>
+              <div id="site-name" class="element-invisible">
+                <strong>
+                  <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
+                </strong>
+              </div>
+            <?php else: /* Use h1 when the content title is empty */ ?>
+              <h1 id="site-name">
                 <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
-              </strong>
-            </div>
-          <?php else: /* Use h1 when the content title is empty */ ?>
-            <h1 id="site-name">
-              <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
-            </h1>
+              </h1>
+            <?php endif; ?>
           <?php endif; ?>
-        <?php endif; ?>
 
-        <?php if ($site_slogan): ?>
-          <h2 title="<?php print $site_slogan; ?>" class="site-slogan"><?php print $site_slogan; ?></h2>
-        <?php endif; ?>
+          <?php if ($site_slogan): ?>
+            <h2 title="<?php print $site_slogan; ?>" class="site-slogan"><?php print $site_slogan; ?></h2>
+          <?php endif; ?>
 
-        <?php if ($alt_main_menu): ?>
-          <nav id="main-menu" class="navigation" role="navigation">
-            <?php print ($alt_main_menu); ?>
-          </nav> <!-- /#main-menu -->
-        <?php endif; ?>
+          <?php if ($alt_main_menu): ?>
+            <nav id="main-menu" class="navigation" role="navigation">
+              <?php print ($alt_main_menu); ?>
+            </nav> <!-- /#main-menu -->
+          <?php endif; ?>
 
-        <?php if ($alt_secondary_menu): ?>
-          <nav id="secondary-menu" class="navigation" role="navigation">
-            <?php print $alt_secondary_menu; ?>
-          </nav> <!-- /#secondary-menu -->
-        <?php endif; ?>
+          <?php if ($alt_secondary_menu): ?>
+            <nav id="secondary-menu" class="navigation" role="navigation">
+              <?php print $alt_secondary_menu; ?>
+            </nav> <!-- /#secondary-menu -->
+          <?php endif; ?>
 
+        </div>
       </section>
     <?php endif; ?>
-
-
-
 
     <?php if (!empty($page['header'])): ?>
       <!--.l-header-region -->
