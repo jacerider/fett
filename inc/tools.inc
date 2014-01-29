@@ -48,7 +48,8 @@ function fett_icon(&$text, $hide_title, $tooltip = FALSE, $direction = 'bottom')
         t('menus')          => 'sitemap',
         t('taxonomy')       => 'tag',
         t('users')          => 'users',
-        t('translations')   => 'bullhorn'
+        t('translations')   => 'bullhorn',
+        t('settings')   => 'cog'
       );
 
       // Allow others to add their own icons.
