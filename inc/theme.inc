@@ -33,7 +33,7 @@ function fett_theme() {
   // );
 
   $return['fett_top_bar'] = array(
-    'vars' => array(
+    'variables' => array(
       'top_bar_classes' => NULL,
       'top_bar_options' => NULL,
       'top_bar_menu_text' => NULL,
@@ -46,7 +46,7 @@ function fett_theme() {
   );
 
   $return['fett_menu_link'] = array(
-    'vars' => array('link' => NULL),
+    'variables' => array('link' => NULL),
     'function' => 'theme_fett_menu_link',
   );
   return $return;
