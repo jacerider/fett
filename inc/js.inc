@@ -27,11 +27,12 @@ function fett_js_alter(&$js) {
   }
 
   // Move all scripts to footer
-  if(theme_get_setting('fett_js_footer')) {
-    foreach ($js as $file => $value) {
-      $js[$file]['scope'] = 'footer';
-    }
-  }
+  // Remove for now as this is breaking Drupal.ajax
+  // if(theme_get_setting('fett_js_footer')) {
+  //   foreach ($js as $file => $value) {
+  //     $js[$file]['scope'] = 'footer';
+  //   }
+  // }
 
   // Aggregate all files into a single file
   if(theme_get_setting('fett_js_onefile')){

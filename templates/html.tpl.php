@@ -8,7 +8,7 @@
   <?php print $head; ?>
   <title><?php print $head_title; ?></title>
   <?php print $styles; ?>
-  <?php print $scripts; ?>
+  <?php if(!theme_get_setting('fett_js_footer')) print $scripts; ?>
   <?php print $extra; ?>
 </head>
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
@@ -17,6 +17,7 @@
   </div>
   <?php print $page_top; ?>
   <?php print $page; ?>
+  <?php if(theme_get_setting('fett_js_footer')) print $scripts; ?>
   <?php print $page_bottom; ?>
 </body>
 </html>
