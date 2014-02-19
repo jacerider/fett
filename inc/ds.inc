@@ -61,6 +61,21 @@ function fett_entity_vars(&$vars) {
           // $vars['classes_array'][] = 'row';
         }
         break;
+      case 'fett_2col_push':
+        if (empty($vars['left_classes']) && empty($vars['right_classes'])) {
+          if(!empty($vars['left']) && !empty($vars['right'])){
+            $vars['left_classes'] = ' large-8 columns';
+            $vars['right_classes'] = ' large-4 columns';
+          }
+          elseif(!empty($vars['left']) ){
+            $vars['left_classes'] = ' large-12 columns';
+          }
+          elseif(!empty($vars['right']) ){
+            $vars['right_classes'] = ' large-12 columns';
+          }
+          // $vars['classes_array'][] = 'row';
+        }
+        break;
       case 'fett_2col_stacked':
         if (
           empty($vars['header_classes']) && empty($vars['left_classes'])
