@@ -56,23 +56,47 @@ function fett_foundation_add_css(){
   }
 }
 
+function fett_foundation_js_suppress($set = TRUE) {
+  static $suppress = FALSE;
+  // drupal_add_js() must only be invoked once.
+  if (!empty($set) && $suppress === FALSE) {
+    $suppress = TRUE;
+  }
+  return $suppress;
+}
+
 /**
  * Include Foundation SCSS components
  */
 function fett_foundation_add_js($js = array()){
 
   $js = !empty($js) ? $js : theme_get_setting('fett_foundation_js');
+  $path_fett = drupal_get_path('theme', 'fett');
   $path = drupal_get_path('theme', 'fett').'/assets/foundation/js/foundation';
   $options = array(
     'every_page' => TRUE,
     'scope' => 'footer'
   );
-  if(@is_array($js)){
-    drupal_add_js($path.'/foundation.js', $options + array('weight' => -1));
-    foreach($js as $s){
-      if(!empty($s)){
-        drupal_add_js($path.'/'.$s, $options);
+
+  if(!fett_foundation_js_suppress(FALSE)){
+    // Messages in modal.
+    if(theme_get_setting('fett_messages_modal')){
+      $js['foundation.reveal.js'] = 'foundation.reveal.js';
+      drupal_add_js($path_fett . '/assets/js/themeMessages.js', array('every_page' => TRUE));
+    }
+
+    if(@is_array($js)){
+      drupal_add_js($path.'/foundation.js', $options + array('weight' => -1));
+      foreach($js as $s){
+        if(!empty($s)){
+          drupal_add_js($path.'/'.$s, $options);
+        }
       }
+
+      // Initialize Foundation
+      drupal_add_js('(function ($, Drupal, window, document, undefined) { $(document).foundation(); })(jQuery, Drupal, this, this.document);',
+        array('type' => 'inline', 'scope' => 'footer', 'weight' => 1000)
+      );
     }
   }
 
