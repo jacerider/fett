@@ -37,10 +37,7 @@ function _fett_preprocess_page(&$vars){
   }
 
   // Messages in modal.
-  if($vars['fett_messages_modal'] = theme_get_setting('fett_messages_modal')){
-    fett_foundation_add_js(array('foundation.reveal.js'));
-    drupal_add_js($path_fett . '/assets/js/themeMessages.js', array('every_page' => TRUE));
-  }
+  $vars['fett_messages_modal'] = !fett_foundation_js_suppress(FALSE) ? theme_get_setting('fett_messages_modal') : 0;
 
   $vars['logo_img'] = '';
   if (!empty($vars['logo'])) {
