@@ -386,7 +386,7 @@ function fett_form_system_status(){
 
   if(module_exists('sonar')){
     if(sonar_is_enabled()){
-      $status = sonar_use_remote() ? 'Enabled <small>(Remote)</small>' : 'Enabled <small>(Local)</small>';
+      $status = 'Enabled';
       $output[] = fett_form_system_status_item('SASS Support (Sonar)', $status, NULL, REQUIREMENT_OK);
     }
     else{
