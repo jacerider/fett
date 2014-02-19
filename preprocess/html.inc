@@ -14,11 +14,13 @@ function _fett_preprocess_html(&$vars){
     drupal_add_js($override, array('every_page' => TRUE, 'group' => JS_LIBRARY));
   }
   else{
-    drupal_add_js('//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js', array('type' => 'external', 'every_page' => TRUE, 'group' => JS_LIBRARY));
+    // drupal_add_js('//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js', array('type' => 'external', 'every_page' => TRUE, 'group' => JS_LIBRARY));
+    $script = "\n";
+    $script .= '<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js"></script>' . "\n";
+    $vars['extra'] .= $script;
   }
 
-  // Add Foundation assets
-  fett_foundation_add_css();
+  // Add Foundation JS assets
   fett_foundation_add_js();
 
   // Touch icons
@@ -58,8 +60,12 @@ function _fett_preprocess_html(&$vars){
     '#markup' => $script,
   );
 
-  // Initialize Foundation
-  drupal_add_js('(function ($, Drupal, window, document, undefined) { $(document).foundation(); })(jQuery, Drupal, this, this.document);',
-    array('type' => 'inline', 'scope' => 'footer', 'weight' => 1000)
+  // rem.js
+  $script = "\n";
+  $script .= '<!--[if lt IE 9]>' . "\n";
+  $script .= '<script type="text/javascript" src="' . url($path_fett . '/assets/js/rem.min.js') . '"></script>' . "\n";
+  $script .= '<![endif]-->' . "\n";
+  $vars['page']['page_bottom']['remjs'] = array(
+    '#markup' => $script,
   );
 }
