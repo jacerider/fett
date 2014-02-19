@@ -8,6 +8,12 @@
   }
 }
 
+div.status,
+div.warning,
+div.error{
+  background-image:none;
+}
+
 html.js input.form-autocomplete{
   background-image: image-url('throbber.gif');
   background-position: 100% 11px;
