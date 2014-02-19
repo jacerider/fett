@@ -7,31 +7,6 @@ function fett_theme() {
   $path_fett = drupal_get_path('theme', 'fett');
   $return = array();
 
-  // $return['fett_reveal'] = array(
-  //   'vars' => array(
-  //     // The text to display in the link.
-  //     'text' => '',
-  //     // Whether the text uses HTML.
-  //     'html' => FALSE,
-  //     // Whether the reveal uses AJAX content.
-  //     // This can either be set to true, to use the link's href property or be
-  //     // a URL to load the content from. Note that setting this parameter will
-  //     // override the contents of the "reveal" variable.
-  //     'ajax' => FALSE,
-  //     // The path for the link's href property. This is only really useful if
-  //     // you want to set 'ajax' to TRUE (see above).
-  //     'path' => FALSE,
-  //     // The content for the reveal modal. Can be either a string or a render
-  //     // array.
-  //     'reveal' => '',
-  //     // Extra classes to add to the link.
-  //     'link_classes_array' => array('zurb-foundation-reveal'),
-  //     // Extra classes to add to the reveal modal.
-  //     'reveal_classes_array' => array('expand'),
-  //   ),
-  //   'function' => 'theme_fett_reveal',
-  // );
-
   $return['fett_top_bar'] = array(
     'variables' => array(
       'top_bar_classes' => NULL,
@@ -142,30 +117,6 @@ function fett_field($vars) {
 }
 
 /**
- * Implements theme_field__field_type().
- */
-function fett_field__taxonomy_term_reference($vars) {
-  $output = '';
-
-  // Render the label, if it's not hidden.
-  if (!$vars['label_hidden']) {
-    $output .= '<h2 class="field-label">' . $vars['label'] . ': </h2>';
-  }
-
-  // Render the items.
-  $output .= ($vars['element']['#label_display'] == 'inline') ? '<ul class="links inline">' : '<ul class="links">';
-  foreach ($vars['items'] as $delta => $item) {
-    $output .= '<li class="taxonomy-term-reference-' . $delta . '"' . $vars['item_attributes'][$delta] . '>' . drupal_render($item) . '</li>';
-  }
-  $output .= '</ul>';
-
-  // Render the top-level DIV.
-  $output = '<div class="' . $vars['classes'] . (!in_array('clearfix', $vars['classes_array']) ? ' clearfix' : '') . '">' . $output . '</div>';
-
-  return $output;
-}
-
-/**
  * Override drupal core messages with foundation alert-box messages.
  * Customize the colors within the _settings.scss file.
  *
@@ -173,6 +124,7 @@ function fett_field__taxonomy_term_reference($vars) {
  */
 function fett_status_messages($variables) {
   $display = $variables['display'];
+  $fett_messages_modal = !fett_foundation_js_suppress(FALSE) ? theme_get_setting('fett_messages_modal') : 0;
   $output = '';
 
   $status_heading = array(
@@ -209,13 +161,13 @@ function fett_status_messages($variables) {
       $output .= $messages[0];
     }
 
-    if(!theme_get_setting('fett_messages_modal'))
+    if(!$fett_messages_modal)
       $output .= '<a href="#" class="close">&times;</a>';
 
     $output .= "</div>\n";
   }
 
-  if ($output != '' && theme_get_setting('fett_messages_modal')) {
+  if ($output != '' && $fett_messages_modal) {
     $output = '<div id="status-messages" class="reveal-modal" role="alertdialog" data-reveal>'. $output;
     $output .= '<a class="close-reveal-modal">&#215;</a>';
     $output .= "</div>";
@@ -444,6 +396,10 @@ function _fett_render_link($link) {
 
   if (!empty($link['#below'])) {
     $link['#attributes']['class'][] = 'has-dropdown';
+  }
+
+  if(!empty($link['#original_link']['mlid'])){
+    $link['#attributes']['class'][] = 'mlid-' . $link['#original_link']['mlid'];
   }
 
   // Render top level and make sure we have an actual link.
