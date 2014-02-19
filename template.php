@@ -29,6 +29,11 @@ function _fett_load($files) {
 
 _fett_load($files);
 
+// Add Foundation SCSS assets
+// We do this here as styles defined in the .info file will always be loaded.
+// We need our files to always be loaded.
+fett_foundation_add_css();
+
 /**
  * Implements hook_html_head_alter().
  */
@@ -44,7 +49,7 @@ function fett_html_head_alter(&$head_elements) {
     '#tag' => 'meta',
     '#attributes' => array(
       'name' => 'viewport',
-      'content' => 'width=device-width',
+      'content' => 'width=device-width, initial-scale=1.0',
     ),
   );
 
