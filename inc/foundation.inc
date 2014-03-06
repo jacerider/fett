@@ -21,9 +21,6 @@ function fett_foundation_add_css(){
     $override = $current_path . '/assets/scss/override';
 
     // Add normalize no matter what
-    drupal_add_css($fett_path . '/assets/scss/theme.scss', $options);
-
-    // Add normalize no matter what
     drupal_add_css($path . '/normalize.scss', $options);
 
     if(theme_get_setting('fett_foundation_settings')){
@@ -37,12 +34,15 @@ function fett_foundation_add_css(){
     foreach($scss as $s){
       if(empty($s)) continue;
       $use_path = $path;
-      // Allow local overriding of Bootstrap files
+      // Allow local overriding of Foundation files
       if(file_exists($override.'/_'.$s.'.scss')){
         $use_path = $override;
       }
       drupal_add_css($use_path.'/_'.$s.'.scss', $options);
     }
+
+    // Add theme css no matter what
+    drupal_add_css($fett_path . '/assets/scss/theme.scss', $options);
   }
   // We have not selected any SCSS components to include OR Sonar is not
   // enabled. In this case we just use default compiled Foundation.
