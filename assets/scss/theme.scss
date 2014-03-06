@@ -34,3 +34,34 @@ html.js input.form-autocomplete{
     background:#272727;
   }
 }
+
+.draggable a.tabledrag-handle{
+  // width:15px;
+  // height:15px;
+  margin:0;
+  display:block;
+}
+
+a.tabledrag-handle{
+  .handle{
+    width:15px;
+    height:15px;
+    margin:4px;
+    padding:0;
+    background-position:0 0;
+  }
+
+  &:hover{
+    .handle{
+      background-position:0 -20px;
+    }
+  }
+}
+
+a.tabledrag-toggle-weight{
+  // @include button($button-sml, $secondary-color, $global-radius, false, false, false);
+  font-size: $small-font-size;
+  color: $small-font-color;
+  line-height:rem-calc(20);
+  text-transform: uppercase;
+}
