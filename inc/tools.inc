@@ -53,6 +53,8 @@ function fett_icon(&$text, $hide_title, $tooltip = FALSE, $direction = 'bottom')
         t('settings')       => 'cog',
         t('webform')        => 'th-list',
         t('results')        => 'bar-chart-o',
+        t('order nodes')    => 'arrows',
+        t('order items')    => 'arrows',
       );
 
       // Allow others to add their own icons.
