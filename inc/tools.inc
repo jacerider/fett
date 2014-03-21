@@ -84,3 +84,26 @@ function fett_icon(&$text, $hide_title, $tooltip = FALSE, $direction = 'bottom')
   }
   return FALSE;
 }
+
+/**
+ * Force use of default language.
+ */
+function fett_language_force(){
+  static $current_language;
+  if(!isset($current_language)){
+    if(module_exists('admin_language') && variable_get('admin_language_translate_toolbar', 1)){
+      global $language, $_admin_language;
+      // save the current language and activate the administration language...
+      $current_language = $language;
+      $language = $_admin_language;
+    }
+  }
+  else{
+    if(module_exists('admin_language') && variable_get('admin_language_translate_toolbar', 1)){
+      global $language, $_admin_language;
+      // ...and restore the previous language
+      $language = $current_language;
+      unset($current_language);
+    }
+  }
+}

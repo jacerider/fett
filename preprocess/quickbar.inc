@@ -2,6 +2,10 @@
 
 function _fett_preprocess_quickbar(&$vars){
   global $user;
+
+  // Use default language
+  fett_language_force();
+
   $role_weights = variable_get('quickbar_role_weights', '');
   $settings = array();
 
@@ -70,5 +74,8 @@ function _fett_preprocess_quickbar(&$vars){
       $vars['tree_0']['right'] = '<ul' . drupal_attributes($attr) . '>' . $output . '</ul>';
     }
   }
+
+  // Use default language close
+  fett_language_force();
 
 }
