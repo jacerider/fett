@@ -21,11 +21,6 @@ function fett_form_alter(&$form, &$form_state, $form_id) {
     $form['actions']['#theme_wrappers'] = array();
   }
 
-  // Sexy submit buttons
-  if (!empty($form['actions']) && !empty($form['actions']['submit'])) {
-    $form['actions']['submit']['#attributes'] = array('class' => array('secondary', 'button', 'radius'));
-  }
-
   // Search Block Fixes
   if (isset($form['#form_id']) && ($form['#form_id'] == 'search_block_form')) {
     $form['search_block_form']['#attributes']['class'] = array('small-8', 'columns');
