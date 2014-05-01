@@ -14,6 +14,41 @@ div.error{
   background-image:none;
 }
 
+div.alert-box{
+  a{
+    font-weight:bold;
+    text-decoration: underline;
+    @if variable-exists(alert-font-color) {
+      &{
+        color:$alert-font-color;
+      }
+    }
+    &.close{
+      @if variable-exists(alert-close-position){
+        top: $alert-close-position;
+        margin-top: 0;
+      }
+      text-decoration: none;
+    }
+  }
+
+  .krumo-root{
+    color:#505050;
+    .krumo-element{
+      @if mixin-exists(rem-calc) {
+        font-size:rem-calc(10);
+      }
+    }
+    ul{
+      margin:0;
+      padding:0;
+    }
+    a{
+      color:#313131;
+    }
+  }
+}
+
 html.js input.form-autocomplete{
   background-image: image-url('throbber.gif');
   background-position: 100% 11px;
@@ -59,9 +94,16 @@ a.tabledrag-handle{
 }
 
 a.tabledrag-toggle-weight{
-  // @include button($button-sml, $secondary-color, $global-radius, false, false, false);
-  font-size: $small-font-size;
-  color: $small-font-color;
   line-height:rem-calc(20);
   text-transform: uppercase;
+  @if variable-exists(small-font-size) {
+    &{
+      font-size: $small-font-size;
+    }
+  }
+  @if variable-exists(small-font-color) {
+    &{
+      color: $small-font-color;
+    }
+  }
 }
