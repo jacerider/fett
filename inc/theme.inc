@@ -73,6 +73,7 @@ function fett_menu_local_task(&$variables) {
       $link['title'] = check_plain($link['title']);
     }
 
+    $link['localized_options']['attributes']['class'][] = 'disabled';
     $link['localized_options']['html'] = TRUE;
     $link_text = t('!local-task-title!active', array('!local-task-title' => $link['title'], '!active' => $active));
   }
@@ -136,7 +137,7 @@ function fett_status_messages($variables) {
   $status_mapping = array(
     'error' => 'alert',
     'status' => 'success',
-    'warning' => 'secondary'
+    'warning' => 'warning'
   );
 
   foreach (drupal_get_messages($display) as $type => $messages) {
@@ -150,6 +151,11 @@ function fett_status_messages($variables) {
     if (!empty($status_heading[$type])) {
       $output .= '<h2 class="element-invisible">' . $status_heading[$type] . "</h2>\n";
     }
+
+    if(!$fett_messages_modal){
+      $output .= '<a href="#" class="close">&times;</a>';
+    }
+
     if (count($messages) > 1) {
       $output .= " <ul class=\"no-bullet\">\n";
       foreach ($messages as $message) {
@@ -158,11 +164,11 @@ function fett_status_messages($variables) {
       $output .= " </ul>\n";
     }
     else {
+      if(module_exists('fawesome')){
+        $messages[0] = '<i class="fa fa-exclamation-triangle pull-left"></i> ' . $messages[0];
+      }
       $output .= $messages[0];
     }
-
-    if(!$fett_messages_modal)
-      $output .= '<a href="#" class="close">&times;</a>';
 
     $output .= "</div>\n";
   }
@@ -173,6 +179,26 @@ function fett_status_messages($variables) {
     $output .= "</div>";
   }
 
+  return $output;
+}
+
+/**
+ * Theme the form element, add the error, when one occured.
+ */
+function fett_ife_form_element($variables) {
+  $output = '';
+  $output = $variables['element']['#children'];
+
+  if (isset($variables['element']['#id'])) {
+    $error = ife_errors('get', $variables['element']['#id']);
+
+    if (!empty($error)) {
+      if(module_exists('fawesome')){
+        $error = '<i class="fa fa-exclamation-circle"></i> ' . $error;
+      }
+      $output .= '<div data-alert class="alert-box warning messages-inline">' . $error . '<a href="#" class="close">&times;</a></div>';
+    }
+  }
   return $output;
 }
 
