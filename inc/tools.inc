@@ -30,7 +30,7 @@ function fett_icon_link(&$text, &$options, $hide_title, $tooltip = FALSE, $direc
  * @param  boolean  $hide_title
  *   Hide title and just use icon
  */
-function fett_icon(&$text, $hide_title, $tooltip = FALSE, $direction = 'bottom'){
+function fett_icon(&$text, $hide_title = FALSE, $tooltip = FALSE, $direction = 'bottom'){
   if(module_exists('fawesome')){
     $icons = &drupal_static(__FUNCTION__);
     $t = strtolower($text);
@@ -55,10 +55,12 @@ function fett_icon(&$text, $hide_title, $tooltip = FALSE, $direction = 'bottom')
         t('results')        => 'bar-chart-o',
         t('order nodes')    => 'arrows',
         t('order items')    => 'arrows',
+        t('delete')         => 'trash-o',
       );
 
       // Allow others to add their own icons.
       drupal_alter('fett_icons', $icons);
+      $icons = array_change_key_case($icons,  CASE_LOWER);
     }
 
     $icon = isset($icons[$t]) ? $icons[$t] : FALSE;
