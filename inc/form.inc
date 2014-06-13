@@ -87,7 +87,7 @@ function fett_form_element_label($variables) {
  */
 function fett_button($variables) {
   $element = $variables['element'];
-  $label = check_plain($element['#value']);
+  $label = $element['#value'];
   element_set_attributes($element, array('id', 'name', 'value', 'type'));
 
   $element['#attributes']['class'][] = 'form-' . $element['#button_type'];

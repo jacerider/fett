@@ -106,9 +106,11 @@ function fett_field($vars) {
     $output .= '</div>';
   }
   else {
+    $output .= '<div class="field-items"' . $vars['content_attributes'] . '>';
     foreach ($vars['items'] as $item) {
       $output .= drupal_render($item);
     }
+    $output .= '</div>';
   }
 
   // Render the top-level DIV.

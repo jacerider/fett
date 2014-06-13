@@ -39,7 +39,7 @@ div.alert-box{
         font-size:rem-calc(10);
       }
     }
-    ul{
+    & > ul{
       margin:0;
       padding:0;
     }
@@ -107,3 +107,18 @@ a.tabledrag-toggle-weight{
     }
   }
 }
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// Utilities
+////////////////////////////////////////////////////////////////////////////////
+
+button, .button {
+  &.text {
+    @include button-style($bg:$secondary-color);
+    background:none;
+  }
+}
+
+
