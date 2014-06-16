@@ -1,6 +1,9 @@
 <?php
 
-function fett_form_system_theme_settings_alter(&$form, $form_state) {
+function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = NULL) {
+  if (isset($form_id)) {
+    return;
+  }
 
   // Variables
   $path_fett = drupal_get_path('theme', 'fett');
@@ -348,12 +351,14 @@ function fett_form_system_theme_settings_alter(&$form, $form_state) {
     '#title' => t('General'),
   );
 
-  $form['fett']['fett_general']['theme_settings'] = $form['theme_settings'];
-  $form['fett']['fett_general']['logo'] = $form['logo'];
-  $form['fett']['fett_general']['favicon'] = $form['favicon'];
-  unset($form['theme_settings']);
-  unset($form['logo']);
-  unset($form['favicon']);
+  if(isset($form['theme_settings'])){
+    $form['fett']['fett_general']['theme_settings'] = $form['theme_settings'];
+    $form['fett']['fett_general']['logo'] = $form['logo'];
+    $form['fett']['fett_general']['favicon'] = $form['favicon'];
+    unset($form['theme_settings']);
+    unset($form['logo']);
+    unset($form['favicon']);
+  }
 
 
   //////////////////////////////////////////////////////////////////////////////
@@ -367,7 +372,7 @@ function fett_form_system_theme_settings_alter(&$form, $form_state) {
 
   $form['fett']['fett_icons']['status'] = array(
     '#type' => 'item',
-    '#markup' => fett_form_icon_status()
+    '#markup' => fett_form_icon_status($current_theme)
   );
 
 }
@@ -431,10 +436,9 @@ function fett_form_system_status(){
   ));
 }
 
-function fett_form_icon_status(){
+function fett_form_icon_status($current_theme){
   global $base_url;
-  global $theme_key;
-  $path = drupal_get_path('theme', $theme_key);
+  $path = drupal_get_path('theme', $current_theme);
   $path_fett = drupal_get_path('theme', 'fett');
 
   $output = array();
