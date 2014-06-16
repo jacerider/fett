@@ -1,9 +1,7 @@
 <?php
 
 function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = NULL) {
-  if (isset($form_id)) {
-    return;
-  }
+  if (isset($form_id)) return;
 
   // Variables
   $path_fett = drupal_get_path('theme', 'fett');
@@ -16,6 +14,7 @@ function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = N
 
   if($sonar_enabled){
     drupal_add_css($path_fett . '/assets/scss/themeSettings.scss');
+
   }
 
   $select_toggle = '<br>' .
