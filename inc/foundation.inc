@@ -56,6 +56,10 @@ function fett_foundation_add_css(){
   }
 }
 
+/**
+ * Modules and other themes can call this function to supress all Foundation
+ * javascript from loading.
+ */
 function fett_foundation_js_suppress($set = TRUE) {
   static $suppress = FALSE;
   // drupal_add_js() must only be invoked once.
@@ -67,39 +71,47 @@ function fett_foundation_js_suppress($set = TRUE) {
 
 /**
  * Include Foundation SCSS components
+ *
+ * @param  $js
+ *   Can be a string or an array of strings. Should be called without this
+ *   variable to return all js files.
+ *   IE: array('foundation.reveal.js','foundation.topbar.js')
  */
-function fett_foundation_add_js($js = array()){
-
-  $js = !empty($js) ? $js : theme_get_setting('fett_foundation_js');
-  $path_fett = drupal_get_path('theme', 'fett');
-  $path = drupal_get_path('theme', 'fett').'/assets/foundation/js/foundation';
-  $options = array(
-    'every_page' => TRUE,
-    'scope' => 'footer'
-  );
-
+function fett_foundation_add_js($js = NULL){
+  $js_files = &drupal_static(__FUNCTION__);
   if(!fett_foundation_js_suppress(FALSE)){
-    // Messages in modal.
-    if(theme_get_setting('fett_messages_modal')){
-      $js['foundation.reveal.js'] = 'foundation.reveal.js';
-      drupal_add_js($path_fett . '/assets/js/themeMessages.js', array('every_page' => TRUE));
-    }
-
-    if(@is_array($js)){
-      drupal_add_js($path.'/foundation.js', $options + array('weight' => -1));
-      foreach($js as $s){
-        if(!empty($s)){
-          drupal_add_js($path.'/'.$s, $options);
-        }
+    if($js){
+      // Set a js file for loading later.
+      if(!is_array($js)){
+        $js = array($js);
       }
-
-      // Initialize Foundation
-      drupal_add_js('(function ($, Drupal, window, document, undefined) { $(document).foundation(); })(jQuery, Drupal, this, this.document);',
-        array('type' => 'inline', 'scope' => 'footer', 'weight' => 1000)
-      );
+      $js_files = isset($js_files) ? $js_files : array();
+      $js_files += drupal_map_assoc($js);
+    }
+    else{
+      $js = isset($js_files) ? $js_files : array();
+      // Load in all set Foundation js files.
+      $js += !empty($js) ? $js : theme_get_setting('fett_foundation_js');
+      if(@is_array($js)){
+        $path_fett = drupal_get_path('theme', 'fett');
+        $path = drupal_get_path('theme', 'fett').'/assets/foundation/js/foundation';
+        $options = array(
+          'every_page' => TRUE,
+          'scope' => 'footer'
+        );
+        drupal_add_js($path.'/foundation.js', $options + array('weight' => -1));
+        foreach($js as $s){
+          if(!empty($s)){
+            drupal_add_js($path.'/'.$s, $options);
+          }
+        }
+        // Initialize Foundation
+        drupal_add_js('(function ($, Drupal, window, document, undefined) { $(document).foundation(); })(jQuery, Drupal, this, this.document);',
+          array('type' => 'inline', 'scope' => 'footer', 'weight' => 1000)
+        );
+      }
     }
   }
-
 }
 
 /**

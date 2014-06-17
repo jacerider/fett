@@ -176,6 +176,9 @@ function fett_status_messages($variables) {
   }
 
   if ($output != '' && $fett_messages_modal) {
+    fett_foundation_add_js('foundation.reveal.js');
+    drupal_add_js(drupal_get_path('theme', 'fett') . '/assets/js/themeMessages.js', array('every_page' => TRUE));
+
     $output = '<div id="status-messages" class="reveal-modal" role="alertdialog" data-reveal>'. $output;
     $output .= '<a class="close-reveal-modal">&#215;</a>';
     $output .= "</div>";
