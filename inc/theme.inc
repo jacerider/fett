@@ -223,6 +223,7 @@ function fett_breadcrumb($vars) {
     $breadcrumbs .= '<ul class="breadcrumbs">';
 
     foreach ($breadcrumb as $key => $value) {
+      if(empty($value) || !strip_tags($value)) continue;
       $breadcrumbs .= '<li>' . $value . '</li>';
     }
 
