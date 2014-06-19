@@ -113,7 +113,7 @@ function _fett_element_whitelist() {
 /**
  * Why whitelist an element?
  * The reason is to provide a list of elements we wish to exclude
- * from certain modifications made by the bootstrap theme which
+ * from certain modifications made by the Fett theme which
  * break core functionality - e.g. ajax.
  */
   $whitelist = array(
