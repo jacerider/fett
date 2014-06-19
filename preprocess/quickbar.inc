@@ -1,7 +1,16 @@
 <?php
 
 function _fett_preprocess_quickbar(&$vars){
-  global $user;
+  global $user, $theme_key;
+
+  $vars['title'] = '';
+  if(drupal_valid_path('admin')){
+    $path = 'admin';
+  }
+  else{
+    $path = '/';
+  }
+  $vars['title'] = l(theme('image', array('path'=>drupal_get_path('theme', $theme_key) . '/assets/images/quickbar.png')), $path, array('html'=>TRUE));
 
   // Use default language
   fett_language_force();
@@ -50,7 +59,7 @@ function _fett_preprocess_quickbar(&$vars){
     }
 
     if(!empty($links)){
-      $output = _fett_links($links, TRUE, TRUE);
+      $output = _fett_links($links, TRUE, TRUE, TRUE);
       $attr = array();
       $attr['class'][] = 'left';
       $vars['tree_0']['admin'] = '<ul' . drupal_attributes($attr) . '>' . $output . '</ul>';
@@ -68,7 +77,7 @@ function _fett_preprocess_quickbar(&$vars){
           '#localized_options' => array('html' => TRUE),
         );
       }
-      $output = _fett_links($links_right, TRUE, TRUE);
+      $output = _fett_links($links_right, TRUE, TRUE, TRUE);
       $attr = array();
       $attr['class'][] = 'right';
       $vars['tree_0']['right'] = '<ul' . drupal_attributes($attr) . '>' . $output . '</ul>';
@@ -77,5 +86,4 @@ function _fett_preprocess_quickbar(&$vars){
 
   // Use default language close
   fett_language_force();
-
 }

@@ -1,7 +1,7 @@
 <nav id="quickbar-top-bar" class="top-bar" data-topbar="" data-options="is_hover: false">
     <ul class="title-area">
         <li class="name">
-            <h1><a href="/admin">Admin</a></h1>
+            <h1><?php print $title; ?></h1>
         </li>
         <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
     </ul>
