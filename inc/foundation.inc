@@ -91,7 +91,7 @@ function fett_foundation_add_js($js = NULL){
     else{
       $js = isset($js_files) ? $js_files : array();
       // Load in all set Foundation js files.
-      $js += !empty($js) ? $js : theme_get_setting('fett_foundation_js');
+      $js += theme_get_setting('fett_foundation_js');
       if(@is_array($js)){
         $path_fett = drupal_get_path('theme', 'fett');
         $path = drupal_get_path('theme', 'fett').'/assets/foundation/js/foundation';
