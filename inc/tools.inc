@@ -52,7 +52,7 @@ function fett_icon_button(&$text, &$element){
 function fett_icon(&$text, $hide_title = FALSE, $tooltip = FALSE, $direction = 'bottom'){
   if(module_exists('fawesome')){
     $icons = fett_icons();
-    $t = strtolower($text);
+    $t = strtolower(t($text));
     $info = TRUE;
     // Check for simple match.
     $icon = isset($icons[$t]) ? $icons[$t] : FALSE;
@@ -95,26 +95,27 @@ function fett_icons(){
   $icons = &drupal_static(__FUNCTION__);
   if (!isset($icons)) {
     $icons = array(
-      t('view')           => 'eye',
-      t('edit')           => 'edit',
-      t('devel')          => 'code',
-      t('log out')        => 'power-off',
-      t('my account')     => 'user',
-      t('home')           => 'home',
-      t('manage display') => 'desktop',
-      t('dashboard')      => 'dashboard',
-      t('create')         => 'plus-square',
-      t('menus')          => 'sitemap',
-      t('taxonomy')       => 'tag',
-      t('users')          => 'users',
-      t('translations')   => 'globe',
-      t('translate')      => 'globe',
-      t('settings')       => 'cog',
-      t('webform')        => 'th-list',
-      t('results')        => 'bar-chart-o',
-      t('order nodes')    => 'arrows',
-      t('order items')    => 'arrows',
-      t('delete')         => 'trash-o',
+      'view'           => 'eye',
+      'edit'           => 'edit',
+      'devel'          => 'code',
+      'log out'        => 'power-off',
+      'my account'     => 'user',
+      'home'           => 'home',
+      'manage display' => 'desktop',
+      'dashboard'      => 'dashboard',
+      'create'         => 'plus-square',
+      'menus'          => 'sitemap',
+      'taxonomy'       => 'tag',
+      'users'          => 'users',
+      'translations'   => 'globe',
+      'translate'      => 'globe',
+      'settings'       => 'cog',
+      'webform'        => 'th-list',
+      'results'        => 'bar-chart-o',
+      'order nodes'    => 'arrows',
+      'order items'    => 'arrows',
+      'delete'         => 'trash-o',
+      'nodequeue'      => 'sort',
     );
 
     // Allow others to add their own icons.
