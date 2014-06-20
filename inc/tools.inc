@@ -8,16 +8,18 @@
  * @param  boolean  $hide_title
  *   Hide title and just use icon
  */
-function fett_icon_link(&$text, &$options, $hide_title, $tooltip = FALSE, $direction = 'bottom'){
+function fett_icon_link(&$text, &$options = array(), $hide_title = FALSE, $tooltip = FALSE, $direction = 'bottom'){
   $original_text = $text;
-  if(fett_icon($text, $hide_title, FALSE, $direction)){
+  if($info = fett_icon($text, $hide_title, FALSE, $direction)){
     if($tooltip){
+      fett_foundation_add_js('foundation.tooltip.js');
       $options['attributes']['data-tooltip'] = '';
       $options['attributes']['title'] = $original_text;
       $options['attributes']['class'][] = 'tip-' . $direction;
       $options['attributes']['data-options'] = 'disable_for_touch:true';
     }
     $options['html'] = TRUE;
+    return $info;
   }
 }
 
