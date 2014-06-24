@@ -468,6 +468,7 @@ function _fett_render_link($link) {
       // Build sub nav recursively.
       foreach ($link['#below'] as $sub_link) {
         if (!empty($sub_link['#href'])) {
+          fett_icon_link($sub_link['#title'], $sub_link['#localized_options']);
           $sub_menu .= _fett_render_link($sub_link);
         }
       }

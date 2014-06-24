@@ -92,35 +92,48 @@ function fett_icon(&$text, $hide_title = FALSE, $tooltip = FALSE, $direction = '
  * Get Fett icons
  */
 function fett_icons(){
+  global $theme_key;
   $icons = &drupal_static(__FUNCTION__);
   if (!isset($icons)) {
-    $icons = array(
-      'view'           => 'eye',
-      'edit'           => 'edit',
-      'devel'          => 'code',
-      'log out'        => 'power-off',
-      'my account'     => 'user',
-      'home'           => 'home',
-      'manage display' => 'desktop',
-      'dashboard'      => 'dashboard',
-      'create'         => 'plus-square',
-      'menus'          => 'sitemap',
-      'taxonomy'       => 'tag',
-      'users'          => 'users',
-      'translations'   => 'globe',
-      'translate'      => 'globe',
-      'settings'       => 'cog',
-      'webform'        => 'th-list',
-      'results'        => 'bar-chart-o',
-      'order nodes'    => 'arrows',
-      'order items'    => 'arrows',
-      'delete'         => 'trash-o',
-      'nodequeue'      => 'sort',
-    );
+    $cache_key = 'fett_icons_' . $theme_key;
+    if ($cache = cache_get($cache_key)) {
+      $icons = $cache->data;
+    }
+    else {
+      $icons = array(
+        'view'           => 'eye',
+        'edit'           => 'edit',
+        'devel'          => 'code',
+        'log out'        => 'power-off',
+        'my account'     => 'user',
+        'home'           => 'home',
+        'manage display' => 'desktop',
+        'dashboard'      => 'dashboard',
+        'create'         => 'plus-square',
+        'menus'          => 'sitemap',
+        'taxonomy'       => 'tag',
+        'users'          => 'users',
+        'translations'   => 'globe',
+        'translate'      => 'globe',
+        'settings'       => 'cog',
+        'webform'        => 'th-list',
+        'results'        => 'bar-chart-o',
+        'order nodes'    => 'arrows',
+        'order items'    => 'arrows',
+        'delete'         => 'trash-o',
+        'nodequeue'      => 'sort',
+      );
 
-    // Allow others to add their own icons.
-    drupal_alter('fett_icons', $icons);
-    $icons = array_change_key_case($icons,  CASE_LOWER);
+      foreach(node_type_get_types() as $key => $value){
+        $icons[strtolower($value->name)] = 'file-text';
+      }
+
+      // Allow others to add their own icons.
+      drupal_alter('fett_icons', $icons);
+      $icons = array_change_key_case($icons,  CASE_LOWER);
+
+      cache_set($cache_key, $icons, 'cache');
+    }
   }
   return $icons;
 }

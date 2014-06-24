@@ -41,43 +41,61 @@ function _fett_preprocess_quickbar(&$vars){
     }
   }
 
-  if($return = quickbar_available()){
-    // We need to fetch the links ourselves because we need the entire tree.
-    $links = menu_tree_output(menu_tree_all_data($return['menu']));
-    $links_right = array();
-    foreach (element_properties($links) as $key) {
-      $links_right[$key] = $links[$key];
-    }
-    if(@is_array($settings['menu'])){
-      foreach($settings['menu'] as $menu_id => $position){
-        $mlid = str_replace('mlid_','',$menu_id);
-        if($position == 'right' && isset($links[$mlid])){
-          $links_right[$mlid] = $links[$mlid];
-          unset($links[$mlid]);
-        }
-      }
-    }
 
-    if(!empty($links)){
+  if(!empty($vars['tree'])){
+    $tree = $vars['tree'];
+    if(!empty($tree[0]['admin'])){
+      $links = array();
+      foreach($tree[0]['admin'] as $key => $link){
+        $below = array();
+        if(isset($tree[1][$link['href']])){
+          foreach($tree[1][$link['href']] as $child_key => $child){
+            $below[] = array(
+              '#theme' => 'menu_link__menu_quickbar_editor',
+              '#title' => strip_tags($child['title']),
+              '#href' => $child['href'],
+              '#attributes' => array(),
+              '#localized_options' => array('html' => TRUE),
+            );
+          }
+        }
+        $links[$key] = array(
+          '#theme' => 'menu_link__menu_quickbar_editor',
+          '#title' => strip_tags($link['title']),
+          '#href' => $link['href'],
+          '#attributes' => array(),
+          '#localized_options' => array('html' => TRUE),
+          '#below' => $below,
+        );
+      }
       $output = _fett_links($links, TRUE, TRUE, TRUE);
       $attr = array();
       $attr['class'][] = 'left';
       $vars['tree_0']['admin'] = '<ul' . drupal_attributes($attr) . '>' . $output . '</ul>';
     }
-
-    if(!empty($links_right)){
-      if (!empty($settings['show_username'])) {
-        $username_prefix = isset($settings['show_username_prefix']) ? $settings['show_username_prefix'] : '<i class="fa fa-user"></i> ';
-        $username_suffix = isset($settings['show_username_suffix']) ? $settings['show_username_suffix'] : '!';
-        $links_right['user'] = array(
-          '#theme' => 'menu_link__menu_quickbar_editor',
-          '#title' => $username_prefix . $user->name,
-          '#href' => 'user/' . $user->uid,
-          '#attributes' => array(),
-          '#localized_options' => array('html' => TRUE),
-        );
+    if(!empty($tree[0]['right'])){
+      $links = array();
+      foreach($tree[0]['right'] as $key => $link){
+        if($key == 'username'){
+          $links['username'] = array(
+            '#theme' => 'menu_link__menu_quickbar_editor',
+            '#title' => '<i class="fa fa-user"></i> ' . strip_tags($link['title']),
+            '#href' => 'user/' . $user->uid,
+            '#attributes' => array(),
+            '#localized_options' => array('html' => TRUE),
+          );
+        }
+        else{
+          $links[$key] = array(
+            '#theme' => 'menu_link__menu_quickbar_editor',
+            '#title' => strip_tags($link['title']),
+            '#href' => $link['href'],
+            '#attributes' => array(),
+            '#localized_options' => array('html' => TRUE),
+          );
+        }
       }
-      $output = _fett_links($links_right, TRUE, TRUE, TRUE);
+      $output = _fett_links($links, TRUE, TRUE, TRUE);
       $attr = array();
       $attr['class'][] = 'right';
       $vars['tree_0']['right'] = '<ul' . drupal_attributes($attr) . '>' . $output . '</ul>';
