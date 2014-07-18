@@ -24,6 +24,24 @@ function fett_icon_link(&$text, &$options = array(), $hide_title = FALSE, $toolt
 }
 
 /**
+ * Add Font Awesome icons based on text while also adding classes to the options.
+ *
+ * @param  boolean  $tooltip
+ *   Hide text and place in tooltip
+ * @param  boolean  $hide_title
+ *   Hide title and just use icon
+ */
+function fett_icon_link_with_classes(&$text, &$options = array(), $hide_title = FALSE, $tooltip = FALSE, $direction = 'bottom'){
+  if($info = fett_icon_link($text, $options, $hide_title, $tooltip, $direction)){
+    if(isset($info['class'])){
+      $options['attributes']['class'] = isset($options['attributes']['class']) ? $options['attributes']['class'] : array();
+      $options['attributes']['class'] = array_merge($options['attributes']['class'], $info['class']);
+    }
+    $options['html'] = TRUE;
+  }
+}
+
+/**
  * Add Font Awesome icons based on text.
  *
  * @param  boolean  $tooltip
@@ -33,10 +51,10 @@ function fett_icon_link(&$text, &$options = array(), $hide_title = FALSE, $toolt
  */
 function fett_icon_button(&$text, &$element){
   $original_text = $text;
-  if($data = fett_icon($text)){
-    if(isset($data['class'])){
+  if($info = fett_icon($text)){
+    if(isset($info['class'])){
       $element['#attributes']['class'] = isset($element['#attributes']['class']) ? $element['#attributes']['class'] : array();
-      $element['#attributes']['class'] = array_merge($element['#attributes']['class'], $data['class']);
+      $element['#attributes']['class'] = array_merge($element['#attributes']['class'], $info['class']);
     }
   }
 }
@@ -56,6 +74,10 @@ function fett_icon(&$text, $hide_title = FALSE, $tooltip = FALSE, $direction = '
     $info = TRUE;
     // Check for simple match.
     $icon = isset($icons[$t]) ? $icons[$t] : FALSE;
+    if(is_array($icon) && isset($icon['icon'])){
+      $info = $icon;
+      $icon = $icon['icon'];
+    }
     if(!$icon){
       // Check for complex match
       foreach($icons as $key => $data){
