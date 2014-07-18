@@ -4,7 +4,7 @@
   Foundation.libs.interchange = {
     name : 'interchange',
 
-    version : '5.2.3',
+    version : '5.3.1',
 
     cache : {},
 
@@ -232,7 +232,7 @@
         this.object($(this['cached_' + type][i]));
       }
 
-      return $(window).trigger('resize');
+      return $(window).trigger('resize').trigger('resize.fndtn.interchange');
     },
 
     convert_directive : function (directive) {
