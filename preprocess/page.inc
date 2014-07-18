@@ -57,6 +57,7 @@ function _fett_preprocess_page(&$vars){
       'attributes' => array(
         'rel'   => 'home',
         'title' => strip_tags($vars['site_name']) . ' ' . t('Home'),
+        'id'    => 'page-logo',
       ),
       'html' => TRUE,
     ));
