@@ -108,11 +108,146 @@ a.tabledrag-toggle-weight{
   }
 }
 
+.container-inline{
+  @include clearfix();
+  margin-bottom:rem-calc(20);
+
+  & > *{
+    float:left;
+  }
+
+  & *{
+    margin:0;
+    padding:0;
+  }
+}
+
+.field-inline{
+  @include clearfix();
+
+  .fieldset-wrapper{
+    @include clearfix();
+  }
+
+  .form-item{
+    float:left;
+    margin:0;
+    padding-right:rem-calc(20);
+  }
+}
+
+fieldset{
+  .fieldset-wrapper{
+    div:first-child{
+      margin-top:0;
+    }
+    div:last-child{
+      margin-bottom:0;
+    }
+  }
+}
+
+.ajax-progress-throbber{
+  position:absolute;
+  z-index:3000;
+  background:rgba(0,0,0,.5);
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  height:100%;
+  color:transparent;
+
+  .throbber{
+    background:none;
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-left:-20px;
+    margin-top:-20px;
+  }
+
+  .throbber:before {
+    font-family: "FontAwesome";
+    font-size:40px;
+    color:#fff;
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    width: 40px;
+    text-align: center;
+    /* opacity: .8; */
+    font-variant: normal;
+    text-transform: none;
+    line-height: 40px;
+    content: '\f110';
+    -moz-animation: spin 2s infinite linear;
+    -o-animation: spin 2s infinite linear;
+    -webkit-animation: spin 2s infinite linear;
+    animation: spin 2s infinite linear;
+  }
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// Forms
+////////////////////////////////////////////////////////////////////////////////
+
+
+form{
+  input[type="text"],
+  input[type="password"],
+  input[type="date"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="month"],
+  input[type="week"],
+  input[type="email"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="time"],
+  input[type="url"],
+  textarea{
+    margin:rem-calc(0 0 5);
+  }
+
+  input[type="file"],
+  input[type="checkbox"],
+  input[type="radio"]{
+    margin:0;
+  }
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Utilities
 ////////////////////////////////////////////////////////////////////////////////
+
+.colorpicker{
+  z-index:1100;
+
+  input[type="text"],
+  input[type="text"]:focus{
+    background-color: transparent;
+    border: 1px solid transparent;
+    position: absolute;
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #898989;
+    top: 4px;
+    right: 11px;
+    text-align: right;
+    margin: 0;
+    padding: 0;
+    height: 11px;
+    box-shadow:none;
+  }
+}
 
 button, .button {
   &.text {
