@@ -8,7 +8,7 @@ function _fett_preprocess_quickbar(&$vars){
     $path = 'admin';
   }
   else{
-    $path = '/';
+    $path = '<front>';
   }
   $vars['title'] = l(theme('image', array('path'=>drupal_get_path('theme', $theme_key) . '/assets/images/quickbar.png')), $path, array('html'=>TRUE));
 
