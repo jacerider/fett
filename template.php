@@ -113,3 +113,12 @@ function fett_theme_registry_alter(&$theme_registry) {
     _fett_ds_theme_registry_alter($theme_registry);
   }
 }
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function fett_element_info_alter(&$type) {
+  if(isset($type['managed_file'])){
+    $type['managed_file']['#attached']['js'][] = drupal_get_path('theme','fett') . '/assets/js/fett.upload.js';
+  }
+}
