@@ -51,10 +51,10 @@ function fett_icon_link_with_classes(&$text, &$options = array(), $hide_title = 
  */
 function fett_icon_button(&$text, &$element){
   $original_text = $text;
-  if($info = fett_icon($text)){
-    if(isset($info['class'])){
+  if($data = fett_icon($text)){
+    if(isset($data['class'])){
       $element['#attributes']['class'] = isset($element['#attributes']['class']) ? $element['#attributes']['class'] : array();
-      $element['#attributes']['class'] = array_merge($element['#attributes']['class'], $info['class']);
+      $element['#attributes']['class'] = array_merge($element['#attributes']['class'], $data['class']);
     }
   }
 }
