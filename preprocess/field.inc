@@ -49,29 +49,29 @@ function _fett_preprocess_field(&$vars){
   }
 
   // Add class to a specific fields across content types.
-  switch ($vars['element']['#field_name']) {
-    case 'body':
-      $vars['classes_array'] = array('body');
-      break;
+  // switch ($vars['element']['#field_name']) {
+  //   case 'body':
+  //     $vars['classes_array'] = array('body');
+  //     break;
 
-    case 'field_summary':
-      $vars['classes_array'][] = 'text-teaser';
-      break;
+  //   case 'field_summary':
+  //     $vars['classes_array'][] = 'text-teaser';
+  //     break;
 
-    case 'field_link':
-    case 'field_date':
-      // Replace classes entirely, instead of adding extra.
-      $vars['classes_array'] = array('text-content');
-      break;
+  //   case 'field_link':
+  //   case 'field_date':
+  //     // Replace classes entirely, instead of adding extra.
+  //     $vars['classes_array'] = array('text-content');
+  //     break;
 
-    case 'field_image':
-      // Replace classes entirely, instead of adding extra.
-      $vars['classes_array'] = array('image');
-      break;
+  //   case 'field_image':
+  //     // Replace classes entirely, instead of adding extra.
+  //     $vars['classes_array'] = array('image');
+  //     break;
 
-    default:
-      break;
-  }
+  //   default:
+  //     break;
+  // }
   // Add classes to body based on content type and view mode.
   if ($vars['element']['#field_name'] == 'body') {
 
