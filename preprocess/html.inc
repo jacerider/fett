@@ -11,7 +11,7 @@ function _fett_preprocess_html(&$vars){
   // Add Modernizr
   $override = drupal_get_path('theme', $theme_key).'/assets/js/modernizr.min.js';
   if(file_exists($override)){
-    drupal_add_js($override, array('every_page' => TRUE, 'group' => JS_LIBRARY));
+    drupal_add_js($override, array('every_page' => TRUE, 'group' => JS_LIBRARY, 'weight' => -1000));
   }
   else{
     // drupal_add_js('//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js', array('type' => 'external', 'every_page' => TRUE, 'group' => JS_LIBRARY));

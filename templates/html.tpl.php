@@ -8,8 +8,8 @@
   <?php print $head; ?>
   <title><?php print $head_title; ?></title>
   <?php print $styles; ?>
-  <?php if(!theme_get_setting('fett_js_footer')) print $scripts; ?>
   <?php print $extra; ?>
+  <?php if(!theme_get_setting('fett_js_footer')) print $scripts; ?>
 </head>
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
   <div class="skip-link">
