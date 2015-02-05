@@ -3,6 +3,9 @@
 function _fett_preprocess_quickbar(&$vars){
   global $user, $theme_key;
 
+  fett_foundation_add_js('foundation.topbar.js');
+  fett_foundation_add_js('foundation.dropdown.js');
+
   $vars['title'] = '';
   if(drupal_valid_path('admin')){
     $path = 'admin';
