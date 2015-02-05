@@ -3,7 +3,7 @@ description = Fett is a basetheme of awesomeness that uses Foundation 5 and SASS
 screenshot = assets/images/screenshot.png
 core = 7.x
 engine = phptemplate
-version = 1.0
+version = "7.x-1.1"
 php = 5.2
 
 
@@ -40,7 +40,7 @@ regions[footer_last]    = Footer last
 
 ;-------------- Default Settings -------------
 settings[fett_css_onefile] = 1
-settings[fett_js_footer] = 1
+settings[fett_js_footer] = 0
 settings[fett_js_onefile] = 1
 settings[fett_html_tags] = 1
 

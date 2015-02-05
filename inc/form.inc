@@ -98,6 +98,11 @@ function fett_button($variables) {
   // Prepare input whitelist - added to ensure ajax functions don't break
   $whitelist = _fett_element_whitelist();
 
+  // Upload progress skip.
+  if(isset($element['#ajax']['progress']['type']) && $element['#ajax']['progress']['type'] === 'bar'){
+    $whitelist[] = $element['#id'];
+  }
+
   if (isset($element['#id']) && in_array($element['#id'], $whitelist)) {
     return '<input' . drupal_attributes($element['#attributes']) . ">\n"; // This line break adds inherent margin between multiple buttons
   }

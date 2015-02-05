@@ -13,7 +13,7 @@
       var $file = $(this).addClass('custom-file-upload-hidden'), // the original file input
           $wrap = $('<div class="file-upload-wrapper row collapse">'),
           $parent = $(this).closest('.form-type-managed-file'),
-          $upload = $('button[type=submit]', $parent),
+          $upload = $('button[type=submit],input[type=submit]', $parent),
           $inputWrapper = $('<div class="small-10 columns" />'),
           $input = $('<input type="text" class="file-upload-input disabled" disabled />'),
           // Button that will be used in non-IE browsers
