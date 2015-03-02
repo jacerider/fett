@@ -126,6 +126,9 @@ function fett_field($vars) {
  * http://foundation.zurb.com/docs/elements.php#panelEx
  */
 function fett_status_messages($variables) {
+
+  fett_foundation_add_js('foundation.alert.js');
+
   $display = $variables['display'];
   $fett_messages_modal = !fett_foundation_js_suppress(FALSE) ? theme_get_setting('fett_messages_modal') : 0;
   $output = '';
