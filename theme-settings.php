@@ -34,6 +34,7 @@ function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = N
   $form['fett']['fett_status'] = array(
     '#type' => 'fieldset',
     '#title' => t('Status'),
+    '#weight' => -100,
   );
 
   $form['fett']['fett_status']['status'] = array(
@@ -51,27 +52,27 @@ function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = N
       '#title'       => t('CSS'),
   );
 
- $description = t('This is the _settings.scss file that ships with Foundation and it used for changing the many variables that Foundation uses.');
- $disabled = FALSE;
- $filepath = drupal_get_path('theme', $current_theme) . '/assets/scss/libraries';
- if(!file_exists($filepath . '/_settings.scss')){
+  $description = t('This is the _settings.scss file that ships with Foundation and it used for changing the many variables that Foundation uses.');
+  $disabled = FALSE;
+  $filepath = drupal_get_path('theme', $current_theme) . '/assets/scss/libraries';
+  if(!file_exists($filepath . '/_settings.scss')){
   $description .= ' ' . t('The Foundation _settings.scss file must be placed in !filepath.', array('!filepath' => $filepath));
   $disabled = TRUE;
- }
- $form['fett']['css']['fett_foundation_settings'] = array(
+  }
+  $form['fett']['css']['fett_foundation_settings'] = array(
     '#type'          => 'checkbox',
     '#title'         => t('Use Foundation settings SCSS file'),
     '#description'   => $description,
     '#default_value' => theme_get_setting('fett_foundation_settings'),
     '#disabled' => $disabled,
- );
+  );
 
- $form['fett']['css']['fett_css_onefile'] = array(
+  $form['fett']['css']['fett_css_onefile'] = array(
     '#type'          => 'checkbox',
     '#title'         => t('Aggregate all CSS into a single file'),
     '#description'   => t('This will decrese HTTP requests.'),
     '#default_value' => theme_get_setting('fett_css_onefile')
- );
+  );
 
   $form['fett']['css']['foundation'] = array(
     '#type'        => 'fieldset',
