@@ -79,8 +79,7 @@ function _fett_preprocess_page(&$vars){
     $vars['alt_main_menu'] = theme('links__system_main_menu', array(
       'links' => $vars['main_menu'],
       'attributes' => array(
-        'id' => 'main-menu-links',
-        'class' => array('links', 'inline-list', 'clearfix'),
+        'class' => array('main-menu-links', 'menu', 'links', 'inline-list', 'clearfix'),
       ),
       'heading' => array(
         'text' => t('Main menu'),
@@ -95,8 +94,7 @@ function _fett_preprocess_page(&$vars){
     $vars['alt_secondary_menu'] = theme('links__system_secondary_menu', array(
       'links' => $vars['secondary_menu'],
       'attributes' => array(
-        'id' => 'secondary-menu-links',
-        'class' => array('links', 'clearfix'),
+        'class' => array('secondary-menu-links', 'menu', 'links', 'clearfix'),
       ),
       'heading' => array(
         'text' => t('Secondary menu'),
