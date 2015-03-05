@@ -170,6 +170,23 @@
     <!--/.footer-->
   <?php endif; ?>
 
+  <!-- off-canvas menu -->
+  <nav class="st-menu st-effect-2" id="mobileNav">
+    <?php if (!empty($page['offcanvas'])): ?>
+      <?php print render($page['offcanvas']); ?>
+    <?php endif; ?>
+  </nav>
+
   <?php if ($messages && $fett_messages_modal): print $messages; endif; ?>
 </div>
 <!--/.page -->
+
+<!--/preloader -->
+<div class="spinner"></div>
+
+<!--/#hidden region -->
+<?php if (!empty($page['hidden'])): ?>
+  <div id="hidden">
+    <?php print render($page['hidden']); ?>
+  </div>
+<?php endif; ?>
