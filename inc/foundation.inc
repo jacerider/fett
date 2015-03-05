@@ -25,7 +25,7 @@ function fett_foundation_add_css(){
 
     if(theme_get_setting('fett_foundation_settings')){
       // Add custom Foundation SCSS settings file.
-      drupal_add_css($fett_path . '/assets/foundation/scss/foundation/_functions.scss', $options);
+      drupal_add_css($fett_path . '/assets/foundation/scss/foundation/_functions.scss', array('weight' => -2000) + $options);
       drupal_add_css($current_path . '/assets/scss/libraries/_settings.scss', $options);
     }
 
