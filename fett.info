@@ -3,7 +3,7 @@ description = Fett is a basetheme of awesomeness that uses Foundation 5 and SASS
 screenshot = assets/images/screenshot.png
 core = 7.x
 engine = phptemplate
-version = "7.x-1.1"
+version = "7.x-1.2"
 php = 5.2
 
 
