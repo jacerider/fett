@@ -45,7 +45,6 @@ regions[hidden]         = Hidden
 ; stylesheets[all][] = assets/scss/components/_header.scss
 ; stylesheets[all][] = assets/scss/components/_footer.scss
 ; stylesheets[all][] = assets/scss/components/_blocks.scss
-; stylesheets[all][] = assets/scss/components/_wireframe.scss
 
 ; Sections
 ; stylesheets[all][] = assets/scss/sections/_global.scss
