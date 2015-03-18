@@ -406,7 +406,6 @@ function _fett_links($links, $use_icon = FALSE, $use_tip = FALSE, $force_icon = 
     }
     $output .= _fett_render_link($links[$key]);
   }
-
   return $output;
 }
 

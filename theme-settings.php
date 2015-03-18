@@ -8,6 +8,7 @@ function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = N
   $sonar_enabled = module_exists('sonar');
   $current_theme = arg(3);
 
+
   // Includes
   include_once './' . $path_fett . '/inc/foundation.inc';
   drupal_add_js($path_fett .'/assets/js/themeSettings.js');
@@ -21,10 +22,17 @@ function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = N
   l(t('select all'), '#', array('attributes' => array('class' => 'select-all'))) . ' | ' .
   l(t('select none'), '#', array('attributes' => array('class' => 'select-none')));
 
+  $title = 'F e &#8224; &#8224;';
+  if($current_theme !== 'fett'){
+    $themes = list_themes();
+    $theme = $themes[$current_theme];
+    $title = $theme->name . ' <small><em>a lowly clone of</em> '.$title.'</small>';
+  }
+
   $form['fett'] = array(
     '#type'   => 'vertical_tabs',
     '#weight' => -10,
-    '#prefix' => '<h1>F e &#8224; &#8224;</h1><small>' . l('View Style Guide', '<front>', array('query' => array('styleguide' => 1))) . '</small>',
+    '#prefix' => '<h1>' . $title . '</h1><small>' . l('View Style Guide', '<front>', array('query' => array('styleguide' => 1))) . '</small>',
   );
 
   //////////////////////////////////////////////////////////////////////////////

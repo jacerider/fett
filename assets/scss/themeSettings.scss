@@ -51,18 +51,21 @@ body{
       }
 
       table.system-status-report tr.ok{
-        background-color: #bbc4cb;
-        text-shadow: 0 1px 0 #d3dde7;
+        background-color: #54606E;
+        text-shadow: 0 1px 0 #3B444E;
+        border-bottom-color: #3B444E;
       }
 
       table.system-status-report tr.info{
-        background-color: #7b9a81;
-        text-shadow: 0 1px 0 #a4ccaf;
+        background-color: #375440;
+        text-shadow: 0 1px 0 #25392B;
+        border-bottom-color: #25392B;
       }
 
       table.system-status-report tr.warning{
-        background-color: #f6ecb0;
-        text-shadow: 0 1px 0 #fffdd3;
+        background-color: #825F0B;
+        text-shadow: 0 1px 0 #533D06;
+        border-bottom-color: #533D06;
       }
     }
   }
