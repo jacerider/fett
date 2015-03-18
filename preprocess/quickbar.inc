@@ -18,6 +18,10 @@ function _fett_preprocess_quickbar(&$vars){
   // Use default language
   fett_language_force();
 
+  // Make sure admin icons are loaded in quickbar instead of frontend icons.
+  $theme_key_temp = $theme_key;
+  $theme_key = variable_get('admin_theme');
+
   $role_weights = variable_get('quickbar_role_weights', '');
   $settings = array();
 
@@ -43,8 +47,6 @@ function _fett_preprocess_quickbar(&$vars){
       }
     }
   }
-
-
   if(!empty($vars['tree'])){
     $tree = $vars['tree'];
     if(!empty($tree[0]['admin'])){
@@ -104,6 +106,9 @@ function _fett_preprocess_quickbar(&$vars){
       $vars['tree_0']['right'] = '<ul' . drupal_attributes($attr) . '>' . $output . '</ul>';
     }
   }
+
+  // Switch theme key back to correct theme.
+  $theme_key = $theme_key_temp;
 
   // Use default language close
   fett_language_force();

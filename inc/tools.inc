@@ -152,6 +152,15 @@ function fett_icons(){
 
       // Allow others to add their own icons.
       drupal_alter('fett_icons', $icons);
+
+      // Make sure the current theme_key theme alter is run. This allows
+      // us to override the theme_key and change the icons loaded.
+      require_once drupal_get_path('theme', $theme_key) . '/template.php';
+      if(function_exists($theme_key . '_fett_icons_alter')){
+        $function = $theme_key . '_fett_icons_alter';
+        $function($icons);
+      }
+
       $icons = array_change_key_case($icons,  CASE_LOWER);
 
       cache_set($cache_key, $icons, 'cache');
