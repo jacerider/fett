@@ -186,7 +186,7 @@
 
 <!--/#hidden region -->
 <?php if (!empty($page['hidden'])): ?>
-  <div id="hidden">
+  <div class="l-hidden">
     <?php print render($page['hidden']); ?>
   </div>
 <?php endif; ?>
