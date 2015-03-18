@@ -29,6 +29,8 @@ regions[sidebar_second] = Right Sidebar
 regions[footer_first]   = Footer first
 regions[footer_middle]  = Footer middle
 regions[footer_last]    = Footer last
+regions[offcanvas]      = Off Canvas
+regions[hidden]         = Hidden
 
 
 ;-------------- S C S S -------------
@@ -43,9 +45,10 @@ regions[footer_last]    = Footer last
 ; stylesheets[all][] = assets/scss/components/_header.scss
 ; stylesheets[all][] = assets/scss/components/_footer.scss
 ; stylesheets[all][] = assets/scss/components/_blocks.scss
+stylesheets[all][] = assets/scss/components/_wireframe.scss
 
 ; Sections
-; stylesheets[all][] = assets/scss/sections/_global.scss
+stylesheets[all][] = assets/scss/sections/_global.scss
 ; stylesheets[all][] = assets/scss/sections/_front.scss
 
 
