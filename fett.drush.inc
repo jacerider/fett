@@ -55,6 +55,7 @@ function drush_fett_sub_theme($name = NULL, $machine_name = NULL, $description =
 
   // Rename files and fill in the theme machine name
   drush_op('rename', "$subtheme_path/STARTER.info.txt", "$subtheme_path/$machine_name.info");
+  drush_op('fett_recursive_file_str_replace', "$subtheme_path/templates");
   drush_op('rename', "$subtheme_path/assets/js/theme.js", "$subtheme_path/assets/js/$machine_name.js");
   // Update the .info file
   drush_op('fett_file_str_replace', "$subtheme_path/$machine_name.info", 'Fett Sub-theme Starter', "$name");
@@ -78,6 +79,27 @@ function drush_fett_sub_theme($name = NULL, $machine_name = NULL, $description =
   ));
   drush_pm_enable_validate($machine_name);
   drush_pm_enable($machine_name);
+}
+
+/**
+ * Internal helper: Rename files recursively.\
+ */
+function fett_recursive_file_str_replace($file_path) {
+  $file_path = str_replace('\\', '/', realpath($file_path));
+  if (is_dir($file_path) === true){
+    $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($file_path), RecursiveIteratorIterator::SELF_FIRST);
+    foreach ($files as $file){
+      // Ignore "." and ".." folders.
+      if( in_array(substr($file, strrpos($file, '/')+1), array('.', '..')) ) continue;
+      $file = realpath($file);
+      // Only act on files.
+      if (is_file($file) === true){
+        $file_new = str_replace('STARTER.', '', $file);
+        drush_op('rename', "$file", "$file_new");
+      }
+
+    }
+  }
 }
 
 /**
