@@ -7,6 +7,8 @@ function fett_foundation_add_css(){
   global $theme_key;
   $sonar_enabled = module_exists('sonar');
   $scss = theme_get_setting('fett_foundation_scss');
+  $fett_path = drupal_get_path('theme', 'fett');
+  $current_path = drupal_get_path('theme', $theme_key);
   $options = array(
     'every_page' => TRUE,
     'weight' => -1000
@@ -14,9 +16,12 @@ function fett_foundation_add_css(){
 
   drupal_add_css();
 
+  // Responsive Tables
+  if(theme_get_setting('fett_responsive_tables')){
+    drupal_add_css($fett_path . '/assets/foundation/rt/responsive-tables.css', $options);
+  }
+
   if(@is_array($scss) && $sonar_enabled){
-    $fett_path = drupal_get_path('theme', 'fett');
-    $current_path = drupal_get_path('theme', $theme_key);
     $path = $fett_path . '/assets/foundation/scss';
     $override = $current_path . '/assets/scss/override';
 
@@ -89,16 +94,22 @@ function fett_foundation_add_js($js = NULL){
       $js_files += drupal_map_assoc($js);
     }
     else{
+      $path_fett = drupal_get_path('theme', 'fett');
+      $options = array(
+        'every_page' => TRUE,
+        'scope' => 'footer'
+      );
       $js = isset($js_files) ? $js_files : array();
       // Load in all set Foundation js files.
       $js += theme_get_setting('fett_foundation_js');
+
+      // Responsive tables
+      if(theme_get_setting('fett_responsive_tables')){
+        drupal_add_js($path_fett.'/assets/foundation/rt/responsive-tables.js', $options + array('weight' => -1));
+      }
+
       if(@is_array($js)){
-        $path_fett = drupal_get_path('theme', 'fett');
         $path = drupal_get_path('theme', 'fett').'/assets/foundation/js/foundation';
-        $options = array(
-          'every_page' => TRUE,
-          'scope' => 'footer'
-        );
         drupal_add_js($path.'/foundation.js', $options + array('weight' => -1));
         foreach($js as $s){
           if(!empty($s)){

@@ -80,6 +80,13 @@ function fett_preprocess(&$vars, $hook) {
 }
 
 /**
+ * Implements hook_preprocess_theme(). hook_preprocess is not called for tables.
+ */
+function fett_preprocess_table(&$vars){
+  fett_preprocess($vars, 'table');
+}
+
+/**
  * Implements template_preprocess_field().
  */
 function fett_preprocess_field(&$vars) {

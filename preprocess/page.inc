@@ -36,6 +36,9 @@ function _fett_preprocess_page(&$vars){
     $vars['sidebar_sec_grid'] = '';
   }
 
+  // Allow HTML into titles.
+  $title = drupal_set_title(htmlspecialchars_decode(drupal_get_title()), PASS_THROUGH);
+
   // Messages in modal.
   $vars['fett_messages_modal'] = !fett_foundation_js_suppress(FALSE) ? theme_get_setting('fett_messages_modal') : 0;
 

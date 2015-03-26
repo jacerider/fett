@@ -154,6 +154,13 @@ function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = N
     '#title' => t('Tools'),
   );
 
+  $form['fett']['fett_tools']['fett_responsive_tables'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Use responsive tables'),
+    '#description' => t('Uses Foundation !link.', array('!link' => l('responsive tables', 'http://zurb.com/playground/responsive-tables'))),
+    '#default_value' => theme_get_setting('fett_responsive_tables'),
+  );
+
   $form['fett']['fett_tools']['fett_messages_modal'] = array(
     '#type' => 'checkbox',
     '#title' => t('Display status messages in a modal'),

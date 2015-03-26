@@ -27,14 +27,14 @@
  * @ingroup views_templates
  */
 ?>
-<?php if($css_class): ?><div class="<?php print $css_class; ?>"><?php endif; ?>
-  
+<div class="<?php print $classes; ?>">
+
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>
     <?php print $title; ?>
   <?php endif; ?>
   <?php print render($title_suffix); ?>
-  
+
   <?php if ($header): ?>
     <div class="view-header">
       <?php print $header; ?>
@@ -85,4 +85,4 @@
     </div>
   <?php endif; ?>
 
-<?php if($css_class): ?></div><?php endif; ?>
+</div><?php /* class view */ ?>

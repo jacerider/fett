@@ -23,6 +23,9 @@ function _fett_preprocess_html(&$vars){
   // Add Foundation JS assets
   fett_foundation_add_js();
 
+  // Prevent tags from entering into head title
+  $vars['head_title'] = strip_tags(htmlspecialchars_decode($vars['head_title']));
+
   // Touch icons
   $appletouchicon = '<link rel="apple-touch-icon" sizes="144x144" href="' . $base_url .'/'. $path . '/assets/images/apple-touch-icon-144x144.png">';
   //For iPhone with high-resolution Retina display
