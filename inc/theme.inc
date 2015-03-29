@@ -231,7 +231,7 @@ function fett_breadcrumb($vars) {
     }
 
     $title = strip_tags(drupal_get_title());
-    $breadcrumbs .= '<li class="current"><a href="#">' . $title. '</a></li>';
+    if($title) $breadcrumbs .= '<li class="current"><a href="#">' . $title. '</a></li>';
     $breadcrumbs .= '</ul>';
 
     return $breadcrumbs;
