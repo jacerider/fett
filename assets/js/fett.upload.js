@@ -138,9 +138,9 @@
     });
   }
 
-  Drupal.behaviors.boushh = {
+  Drupal.behaviors.fettUpload = {
     attach: function(context, settings) {
-      $('input[type=file]').once('boushh-upload').customFile();
+      $('input[type=file]').once('fett-upload').customFile();
     }
   };
 
