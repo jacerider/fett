@@ -47,6 +47,12 @@
             </nav> <!-- /#secondary-menu -->
           <?php endif; ?>
 
+          <?php if($mobile_main_menu): ?>
+            <nav id="mobile-menu">
+              <a id="mobile-trigger-overlay" href="#">Menu <i class="fa fa-bars"></i></a>
+            </nav>
+          <?php endif; ?>
+
         </div>
       </section>
     <?php endif; ?>
@@ -163,7 +169,7 @@
 
       <?php if ($site_name) :?>
         <div class="copyright large-12 columns">
-          &copy; <?php print date('Y') . ' ' . check_plain($site_name) . ' ' . t('All rights reserved.'); ?>
+          &copy; <?php print date('Y') . ' ' . check_plain($site_name) . '. ' . t('All rights reserved.'); ?>
         </div>
       <?php endif; ?>
     </footer>
@@ -171,11 +177,11 @@
   <?php endif; ?>
 
   <!-- off-canvas menu -->
-  <nav class="st-menu st-effect-2" id="mobileNav">
-    <?php if (!empty($page['offcanvas'])): ?>
+  <?php if (!empty($page['offcanvas'])): ?>
+    <nav class="l-offcanvas">
       <?php print render($page['offcanvas']); ?>
-    <?php endif; ?>
-  </nav>
+    </nav>
+  <?php endif; ?>
 
   <?php if ($messages && $fett_messages_modal): print $messages; endif; ?>
 </div>
@@ -188,5 +194,14 @@
 <?php if (!empty($page['hidden'])): ?>
   <div class="l-hidden">
     <?php print render($page['hidden']); ?>
+  </div>
+<?php endif; ?>
+
+<?php if($mobile_main_menu): ?>
+  <div class="l-overlay">
+    <button type="button" class="l-overlay-close"></button>
+    <nav>
+      <?php print $mobile_main_menu; ?>
+    </nav>
   </div>
 <?php endif; ?>

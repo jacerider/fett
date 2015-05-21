@@ -199,4 +199,11 @@ function _fett_preprocess_page(&$vars){
     // Hide alt header on mobile if using top bar in mobile.
     $vars['alt_header_classes'] = $top_bar == 2 ? ' hide-for-small' : '';
   }
+
+  // Mobile main menu
+  $vars['mobile_main_menu'] = NULL;
+  if(theme_get_setting('fett_mobile_menu')){
+    $tree = menu_tree_all_data('main-menu');
+    $vars['mobile_main_menu'] = render(menu_tree_output($tree));
+  }
 }

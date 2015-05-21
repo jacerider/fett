@@ -168,6 +168,13 @@ function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = N
     '#default_value' => theme_get_setting('fett_messages_modal'),
   );
 
+  $form['fett']['fett_tools']['fett_mobile_menu'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Display mobile menu'),
+    '#description' => t('Check this to display Drupal main menu in optimized mobile display.'),
+    '#default_value' => theme_get_setting('fett_mobile_menu'),
+  );
+
   $form['fett']['fett_tools']['fett_html_tags'] = array(
     '#type' => 'checkbox',
     '#title' => t('Prune HTML Tags'),

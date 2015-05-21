@@ -23,6 +23,12 @@ function _fett_preprocess_html(&$vars){
   // Add Foundation JS assets
   fett_foundation_add_js();
 
+  // Mobile menu
+  if(theme_get_setting('fett_mobile_menu')){
+    drupal_add_js($path_fett . '/assets/js/fett.mobile-menu.js');
+    drupal_add_css($path_fett . '/assets/scss/mobileMenu.scss');
+  }
+
   // Prevent tags from entering into head title
   $vars['head_title'] = strip_tags(htmlspecialchars_decode($vars['head_title']));
 
