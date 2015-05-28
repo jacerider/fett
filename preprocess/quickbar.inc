@@ -13,7 +13,7 @@ function _fett_preprocess_quickbar(&$vars){
   else{
     $path = '<front>';
   }
-  $vars['title'] = l(theme('image', array('path'=>drupal_get_path('theme', $theme_key) . '/assets/images/quickbar.png')), $path, array('html'=>TRUE));
+  $vars['title'] = l(theme('image', array('path'=>drupal_get_path('theme', variable_get('theme_default')) . '/assets/images/quickbar.png')), $path, array('html'=>TRUE));
 
   // Use default language
   fett_language_force();
