@@ -27,7 +27,7 @@
  * @ingroup views_templates
  */
 ?>
-<?php if($classes): ?><div class="<?php print $classes; ?>"><?php endif; ?>
+<?php if(!empty($classes)): ?><div class="<?php print $classes; ?>"><?php endif; ?>
 
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>
@@ -85,4 +85,4 @@
     </div>
   <?php endif; ?>
 
-<?php if($css_class): ?></div><?php endif; ?>
+<?php if(!empty($classes)): ?></div><?php endif; ?>
