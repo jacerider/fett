@@ -15,7 +15,11 @@ function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = N
 
   if($sonar_enabled){
     drupal_add_css($path_fett . '/assets/scss/themeSettings.scss');
-
+    $bg = drupal_get_path('theme', $current_theme) . '/assets/images/themeSettings-bg.jpg';
+    if(!file_exists($bg)){
+      $bg = $path_fett . '/assets/images/themeSettings-bg.jpg';
+    }
+    drupal_add_css('body #page, body.boushh .main-content{ background-image: url("' . base_path() . $bg . '") !important; }', 'inline');
   }
 
   $select_toggle = '<br>' .
