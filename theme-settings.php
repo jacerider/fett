@@ -179,6 +179,15 @@ function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = N
     '#default_value' => theme_get_setting('fett_mobile_menu'),
   );
 
+  if(module_exists('fawesome')){
+    $form['fett']['fett_tools']['fett_icon_hide_labels'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Hide labels on links with icons'),
+      '#description' => t('Font Awesome icons are automatically added to various links on the site. When checked, and an icon has been added, the link label will be hidden and placed into a tooltip.'),
+      '#default_value' => theme_get_setting('fett_icon_hide_labels'),
+    );
+  }
+
   $form['fett']['fett_tools']['fett_html_tags'] = array(
     '#type' => 'checkbox',
     '#title' => t('Prune HTML Tags'),

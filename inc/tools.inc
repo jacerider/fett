@@ -11,7 +11,7 @@
 function fett_icon_link(&$text, &$options = array(), $hide_title = FALSE, $tooltip = FALSE, $direction = 'bottom'){
   $original_text = $text;
   if($info = fett_icon($text, $hide_title, FALSE, $direction)){
-    if($tooltip){
+    if(theme_get_setting('fett_icon_hide_labels') && $tooltip){
       fett_foundation_add_js('foundation.tooltip.js');
       $options['attributes']['data-tooltip'] = '';
       $options['attributes']['title'] = $original_text;
@@ -93,15 +93,18 @@ function fett_icon(&$text, $hide_title = FALSE, $tooltip = FALSE, $direction = '
     }
     if($icon){
       $attributes['class'] = array('fa', 'fa-' . $icon);
-      if($tooltip){
-        $attributes['data-tooltip'] = '';
-        $attributes['class'][] = 'has-tip';
-        $attributes['class'][] = 'tip-' . $direction;
-        $attributes['title'] = $text;
-        $text = '';
-      }
-      elseif($hide_title){
-        $text = '<span><span class="hide-for-medium-up">' . $text . '</span></span>';
+      if(theme_get_setting('fett_icon_hide_labels')){
+        if($tooltip){
+          fett_foundation_add_js('foundation.tooltip.js');
+          $attributes['data-tooltip'] = '';
+          $attributes['class'][] = 'has-tip';
+          $attributes['class'][] = 'tip-' . $direction;
+          $attributes['title'] = $text;
+          $text = '';
+        }
+        elseif($hide_title){
+          $text = '<span><span class="hide-for-medium-up">' . $text . '</span></span>';
+        }
       }
       $text = '<i ' . drupal_attributes($attributes) . '></i> ' . $text;
       return $info;

@@ -44,6 +44,7 @@ settings[fett_css_onefile] = 1
 settings[fett_js_footer] = 0
 settings[fett_js_onefile] = 1
 settings[fett_html_tags] = 1
+settings[fett_icon_hide_labels] = 1
 
 settings[fett_foundation_scss][] = accordion
 settings[fett_foundation_scss][] = alert-boxes
