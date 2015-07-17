@@ -101,7 +101,7 @@ function fett_foundation_add_js($js = NULL){
       );
       $js = isset($js_files) ? $js_files : array();
       // Load in all set Foundation js files.
-      $js += theme_get_setting('fett_foundation_js');
+      $js += theme_get_setting('fett_foundation_js') ? theme_get_setting('fett_foundation_js') : array();
 
       // Responsive tables
       if(theme_get_setting('fett_responsive_tables')){
