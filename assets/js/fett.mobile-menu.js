@@ -11,7 +11,7 @@ Drupal.behaviors.fettMobileMenu = {
   }
 };
 
-var triggerBttn = $( '#mobile-trigger' );
+var triggerBttn = $( '#mobile-trigger-overlay' );
 if(!triggerBttn.length) return;
 
 var overlay = $( 'div.l-overlay' ),
