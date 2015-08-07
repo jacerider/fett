@@ -1,0 +1,47 @@
+name = Fett Sub-theme Starter
+description = [Fett] [Foundation] [SASS] Boba Fett was a Mandalorian warrior and bounty hunter. Not a clone.
+screenshot = assets/images/screenshot.png
+core = 7.x
+engine = phptemplate
+base theme = fett
+
+
+;-------------- F E A T U R E S -------------
+features[] = logo
+features[] = favicon
+features[] = name
+features[] = slogan
+features[] = main_menu
+features[] = secondary_menu
+
+
+;-------------- R E G I O N S -------------
+regions[header]         = Header
+regions[navigation]     = Navigation
+regions[help]           = Help
+regions[featured]       = Featured
+regions[content]        = Content
+regions[sidebar_first]  = First Sidebar
+regions[sidebar_second] = Second Sidebar
+regions[footer]         = Footer
+
+
+;-------------- S C S S -------------
+; These files are empty, just uncomment this line and start editing!
+
+; Libraries
+stylesheets[all][] = assets/scss/libraries/_variables.scss
+stylesheets[all][] = assets/scss/libraries/_mixins.scss
+
+; Components
+stylesheets[all][] = assets/scss/components/_typography.scss
+stylesheets[all][] = assets/scss/components/_header.scss
+stylesheets[all][] = assets/scss/components/_footer.scss
+
+; Sections
+stylesheets[all][] = assets/scss/sections/_global.scss
+
+
+;-------------- S C R I P T -------------
+; This file is empty, just uncomment this line and start editing!
+; scripts[] = assets/js/kast.js

@@ -1,0 +1,108 @@
+#main-nav.megamenu{
+
+  ul{
+    padding:0;
+    margin:0;
+  }
+
+  li{
+    padding:0;
+    margin:0;
+    list-style-type: none;
+  }
+
+  a{
+    display:block;
+  }
+}
+
+/**
+ * Only affects the dropdown nav when it is in the header region.
+ */
+
+#header #main-nav.megamenu{
+
+  ul.mm-1{
+    > li{
+      position: relative;
+      display:inline-block;
+      z-index:100;
+
+      > a{
+        padding:rem-calc(5) ($column-gutter/2);
+      }
+
+      &:hover{
+
+        > a{
+          background:#E6E6E6;
+        }
+
+        ul.mm-2{
+          visibility: visible;
+        }
+      }
+    }
+  }
+
+  ul.mm-2{
+    position:absolute;
+    top: 100%;
+    left:0;
+    right:0;
+    background:#E6E6E6;
+    visibility: hidden;
+    padding:rem-calc(5);
+
+    > li{
+
+      > a{
+        padding:rem-calc(2 0);
+        font-size:rem-calc(14);
+        line-height:rem-calc(16);
+      }
+    }
+  }
+}
+
+/**
+ * Only affects the dropdown nav when it is in the offcanvas.
+ */
+
+.oc-block{
+
+  ul.mm-1{
+
+    > li{
+
+      > a{
+        padding:rem-calc(5) ($column-gutter/2);
+      }
+
+      &:hover{
+
+        > a{
+          background:#E6E6E6;
+        }
+
+        ul.mm-2{
+          display:block;
+        }
+      }
+    }
+  }
+
+  ul.mm-2{
+    overflow:hidden;
+    display:none;
+    background:#E6E6E6;
+
+    > li{
+
+      > a{
+        font-size:rem-calc(14);
+        padding:rem-calc(5) ($column-gutter/2);
+      }
+    }
+  }
+}

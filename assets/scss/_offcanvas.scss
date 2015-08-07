@@ -1,0 +1,721 @@
+html,
+body,
+.oc-wrapper,
+.oc-push,
+.oc-content {
+  height: 100%;
+}
+
+#page.oc-wrapper{
+  background:#3F3F3F;
+}
+
+.oc-content {
+  overflow-y: scroll;
+}
+
+.oc-content,
+.oc-content-inner {
+  position: relative;
+}
+
+.oc-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.oc-push {
+  position: relative;
+  left: 0;
+  z-index: 99;
+  height: 100%;
+  @include transition(transform 0.5s);
+}
+
+.oc-push::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  background: rgba(0,0,0,0.2);
+  content: '';
+  opacity: 0;
+  @include transition(opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s);
+}
+
+.oc-open .oc-push::after {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  @include transition(opacity 0.5s);
+}
+
+.oc-block {
+  position: absolute;
+  top: 0;
+  z-index: 100;
+  visibility: hidden;
+  width: 300px;
+  height: 100%;
+  background: #fff;
+  @include transition(all 0.5s);
+
+  .block{
+    padding: ($column-gutter/2);
+  }
+
+  &.oc-direction-left {
+    left:0;
+  }
+
+  &.oc-direction-right {
+    right:0;
+  }
+}
+
+.oc-block::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.2);
+  content: '';
+  opacity: 1;
+  @include transition(opacity 0.5s);
+}
+
+.oc-open .oc-block::after {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  @include transition(opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Individual effects
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 1: Slide in on top
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-1.oc-block {
+  visibility: visible;
+
+  &.oc-direction-left {
+    @include transform(translate3d(-100%, 0, 0));
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(100%, 0, 0));
+  }
+
+  &:after{
+    display:none;
+  }
+}
+
+.oc-effect-1.oc-open .oc-effect-1.active {
+  visibility: visible;
+  @include transform(translate3d(0, 0, 0));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 2: Reveal
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-2.oc-open {
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(300px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-300px, 0, 0));
+  }
+}
+
+.oc-effect-2.oc-block {
+  z-index: 1;
+
+  &:after{
+    display:none;
+  }
+}
+
+.oc-effect-2.oc-direction-left.oc-open .oc-effect-2.active,
+.oc-effect-2.oc-direction-right.oc-open .oc-effect-2.active {
+  visibility: visible;
+  @include transition(transform 0.5s);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 3: Push
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-3.oc-open{
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(300px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-300px, 0, 0));
+  }
+}
+
+.oc-effect-3.oc-block {
+
+  &.oc-direction-left {
+    @include transform(translate3d(-100%, 0, 0));
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(100%, 0, 0));
+  }
+
+  &:after{
+    display:none;
+  }
+}
+
+.oc-effect-3.oc-open .oc-effect-3.active {
+  visibility: visible;
+  @include transition(transform 0.5s);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 4: Slide along
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-4.oc-open{
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(300px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-300px, 0, 0));
+  }
+}
+
+.oc-effect-4.oc-block {
+  z-index: 1;
+
+  &.oc-direction-left {
+    @include transform(translate3d(-50%, 0, 0));
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(50%, 0, 0));
+  }
+
+  &:after{
+    display:none;
+  }
+}
+
+.oc-effect-4.oc-open .oc-effect-4.active {
+  visibility: visible;
+  @include transition(transform 0.5s);
+  @include transform(translate3d(0, 0, 0));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 5: Reverse slide out
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-5.oc-open {
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(300px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-300px, 0, 0));
+  }
+}
+
+.oc-effect-5.oc-block {
+  z-index: 1;
+
+  &.oc-direction-left {
+    @include transform(translate3d(50%, 0, 0));
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(-50%, 0, 0));
+  }
+}
+
+.oc-effect-5.oc-open .oc-effect-5.oc-block {
+  visibility: visible;
+  @include transition(transform 0.5s);
+  @include transform(translate3d(0, 0, 0));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 6: Rotate pusher
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-6.oc-wrapper {
+  @include perspective(1500px);
+}
+
+.oc-effect-6 {
+
+  &.oc-direction-left .oc-push{
+    @include transform-origin(0% 50%);
+    @include transform-style(preserve-3d);
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform-origin(100% 0%);
+    @include transform-style(preserve-3d);
+  }
+}
+
+.oc-effect-6.oc-open {
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(300px, 0, 0) rotateY(-15deg));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-300px, 0, 0) rotateY(15deg));
+  }
+}
+
+.oc-effect-6.oc-block {
+  @include transform-style(preserve-3d);
+
+  &.oc-direction-left {
+    @include transform(translate3d(-100%, 0, 0));
+    @include transform-origin(100% 50%);
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(100%, 0, 0));
+    @include transform-origin(0% 50%);
+  }
+}
+
+.oc-effect-6.oc-open .oc-effect-6.active {
+  visibility: visible;
+  @include transition(transform 0.5s);
+
+  &.oc-direction-left {
+    @include transform(translate3d(-100%, 0, 0) rotateY(15deg));
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(100%, 0, 0) rotateY(-15deg));
+  }
+}
+
+.oc-effect-6.oc-block::after {
+  display: none;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 7: 3D rotate in
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-7.oc-wrapper {
+  @include perspective(1500px);
+  @include perspective-origin(0% 50%);
+}
+
+.oc-effect-7 .oc-push {
+  @include transform-style(preserve-3d);
+}
+
+.oc-effect-7.oc-open {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(300px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-300px, 0, 0));
+  }
+}
+
+.oc-effect-7.oc-block {
+  @include transform-style(preserve-3d);
+
+  &.oc-direction-left {
+    @include transform(translate3d(-100%, 0, 0) rotateY(-90deg));
+    @include transform-origin(100% 50%);
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(100%, 0, 0) rotateY(35deg));
+    @include transform-origin(0 50%);
+  }
+}
+
+.oc-effect-7.oc-open .oc-effect-7.active {
+  visibility: visible;
+  @include transition(transform 0.5s);
+
+  &.oc-direction-left {
+    @include transform(translate3d(-100%, 0, 0) rotateY(0deg));
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(100%, 0, 0) rotateY(0deg));
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 8: 3D rotate out
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-8.oc-wrapper {
+  @include perspective(1500px);
+  @include perspective-origin(0% 50%);
+}
+
+.oc-effect-8 .oc-push {
+  @include transform-style(preserve-3d);
+}
+
+.oc-effect-8.oc-open {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(300px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-300px, 0, 0));
+  }
+}
+
+.oc-effect-8.oc-block {
+  @include transform-style(preserve-3d);
+
+  &.oc-direction-left {
+    @include transform(translate3d(-100%, 0, 0) rotateY(90deg));
+    @include transform-origin(100% 50%);
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(100%, 0, 0) rotateY(-35deg));
+    @include transform-origin(0 50%);
+  }
+
+  &:after{
+    display:none;
+  }
+}
+
+.oc-effect-8.oc-open .oc-effect-8.active {
+  visibility: visible;
+  @include transition(transform 0.5s);
+
+  &.oc-direction-left {
+    @include transform(translate3d(-100%, 0, 0) rotateY(0deg));
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(100%, 0, 0) rotateY(0deg));
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 9: Scale down pusher
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-9.oc-wrapper {
+  @include perspective(1500px);
+}
+
+.oc-effect-9 .oc-push {
+  @include transform-style(preserve-3d);
+}
+
+.oc-effect-9.oc-open .oc-push {
+  @include transform(translate3d(0, 0, -300px));
+}
+
+.oc-effect-9.oc-block {
+  opacity: 1;
+
+  &.oc-direction-left {
+    @include transform(translate3d(-100%, 0, 0));
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(100%, 0, 0));
+  }
+
+  &:after{
+    display:none;
+  }
+}
+
+.oc-effect-9.oc-open .oc-effect-9.active {
+  visibility: visible;
+  @include transition(transform 0.5s);
+  @include transform(translate3d(0, 0, 0));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 10: Scale up
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-10.oc-wrapper {
+  @include perspective(1500px);
+
+  &.oc-direction-left {
+    @include perspective-origin(0% 50%);
+  }
+
+  &.oc-direction-right {
+  @include perspective-origin(100% 50%);
+  }
+}
+
+.oc-effect-10.oc-open {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(300px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-300px, 0, 0));
+  }
+}
+
+.oc-effect-10.oc-block {
+  z-index: 1;
+  opacity: 1;
+
+  &.oc-direction-left {
+    @include transform(translate3d(0, 0, -300px));
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(0, 0, -300px));
+  }
+}
+
+.oc-effect-10.oc-open .oc-effect-10.active {
+  visibility: visible;
+  @include transition(transform 0.5s);
+  @include transform(translate3d(0, 0, 0));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 11: Scale and rotate pusher
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-11.oc-wrapper {
+  @include perspective(1500px);
+}
+
+.oc-effect-11 .oc-push {
+  @include transform-style(preserve-3d);
+}
+
+.oc-effect-11.oc-open {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(100px, 0, -600px) rotateY(-20deg));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-100px, 0, -600px) rotateY(20deg));
+  }
+}
+
+.oc-effect-11.oc-block {
+  opacity: 1;
+
+  &.oc-direction-left {
+    @include transform(translate3d(-100%, 0, 0));
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(100%, 0, 0));
+  }
+
+  &:after{
+    display:none;
+  }
+}
+
+.oc-effect-11.oc-open .oc-effect-11.active {
+  visibility: visible;
+  @include transition(transform 0.5s);
+  @include transform(translate3d(0, 0, 0));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 12: Open door
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-12.oc-wrapper {
+  @include perspective(1500px);
+}
+
+.oc-effect-12 {
+
+  .oc-push {
+    @include transform-style(preserve-3d);
+  }
+
+  &.oc-direction-left .oc-push {
+    @include transform-origin(100% 50%);
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform-origin(0% 50%);
+  }
+}
+
+.oc-effect-12.oc-open {
+
+  &.oc-direction-left .oc-push {
+    @include transform(rotateY(-10deg));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(rotateY(10deg));
+  }
+}
+
+.oc-effect-12.oc-block {
+  opacity: 1;
+
+  &.oc-direction-left {
+    @include transform(translate3d(-100%, 0, 0));
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(100%, 0, 0));
+  }
+
+  &:after{
+    display:none;
+  }
+}
+
+.oc-effect-12.oc-open .oc-effect-12.active {
+  visibility: visible;
+  @include transition(transform 0.5s);
+  @include transform(translate3d(0, 0, 0));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 13: Fall down
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-13.oc-wrapper {
+  @include perspective(1500px);
+
+  &.oc-direction-left {
+    @include perspective-origin(0% 50%);
+  }
+
+  &.oc-direction-right {
+    @include perspective-origin(100% 50%);
+  }
+}
+
+.oc-effect-13.oc-open {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(300px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-300px, 0, 0));
+  }
+}
+
+.oc-effect-13.oc-block {
+  z-index: 1;
+  opacity: 1;
+  @include transform(translate3d(0, -100%, 0));
+}
+
+.oc-effect-13.oc-open .oc-effect-13.active {
+  visibility: visible;
+  @include transition-timing-function(ease-in-out);
+  @include transition-property(transform);
+  @include transform(translate3d(0, 0, 0));
+  @include transition-duration(.4s);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 14: Delayed 3D rotate
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-14.oc-wrapper {
+  @include perspective(1500px);
+
+  &.oc-direction-left {
+    @include perspective-origin(0% 50%);
+  }
+
+  &.oc-direction-right {
+    @include perspective-origin(100% 50%);
+  }
+}
+
+.oc-effect-14 .oc-push {
+  @include transform-style(preserve-3d);
+}
+
+.oc-effect-14.oc-open {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(300px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-300px, 0, 0));
+  }
+}
+
+.oc-effect-14.oc-block {
+  @include transform-style(preserve-3d);
+
+  &.oc-direction-left {
+    @include transform-origin(0% 50%);
+    @include transform(translate3d(-100%, 0, 0) rotateY(90deg));
+  }
+
+  &.oc-direction-right {
+    @include transform-origin(100% 50%);
+    @include transform(translate3d(100%, 0, 0) rotateY(-90deg));
+  }
+}
+
+.oc-effect-14.oc-open .oc-effect-14.active {
+  visibility: visible;
+  @include transition-delay(0.1s);
+  @include transition-timing-function(ease-in-out);
+  @include transition-property(transform);
+
+  &.oc-direction-left {
+    @include transform(translate3d(-100%, 0, 0) rotateY(0deg));
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(100%, 0, 0) rotateY(0deg));
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Fallback example for browsers that don't support 3D transforms (and no JS fallback)
+////////////////////////////////////////////////////////////////////////////////
+
+.no-csstransforms3d .oc-push,
+.no-js .oc-push {
+  padding-left: 300px;
+}
