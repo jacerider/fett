@@ -4,7 +4,10 @@ function _fett_process_page(&$vars){
 
   if($offcanvas = fett_offcanvas_get()){
     $path_fett = drupal_get_path('theme', 'fett');
-    $vars['page']['content']['#attached']['css'][] = "$path_fett/assets/scss/_offcanvas.scss";
+    $vars['page']['content']['#attached']['css']["$path_fett/assets/scss/_offcanvas.scss"] = array(
+      'weight' => -100,
+      'group' => CSS_THEME,
+    );
     $vars['page']['content']['#attached']['js'][] = "$path_fett/assets/js/fett.offcanvas.js";
     $vars['classes_array'][] = 'oc-wrapper';
     $vars['page_prefix']['offcanvas_block'] = array(

@@ -4,6 +4,22 @@ function _fett_preprocess_page(&$vars){
   global $language;
   $path_fett = drupal_get_path('theme', 'fett');
 
+  // Add some core CSS files.
+  if(module_exists('sonar')){
+    foreach(array('core','mixins') as $scss){
+      $vars['page']['content']['#attached']['css']["$path_fett/assets/scss/_$scss.scss"] = array(
+        'weight' => -100,
+        'group' => CSS_THEME,
+      );
+    }
+  }
+
+  // Add Fett core javascript
+  $vars['page']['content']['#attached']['js'][$path_fett . '/assets/js/fett.core.js'] = array(
+    'every_page' => TRUE,
+    'weight' => 1, // After drupal.js which is 0
+    'group' => JS_LIBRARY,
+  );
   $vars['page']['content']['#attached']['js'][] = array(
     'data' => '//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js',
     'type' => 'external',

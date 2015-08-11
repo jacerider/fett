@@ -2,7 +2,7 @@
 
 var FettOffCanvas = {
   runOnce: false,
-  isMobile: Modernizr.touch
+  isMobile: Drupal.fett.isMobile()
 };
 
 FettOffCanvas.attach = function(context, settings) {
@@ -34,26 +34,26 @@ FettOffCanvas.open = function(id, effect, direction) {
   self.$container[0].className = self.$container.data('oclasses');
   self.$container.addClass('oc-effect-' + effect + ' oc-direction-' + direction);
 
-  // Remove
-  // $('.oc-block')[0].className = 'oc-block';
-  // $('.oc-block').addClass('oc-effect-' + effect);
-
   setTimeout( function() {
     self.$container.addClass('oc-open');
+    self.$container.trigger('offcanvas-open', [direction]);
   }, 25 );
 
-  $(document).on(self.eventType, function(e){
+  $(document).on(self.eventType + '.offcanvas', function(e){
     if(!$(e.target).closest('.oc-block').length){
       self.close();
-      $(this).off(self.eventType);
+      $(this).off(self.eventType + '.offcanvas');
     }
   });
+
+
 }
 
 FettOffCanvas.close = function() {
   var self = this;
   self.$container.removeClass('oc-open');
   $('.oc-block.active').removeClass('active');
+  self.$container.trigger('offcanvas-close');
 }
 
 Drupal.behaviors.fettOffCanvas = FettOffCanvas;

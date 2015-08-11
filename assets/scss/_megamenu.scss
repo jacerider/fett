@@ -1,4 +1,4 @@
-#main-nav.megamenu{
+.megamenu{
 
   ul{
     padding:0;
@@ -20,7 +20,7 @@
  * Only affects the dropdown nav when it is in the header region.
  */
 
-#header #main-nav.megamenu{
+#main-nav{
 
   ul.mm-1{
     > li{
@@ -34,10 +34,6 @@
 
       &:hover{
 
-        > a{
-          background:#E6E6E6;
-        }
-
         ul.mm-2{
           visibility: visible;
         }
@@ -49,8 +45,6 @@
     position:absolute;
     top: 100%;
     left:0;
-    right:0;
-    background:#E6E6E6;
     visibility: hidden;
     padding:rem-calc(5);
 
@@ -69,40 +63,666 @@
  * Only affects the dropdown nav when it is in the offcanvas.
  */
 
-.oc-block{
+#main-nav-offcanvas{
 
-  ul.mm-1{
+  // ul.mm-1{
 
-    > li{
+  //   > li{
 
-      > a{
-        padding:rem-calc(5) ($column-gutter/2);
-      }
+  //     > a{
+  //       padding:rem-calc(5) ($column-gutter/2);
+  //     }
 
-      &:hover{
+  //     &:hover{
 
-        > a{
-          background:#E6E6E6;
-        }
+  //       > a{
+  //         background:#E6E6E6;
+  //       }
 
-        ul.mm-2{
-          display:block;
-        }
-      }
-    }
+  //       ul.mm-2{
+  //         display:block;
+  //       }
+  //     }
+  //   }
+  // }
+
+  // ul.mm-2{
+  //   overflow:hidden;
+  //   display:none;
+  //   background:#E6E6E6;
+
+  //   > li{
+
+  //     > a{
+  //       font-size:rem-calc(14);
+  //       padding:rem-calc(5) ($column-gutter/2);
+  //     }
+  //   }
+  // }
+}
+
+
+
+
+// .mp-menu {
+//   position: absolute; /* we can't use fixed here :( */
+//   top: 0;
+//   left: 0;
+//   z-index: 1;
+//   width: 300px;
+//   height: 100%;
+//   -webkit-transform: translate3d(-100%, 0, 0);
+//   -moz-transform: translate3d(-100%, 0, 0);
+//   transform: translate3d(-100%, 0, 0);
+// }
+
+.mp-level {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #336ca6;
+  @include transform(translate3d(-100%, 0, 0));
+}
+
+/* overlays for pusher and for level that gets covered */
+.mp-push::after,
+.mp-level::after,
+.mp-level::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  content: '';
+  opacity: 0;
+}
+
+.mp-push::after,
+.mp-level::after {
+  background: rgba(#000,0.3);
+  @include transition(opacity 0.3s, width 0.1s 0.3s, height 0.1s 0.3s, transform 0.5s);
+}
+
+.mp-level::after {
+  z-index: -1;
+}
+
+.mp-push.mp-pushed::after,
+.mp-level.mp-level-overlay::after {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  -webkit-transition: opacity 0.3s;
+  -moz-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+
+.mp-level.mp-level-overlay {
+  cursor: pointer;
+}
+
+.mp-level.mp-level-overlay.mp-level::before {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  opacity: 1;
+}
+
+.mp-push,
+.mp-level {
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+/* overlap */
+.mp-overlap .mp-level.mp-level-open {
+  box-shadow: 1px 0 2px rgba(#000,0.2);
+  @include transform(translate3d(-40px, 0, 0));
+}
+
+/* First level */
+.mp-menu > .mp-level,
+.mp-menu > .mp-level.mp-level-open,
+.mp-menu.mp-overlap > .mp-level,
+.mp-menu.mp-overlap > .mp-level.mp-level-open {
+  box-shadow: none;
+  @include transform(translate3d(0, 0, 0));
+}
+
+/* cover */
+.mp-cover .mp-level.mp-level-open {
+  @include transform(translate3d(0, 0, 0));
+}
+
+.mp-cover .mp-level.mp-level-open > ul > li > .mp-level:not(.mp-level-open) {
+  @include transform(translate3d(-100%, 0, 0));
+}
+
+
+
+
+
+
+.mp-menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mp-menu h2 {
+  margin: 0;
+  padding: 1em;
+  color: rgba(#000,0.4);
+  text-shadow: 0 0 1px rgba(#000,0.1);
+  font-weight: 300;
+  font-size: rem-calc(20);
+}
+
+.mp-menu.mp-overlap h2::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 8px;
+  font-size: 75%;
+  line-height: 1.8;
+  opacity: 0;
+  @include transition(opacity 0.3s, transform 0.1s 0.3s);
+  @include transform(translateX(-100%));
+}
+
+.mp-menu.mp-cover h2 {
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 1em;
+}
+
+.mp-overlap .mp-level.mp-level-overlay > h2::before {
+  opacity: 1;
+  @include transition(transform 0.3s, opacity 0.3s);
+  @include transform(translateX(0));
+}
+
+.mp-menu ul li > a {
+  display: block;
+  padding: 0.7em 1em 0.7em 1.8em;
+  outline: none;
+  box-shadow: inset 0 -1px rgba(#000,0.2);
+  text-shadow: 0 0 1px rgba(255,255,255,0.1);
+  // font-size: 1.4em;
+  color:#fff;
+  @include transition(background 0.3s, box-shadow 0.3s);
+}
+
+.mp-menu ul li::before {
+  position: absolute;
+  left: 10px;
+  z-index: -1;
+  color: rgba(#000,0.2);
+  line-height: 3.5;
+}
+
+.mp-level > ul > li:first-child > a {
+  box-shadow: inset 0 -1px rgba(#000,0.2), inset 0 1px rgba(#000,0.2);
+}
+
+.no-touch{
+  .mp-menu ul li a:hover,
+  .mp-level > ul > li:first-child > a:hover {
+    background: rgba(#000,0.2);
+    box-shadow: inset 0 -1px rgba(#000,0);
+  }
+}
+
+.mp-menu .mp-level.mp-level-overlay > ul > li > a,
+.mp-level.mp-level-overlay > ul > li:first-child > a {
+  box-shadow: inset 0 -1px rgba(#000,0);
+}
+
+.no-touch{
+  .mp-level > ul > li:first-child > a:hover,
+  .mp-level.mp-level-overlay > ul > li:first-child > a {
+    box-shadow: inset 0 -1px rgba(#000,0), inset 0 1px rgba(#000,0);
+  } /* seems like Chrome 34.0.1847.131 needs the second shadow otherwise the transition breaks */
+}
+
+.mp-back {
+  background: rgba(#000,0.1);
+  outline: none;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  display: block;
+  font-size: 0.8em;
+  padding: 1em;
+  position: relative;
+  box-shadow: inset 0 1px rgba(#000,0.1);
+  @include transition(background 0.3s);
+}
+
+.mp-back::after {
+  font-family: 'linecons';
+  position: absolute;
+  content: "\e037";
+  right: 10px;
+  font-size: 1.3em;
+  color: rgba(#000,0.3);
+}
+
+.mp-menu .mp-level.mp-level-overlay > .mp-back,
+.mp-menu .mp-level.mp-level-overlay > .mp-back::after {
+  background: transparent;
+  box-shadow: none;
+  color: transparent;
+}
+
+/* Fallback example for browsers that don't support 3D transforms (and no JS fallback) */
+/* We'll show the first level only */
+.no-csstransforms3d .mp-push,
+.no-js .mp-push {
+  padding-left: 300px;
+}
+
+.no-csstransforms3d .mp-menu .mp-level,
+.no-js .mp-menu .mp-level {
+  display: none;
+}
+
+.no-csstransforms3d .mp-menu > .mp-level,
+.no-js .mp-menu > .mp-level {
+  display: block;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 1: Slide in on top
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-1.oc-open.mp-level-2 .oc-effect-1.active{
+  @include transform(translate3d(40px, 0, 0));
+}
+
+.oc-effect-1.oc-open.mp-level-3 .oc-effect-1.active{
+  @include transform(translate3d(80px, 0, 0));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 2: Reveal
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-2.oc-open.mp-level-2 {
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(340px, 0, 0));
   }
 
-  ul.mm-2{
-    overflow:hidden;
-    display:none;
-    background:#E6E6E6;
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-340px, 0, 0));
+  }
+}
 
-    > li{
+.oc-effect-2.oc-open.mp-level-3 {
 
-      > a{
-        font-size:rem-calc(14);
-        padding:rem-calc(5) ($column-gutter/2);
-      }
-    }
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(380px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-380px, 0, 0));
+  }
+}
+
+.oc-effect-2.oc-open.mp-level-2 .oc-effect-2.active{
+  @include transform(translate3d(40px, 0, 0));
+}
+
+.oc-effect-2.oc-open.mp-level-3 .oc-effect-2.active{
+  @include transform(translate3d(80px, 0, 0));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 3: Push
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-3.oc-open.mp-level-2{
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(340px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-340px, 0, 0));
+  }
+}
+
+.oc-effect-3.oc-open.mp-level-3{
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(380px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-380px, 0, 0));
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 4: Slide along
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-4.oc-open.mp-level-2{
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(340px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-340px, 0, 0));
+  }
+}
+
+.oc-effect-4.oc-open.mp-level-3{
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(380px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-380px, 0, 0));
+  }
+}
+
+.oc-effect-4.oc-open.mp-level-2 .oc-effect-4.active{
+  @include transform(translate3d(40px, 0, 0));
+}
+
+.oc-effect-4.oc-open.mp-level-3 .oc-effect-4.active{
+  @include transform(translate3d(80px, 0, 0));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 5: Reverse slide out
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-5.oc-open.mp-level-2{
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(340px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-340px, 0, 0));
+  }
+}
+
+.oc-effect-5.oc-open.mp-level-3{
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(380px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-380px, 0, 0));
+  }
+}
+
+.oc-effect-5.oc-open.mp-level-2 .oc-effect-5.active{
+  @include transform(translate3d(40px, 0, 0));
+}
+
+.oc-effect-5.oc-open.mp-level-3 .oc-effect-5.active{
+  @include transform(translate3d(80px, 0, 0));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 6: Rotate pusher
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-6.oc-open.mp-level-2 {
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(340px, 0, 0) rotateY(-15deg));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-340px, 0, 0) rotateY(15deg));
+  }
+}
+
+.oc-effect-6.oc-open.mp-level-3 {
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(380px, 0, 0) rotateY(-15deg));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-380px, 0, 0) rotateY(15deg));
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 7: 3D rotate in
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-7.oc-open.mp-level-2 {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(340px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-340px, 0, 0));
+  }
+}
+
+.oc-effect-7.oc-open.mp-level-3 {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(380px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-380px, 0, 0));
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 8: 3D rotate out
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-8.oc-open.mp-level-2 {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(340px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-340px, 0, 0));
+  }
+}
+
+.oc-effect-8.oc-open.mp-level-3 {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(380px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-380px, 0, 0));
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 9: Scale down pusher
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-9.oc-open.mp-level-2 .oc-effect-9.active{
+    @include transform(translate3d(40px, 0, 0));
+}
+
+.oc-effect-9.oc-open.mp-level-3 .oc-effect-9.active{
+    @include transform(translate3d(80px, 0, 0));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 10: Scale up
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-10.oc-open.mp-level-2 {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(340px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-340px, 0, 0));
+  }
+}
+
+.oc-effect-10.oc-open.mp-level-3 {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(380px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-380px, 0, 0));
+  }
+}
+
+.oc-effect-10.oc-open.mp-level-2 .oc-effect-10.active{
+  @include transform(translate3d(40px, 0, 0));
+}
+
+.oc-effect-10.oc-open.mp-level-3 .oc-effect-10.active{
+  @include transform(translate3d(80px, 0, 0));
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 11: Scale and rotate pusher
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-11.oc-open.mp-level-2 {
+
+  &.oc-direction-left .oc-effect-11.active {
+    @include transform(translate3d(40px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-effect-11.active {
+    @include transform(translate3d(-40px, 0, 0));
+  }
+}
+
+.oc-effect-11.oc-open.mp-level-3 {
+
+  &.oc-direction-left .oc-effect-11.active {
+    @include transform(translate3d(80px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-effect-11.active {
+    @include transform(translate3d(-80px, 0, 0));
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 12: Open door
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-12.oc-open.mp-level-2 {
+
+  &.oc-direction-left .oc-effect-12.active {
+    @include transform(translate3d(40px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-effect-12.active {
+    @include transform(translate3d(-40px, 0, 0));
+  }
+}
+
+.oc-effect-12.oc-open.mp-level-3 {
+
+  &.oc-direction-left .oc-effect-12.active {
+    @include transform(translate3d(80px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-effect-12.active {
+    @include transform(translate3d(-80px, 0, 0));
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 13: Fall down
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-13.oc-open.mp-level-2 {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(340px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-340px, 0, 0));
+  }
+}
+
+.oc-effect-13.oc-open.mp-level-3 {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(380px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-380px, 0, 0));
+  }
+}
+
+.oc-effect-13.oc-open.mp-level-2 {
+
+  &.oc-direction-left .oc-effect-13.active {
+    @include transform(translate3d(40px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-effect-13.active {
+    @include transform(translate3d(-40px, 0, 0));
+  }
+}
+
+.oc-effect-13.oc-open.mp-level-3 {
+
+  &.oc-direction-left .oc-effect-13.active {
+    @include transform(translate3d(80px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-effect-13.active {
+    @include transform(translate3d(-80px, 0, 0));
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 14: Delayed 3D rotate
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-14.oc-open.mp-level-2 {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(340px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-340px, 0, 0));
+  }
+}
+
+.oc-effect-13.oc-open.mp-level-3 {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(380px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-380px, 0, 0));
   }
 }

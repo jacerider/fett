@@ -28,11 +28,11 @@ regions[footer]         = Footer
 
 
 ;---------- S T Y L E S H E E T S -----------
-stylesheets[all][] = assets/scss/_core.scss
+;stylesheets[all][] = assets/scss/none.scss
 
 
 ;-----_----- J A V A S C R I P T ------------
-scripts[] = assets/js/fett.core.js
+; scripts[] = assets/js/none.js
 
 
 ;------------- D E F A U L T S --------------

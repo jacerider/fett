@@ -2,12 +2,17 @@ html,
 body,
 .oc-wrapper,
 .oc-push,
+.mp-push,
 .oc-content {
   height: 100%;
 }
 
 #page.oc-wrapper{
   background:#3F3F3F;
+}
+
+.oc-link{
+  display:inline-block;
 }
 
 .oc-content {
@@ -24,7 +29,8 @@ body,
   overflow: hidden;
 }
 
-.oc-push {
+.oc-push,
+.mp-push {
   position: relative;
   left: 0;
   z-index: 99;
@@ -590,6 +596,7 @@ body,
 
 .oc-effect-12.oc-block {
   opacity: 1;
+  @include transition(transform 0.5s);
 
   &.oc-direction-left {
     @include transform(translate3d(-100%, 0, 0));
