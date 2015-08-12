@@ -17,11 +17,13 @@
  *   The name of the icon. For example, if you want to use fa-user, just pass
  *   in 'user'
  */
-@mixin fa-before($icon) {
+@mixin fa-before($icon, $padding: 0 4px 0 0, $font-size: inherit, $color: inherit) {
   &:before{
     @extend .#{$fa-css-prefix};
     @extend .#{$fa-css-prefix}-#{$icon}:before;
-    padding-right:4px;
+    padding: $padding;
+    font-size: $font-size;
+    color: $color;
   }
 }
 
@@ -32,10 +34,12 @@
  *   The name of the icon. For example, if you want to use fa-user, just pass
  *   in 'user'
  */
-@mixin fa-after($icon) {
+@mixin fa-after($icon, $padding: 0 0 0 4px, $font-size: inherit, $color: inherit) {
   &:after{
     @extend .#{$fa-css-prefix};
     @extend .#{$fa-css-prefix}-#{$icon}:before;
-    padding-left:4px;
+    padding: $padding;
+    font-size: $font-size;
+    color: $color;
   }
 }
