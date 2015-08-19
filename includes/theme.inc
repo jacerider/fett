@@ -120,3 +120,120 @@ function fett_links__system_secondary_menu($vars) {
   $vars['is_nav'] = TRUE;
   return fett_links($vars);
 }
+
+/**
+ * Implements theme_field().
+ */
+function fett_field($vars) {
+  $output = '';
+  if (!$vars['label_hidden']) {
+    $output .= '<div ' . $vars['title_attributes'] . '>' . $vars['label'] . ':&nbsp;</div>';
+  }
+  if(count($vars['items']) > 1){
+    $output .= '<div class="field-items"' . $vars['content_attributes'] . '>';
+  }
+  foreach ($vars['items'] as $item) {
+    $output .= drupal_render($item);
+  }
+  if(count($vars['items']) > 1){
+    $output .= '</div>';
+  }
+  $output = '<div class="' . $vars['classes'] . '"' . $vars['attributes'] . '>' . $output . '</div>';
+  return $output;
+}
+
+/**
+ * Implements theme_menu_local_tasks().
+ */
+function fett_menu_local_tasks(&$variables) {
+  $output = '';
+  if (!empty($variables['primary'])) {
+    $variables['primary']['#prefix'] = '<h2 class="element-invisible">' . t('Primary tabs') . '</h2>';
+    $variables['primary']['#prefix'] .= '<ul class="primary-tabs button-group">';
+    $variables['primary']['#suffix'] = '</ul>';
+    $output .= drupal_render($variables['primary']);
+  }
+  if (!empty($variables['secondary'])) {
+    $variables['secondary']['#prefix'] = '<h2 class="element-invisible">' . t('Secondary tabs') . '</h2>';
+    $variables['secondary']['#prefix'] .= '<ul class="secondary-tabs button-group">';
+    $variables['secondary']['#suffix'] = '</ul>';
+    $output .= drupal_render($variables['secondary']);
+  }
+  if (!empty($output)) {
+    $output = '<div class="l-tabs">' . $output . '</div>';
+  }
+  return $output;
+}
+
+/**
+ * Implements theme_menu_local_task().
+ */
+function fett_menu_local_task(&$variables) {
+  $link = $variables['element']['#link'];
+  $link_text = $link ['title'];
+  $li_class = (!empty($variables['element']['#active']) ? ' class="active"' : '');
+
+  // Add section tab styling
+  $link['localized_options']['attributes']['class'] = array('tiny', 'button', 'secondary');
+
+  if (!empty($variables['element']['#active'])) {
+    // Add text to indicate active tab for non-visual users.
+    $active = '<span class="element-invisible">' . t('(active tab)') . '</span>';
+
+    // If the link does not contain HTML already, check_plain() it now.
+    // After we set 'html'=TRUE the link will not be sanitized by l().
+    if (empty($link['localized_options']['html'])) {
+      $link['title'] = check_plain($link['title']);
+    }
+
+    $link['localized_options']['attributes']['class'][] = 'disabled';
+    $link['localized_options']['html'] = TRUE;
+    $link_text = t('!local-task-title!active', array('!local-task-title' => $link_text, '!active' => $active));
+  }
+
+  $output = '';
+  $output .= '<li' . $li_class . '>';
+  $output .= fett_icon_link($link_text, $link['href'], $link['localized_options']);
+  $output .= "</li>\n";
+  return  $output;
+}
+
+/**
+ * Implements theme_status_messages().
+ */
+function fett_status_messages($variables) {
+  $display = $variables ['display'];
+  $output = '';
+
+  $status_heading = array(
+    'status' => t('Status message'),
+    'error' => t('Error message'),
+    'warning' => t('Warning message'),
+  );
+
+  foreach (drupal_get_messages($display) as $type => $messages) {
+    $classes = array('message');
+    $output .= "<div class=\"alert $type\">\n";
+    if (!empty($status_heading [$type])) {
+      $output .= '<h2 class="element-invisible">' . $status_heading [$type] . "</h2>\n";
+    }
+    if (count($messages) > 1) {
+      $output .= " <ul>\n";
+      foreach ($messages as $message) {
+        if(strpos($message, 'krumo') !== FALSE){
+          $classes[] = 'has-krumo';
+        }
+        $output .= '  <li class="'.implode(' ', $classes).'">' . $message . "</li>\n";
+      }
+      $output .= " </ul>\n";
+    }
+    else {
+      if(strpos(reset($messages), 'krumo') !== FALSE){
+        $classes[] = 'has-krumo';
+      }
+      $output .= '<div class="'.implode(' ', $classes).'">' . reset($messages) . '</div>';
+    }
+    $output .= "</div>\n";
+  }
+  return $output;
+}

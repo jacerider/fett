@@ -1,6 +1,6 @@
 <?php
 
-function _fett_process_html_tag(&$vars){
+function fett_process_html_tag(&$vars){
   if (theme_get_setting('html_tags')) {
     $el = &$vars['element'];
 

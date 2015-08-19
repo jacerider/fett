@@ -126,6 +126,20 @@ function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = N
     '#description' => t('Prunes your <code>style</code>, <code>link</code>, and <code>script</code> tags as <a href="!link" target="_blank"> suggested by Nathan Smith</a>.', array('!link' => 'http://sonspring.com/journal/html5-in-drupal-7#_pruning')),
   );
 
+  if(module_exists('fawesome')){
+    $form['fett']['tools']['icon_hide_labels'] = array(
+      '#type' => 'select',
+      '#title' => t('Hide labels on links with icons'),
+      '#empty_option' => t('Always show'),
+      '#options' => array(
+        'for-medium-up' => t('Hide for medium up'),
+        'for-large-up' => t('Hide for large up'),
+      ),
+      '#description' => t('Font Awesome icons are automatically added to various links in this theme. When checked, and an icon has been added, the link label will be hidden and placed into a tooltip.'),
+      '#default_value' => fett_get_setting('icon_hide_labels'),
+    );
+  }
+
 
   //////////////////////////////////////////////////////////////////////////////
   // General

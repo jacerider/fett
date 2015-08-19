@@ -1,0 +1,36 @@
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 4: Slide along
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-4.oc-open{
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(300px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-300px, 0, 0));
+  }
+}
+
+.oc-effect-4.oc-block {
+  z-index: 1;
+
+  &.oc-direction-left {
+    @include transform(translate3d(-50%, 0, 0));
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(50%, 0, 0));
+  }
+
+  &:after{
+    display:none;
+  }
+}
+
+.oc-effect-4.oc-open .oc-effect-4.active {
+  visibility: visible;
+  @include transition(transform 0.5s);
+  @include transform(translate3d(0, 0, 0));
+}

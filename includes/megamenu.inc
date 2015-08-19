@@ -32,8 +32,8 @@ function _fett_megamenu_preprocess_page(&$vars){
       'weight' => -100,
       'group' => CSS_THEME,
     );
-    $vars['page']['content']['#attached']['js'][] = "$path_fett/assets/js/fett.megamenu.temp.2.js";
-    $vars['page']['content']['#attached']['js'][] = "$path_fett/assets/js/fett.megamenu.temp.js";
+    // $vars['page']['content']['#attached']['js'][] = "$path_fett/assets/js/fett.megamenu.temp.2.js";
+    // $vars['page']['content']['#attached']['js'][] = "$path_fett/assets/js/fett.megamenu.temp.js";
     $vars['page']['content']['#attached']['js'][] = "$path_fett/assets/js/fett.megamenu.js";
     $source = variable_get('menu_main_links_source', 'main-menu');
     $links = menu_tree_output(menu_tree_all_data($source, null, 3));

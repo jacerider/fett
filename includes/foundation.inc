@@ -49,15 +49,21 @@ function fett_foundation_css($name = NULL){
   if(!empty($components)){
     $options = array(
       'every_page' => TRUE,
-      'weight' => -1000
+      'group' => CSS_DEFAULT,
+      'weight' => -100,
+    );
+    $options_init = array(
+      'group' => CSS_SYSTEM,
     );
     if(module_exists('sonar')){
-      $files["$path_fett/assets/foundation/scss/normalize.scss"] = $options;
+      $files["$path_fett/assets/foundation/scss/normalize.scss"] = $options_init + $options;
       if($theme_key !== 'fett'){
         // Add theme-specific Foundation settings override file.
         $path_current = drupal_get_path('theme', $theme_key);
-        $files["$path_fett/assets/foundation/scss/foundation/_functions.scss"] = $options;
-        $files["$path_current/assets/scss/libraries/_settings.scss"] = $options;
+        $files["$path_fett/assets/foundation/scss/foundation/_functions.scss"] = $options_init + $options;
+        $files["$path_current/assets/scss/libraries/_settings.scss"] = $options_init + $options;
+        // We want global to load in CSS_SYSTEM so it loads with all libraries but we want it to load at the very end.
+        $files["$path_fett/assets/foundation/scss/foundation/components/_global.scss"] = array('weight' => -98) + $options_init + $options;
       }
       foreach($components as $name){
         $files["$path_fett/assets/foundation/scss/foundation/components/_$name.scss"] = $options;
@@ -70,6 +76,33 @@ function fett_foundation_css($name = NULL){
     }
   }
   return $files ? $files : array();
+}
+
+/**
+ * Implements hook_sonar_scss_alter().
+ *
+ * Sonar 2.0 supports the ability to break out SCSS files into two groups and to
+ * create two seperate files. One file is for the 'every_page' SCSS files. The
+ * other is for page-specific files.
+ *
+ * We want our Foundation variables and functions available to these
+ * page-specific SCSS files so we fetch them from the 'every_page' group and add
+ * them to the page-specific group.
+ */
+function fett_sonar_scss_alter(&$groups){
+  if(!empty($groups[0]) && !empty($groups[1])){
+    $files = array('assets/foundation/scss/foundation/_functions.scss','assets/scss/libraries/_settings.scss','assets/foundation/scss/foundation/components/_global.scss');
+    $includes = array();
+    foreach($files as $needle){
+      foreach($groups[0] as $key => $file){
+        if(strpos($key, $needle) !== FALSE){
+          $file['every_page'] = FALSE;
+          $includes[$key] = $file;
+        }
+      }
+    }
+    $groups[1] = $includes + $groups[1];
+  }
 }
 
 /**
@@ -129,4 +162,28 @@ function fett_foundation_js($name = NULL){
     );
   }
   return $files ? $files : array();
+}
+
+function fett_sonar_var(){
+  // We need these variables to load just BEFORE _global.scss.
+  return array(
+    'include-html-classes' => array(
+      'value' => FALSE,
+      'every_page' => FALSE,
+      'group' => CSS_SYSTEM,
+      'weight' => 901,
+    ),
+    'include-html-global-classes' => array(
+      'value' => FALSE,
+      'every_page' => FALSE,
+      'group' => CSS_SYSTEM,
+      'weight' => 901,
+    ),
+    'include-js-meta-styles' => array(
+      'value' => FALSE,
+      'every_page' => FALSE,
+      'group' => CSS_SYSTEM,
+      'weight' => 901,
+    ),
+  );
 }

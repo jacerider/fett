@@ -1,12 +1,11 @@
 <?php
 
-function _fett_process_page(&$vars){
+function fett_process_page(&$vars){
 
   if($offcanvas = fett_offcanvas_get()){
     $path_fett = drupal_get_path('theme', 'fett');
     $vars['page']['content']['#attached']['css']["$path_fett/assets/scss/_offcanvas.scss"] = array(
-      'weight' => -100,
-      'group' => CSS_THEME,
+      'group' => CSS_DEFAULT,
     );
     $vars['page']['content']['#attached']['js'][] = "$path_fett/assets/js/fett.offcanvas.js";
     $vars['classes_array'][] = 'oc-wrapper';
@@ -41,12 +40,36 @@ function _fett_process_page(&$vars){
   $vars['sidebar_second_classes'] = empty($vars['sidebar_second_classes_array']) ? '' : implode(' ', $vars['sidebar_second_classes_array']);
 
   // Add Foundation CSS/SCSS
-  foreach(fett_foundation_css() as $file => $options){
-    $vars['page']['content']['#attached']['css'][$file] = $options;
-  }
+  // Removed as we now load all core CSS right from template.php.
+  // $vars['page']['content']['#pre_render'][] = '_fett_foundation_css_render';
 
   // Add Foundation JS
-  foreach(fett_foundation_js() as $file => $options){
-    $vars['page']['content']['#attached']['js'][$file] = $options;
+  $vars['page']['content']['#pre_render'][] = '_fett_foundation_js_render';
+
+  // Empty out tabs if none exist
+  if(empty($vars['tabs']['#primary']) && empty($vars['tabs']['#secondary'])){
+    $vars['tabs'] = '';
   }
+}
+
+/**
+ * Pre-render callback on $vars['page']['content'].
+ *
+ * Removed as we now load all core CSS right from template.php.
+ */
+function _fett_foundation_css_render(&$element){
+  foreach(fett_foundation_css() as $file => $options){
+    $element['#attached']['css'][$file] = $options;
+  }
+  return $element;
+}
+
+/**
+ * Pre-render callback on $vars['page']['content'].
+ */
+function _fett_foundation_js_render(&$element){
+  foreach(fett_foundation_js() as $file => $options){
+    $element['#attached']['js'][$file] = $options;
+  }
+  return $element;
 }

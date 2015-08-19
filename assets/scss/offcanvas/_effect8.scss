@@ -1,0 +1,54 @@
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 8: 3D rotate out
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-8.oc-wrapper {
+  @include perspective(1500px);
+  @include perspective-origin(0% 50%);
+}
+
+.oc-effect-8 .oc-push {
+  @include transform-style(preserve-3d);
+}
+
+.oc-effect-8.oc-open {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(300px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-300px, 0, 0));
+  }
+}
+
+.oc-effect-8.oc-block {
+  @include transform-style(preserve-3d);
+
+  &.oc-direction-left {
+    @include transform(translate3d(-100%, 0, 0) rotateY(90deg));
+    @include transform-origin(100% 50%);
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(100%, 0, 0) rotateY(-35deg));
+    @include transform-origin(0 50%);
+  }
+
+  &:after{
+    display:none;
+  }
+}
+
+.oc-effect-8.oc-open .oc-effect-8.active {
+  visibility: visible;
+  @include transition(transform 0.5s);
+
+  &.oc-direction-left {
+    @include transform(translate3d(-100%, 0, 0) rotateY(0deg));
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(100%, 0, 0) rotateY(0deg));
+  }
+}

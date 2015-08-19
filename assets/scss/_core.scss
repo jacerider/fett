@@ -1,17 +1,14 @@
 /**
- * Bourbon (http://bourbon.io/)
- *
- * Adds the Bourbon mixin library.
+ * @file
+ * Core styling for Fett.
  */
-@import 'bourbon';
 
-#page,
-.oc-content{
-  background:#fff;
-}
-
-#main-nav.nav-inline,
-#secondary-nav.nav-inline{
+/**
+ * Navigation
+ */
+#main-nav,
+#main-nav-oc,
+#secondary-nav{
   ul{
     margin:0;
     padding:0;
@@ -21,8 +18,54 @@
     margin:0;
     padding:0;
     list-style-type: none;
+  }
+}
+
+#main-nav,
+#secondary-nav{
+  li{
     display:inline-block;
   }
+}
+
+/**
+ * Tabs
+ */
+#tabs{
+  .button{
+    margin-bottom:0;
+  }
+}
+
+/**
+ * Status Messages
+ */
+.alert.status{
+  @include fett-alert($info-color, info-circle);
+
+  .krumo-root{
+    color:darken($info-color, 50%);
+    text-shadow:none;
+    border-color: darken($info-color, 30%);
+    div.krumo-element{
+      background-color: lighten($info-color, 10%);
+    }
+    div.krumo-expand{
+      background-color: $info-color;
+    }
+    li li li{
+      padding-left:10px;
+    }
+    a{
+      color:darken($info-color, 60%);
+    }
+  }
+}
+.alert.warning{
+  @include fett-alert($warning-color, exclamation-circle);
+}
+.alert.error{
+  @include fett-alert($alert-color, minus-circle);
 }
 
 /**
@@ -63,4 +106,44 @@
   clip: auto;
   overflow: visible;
   height: auto;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/// Utility Classes
+////////////////////////////////////////////////////////////////////////////////
+
+.middle-large-up{
+  @media #{$large-up} {
+    @include middle();
+  }
+}
+
+.middle-large{
+  @media #{$large-only} {
+    @include middle();
+  }
+}
+
+.middle-medium-up{
+  @media #{$medium-up} {
+    @include middle();
+  }
+}
+
+.middle-medium{
+  @media #{$medium-only} {
+    @include middle();
+  }
+}
+
+.middle-small-up{
+  @media #{$small-up} {
+    @include middle();
+  }
+}
+
+.middle-small{
+  @media #{$small-only} {
+    @include middle();
+  }
 }

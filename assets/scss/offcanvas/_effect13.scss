@@ -1,0 +1,40 @@
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 13: Fall down
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-13.oc-wrapper {
+  @include perspective(1500px);
+
+  &.oc-direction-left {
+    @include perspective-origin(0% 50%);
+  }
+
+  &.oc-direction-right {
+    @include perspective-origin(100% 50%);
+  }
+}
+
+.oc-effect-13.oc-open {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(300px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-300px, 0, 0));
+  }
+}
+
+.oc-effect-13.oc-block {
+  z-index: 1;
+  opacity: 1;
+  @include transform(translate3d(0, -100%, 0));
+}
+
+.oc-effect-13.oc-open .oc-effect-13.active {
+  visibility: visible;
+  @include transition-timing-function(ease-in-out);
+  @include transition-property(transform);
+  @include transform(translate3d(0, 0, 0));
+  @include transition-duration(.4s);
+}

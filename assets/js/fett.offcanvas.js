@@ -11,18 +11,20 @@ FettOffCanvas.attach = function(context, settings) {
   if(!self.runOnce){
     self.runOnce = true;
     self.$container = $('.oc-wrapper', context);
-    self.$container.data('oclasses', self.$container[0].className);
-    self.$buttons = $('.oc-link', context);
-    self.eventType = self.isMobile ? 'touchstart' : 'click';
+    if(self.$container.length){
+      self.$container.data('oclasses', self.$container[0].className);
+      self.$buttons = $('.oc-link', context);
+      self.eventType = self.isMobile ? 'touchstart' : 'click';
 
-    self.$buttons.on(self.eventType, function(e){
-      e.stopPropagation();
-      e.preventDefault();
-      var id = $(this).data('oc-id');
-      var effect = $(this).data('oc-effect');
-      var direction = $(this).data('oc-direction');
-      self.open(id, effect, direction);
-    });
+      self.$buttons.on(self.eventType, function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        var id = $(this).data('oc-id');
+        var effect = $(this).data('oc-effect');
+        var direction = $(this).data('oc-direction');
+        self.open(id, effect, direction);
+      });
+    }
   }
 }
 

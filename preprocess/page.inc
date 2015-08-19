@@ -1,18 +1,16 @@
 <?php
 
-function _fett_preprocess_page(&$vars){
-  global $language;
+/**
+ * @file
+ * Preprocess theme_page.
+ */
+
+function fett_preprocess_page(&$vars){
+  global $language, $theme_key;
   $path_fett = drupal_get_path('theme', 'fett');
 
-  // Add some core CSS files.
-  if(module_exists('sonar')){
-    foreach(array('core','mixins') as $scss){
-      $vars['page']['content']['#attached']['css']["$path_fett/assets/scss/_$scss.scss"] = array(
-        'weight' => -100,
-        'group' => CSS_THEME,
-      );
-    }
-  }
+  // Add path to current theme.
+  $vars['theme_path'] = drupal_get_path('theme', $theme_key);
 
   // Add Fett core javascript
   $vars['page']['content']['#attached']['js'][$path_fett . '/assets/js/fett.core.js'] = array(
@@ -36,7 +34,6 @@ function _fett_preprocess_page(&$vars){
       '#is_nav' => TRUE,
       '#attributes' => array(
         'id' => 'main-nav',
-        'class' => array('nav-inline'),
       ),
       '#heading' => array(
         'text' => t('Main menu'),
@@ -53,7 +50,6 @@ function _fett_preprocess_page(&$vars){
       '#links' => $vars['secondary_menu'],
       '#attributes' => array(
         'id' => 'secondary-nav',
-        'class' => array('nav-inline'),
       ),
       '#heading' => array(
         'text' => t('Secondary menu'),
@@ -100,6 +96,9 @@ function _fett_preprocess_page(&$vars){
   // Content area Foundation classes.
   $has_first = !empty($vars['page']['sidebar_first']);
   $has_second = !empty($vars['page']['sidebar_second']);
+
+  $vars['sidebar_first_classes_array'] = isset($vars['page']['sidebar_first']['#attributes']['class']) ? $vars['page']['sidebar_first']['#attributes']['class'] : array();
+  $vars['sidebar_second_classes_array'] = isset($vars['page']['sidebar_second']['#attributes']['class']) ? $vars['page']['sidebar_second']['#attributes']['class'] : array();
 
   $vars['content_classes_array'][] = 'columns';
   $vars['sidebar_first_classes_array'][] = 'columns';

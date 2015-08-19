@@ -23,6 +23,11 @@ function _fett_theme_offcanvas(&$theme){
       'direction' => 'left',
     ),
   );
+
+    // 'region' => array(
+    //   'render element' => 'elements',
+    //   'template' => 'region',
+    // ),
 }
 
 /**
@@ -31,52 +36,65 @@ function _fett_theme_offcanvas(&$theme){
  * @see _fett_preprocess_page()
  */
 function _fett_offcanvas_preprocess_page(&$vars){
+  foreach(array('main_nav', 'sidebar_first', 'sidebar_second') as $key){
+    fett_offcanvas_element($key, $vars);
+  }
+}
 
+/**
+ * Offcanvas processing for main nav
+ */
+function fett_offcanvas_element($key, &$vars){
   $path_fett = drupal_get_path('theme', 'fett');
-  $vars['page']['content']['#attached']['css']["$path_fett/assets/scss/offcanvas/_effect1.scss"] = array(
-    'weight' => -99,
-    'group' => CSS_THEME,
-  );
 
-  // Elements
-  foreach(array('main_nav') as $key){
-    $vars['offcanvas_' . $key . '_link'] = '';
-    if(($visibility = fett_get_setting('offcanvas_' . $key)) && !empty($vars[$key])){
-      $content = $vars[$key];
-      if(!empty($content['#megamenu'])){
-        $content['#theme'] = $content['#theme'] . '_offcanvas';
-      }
-      $content['#attributes']['class'][] = 'oc-menu';
-      if($visibility === 'always'){
-        $vars[$key] = '';
-      }
-      else{
-        $vars[$key]['#attributes']['class'][] = 'show-' . $visibility;
-      }
-      $effect = fett_get_setting('offcanvas_' . $key . '_effect');
-      $direction = fett_get_setting('offcanvas_' . $key . '_direction', NULL, 'left');
-      $title = fett_get_setting('offcanvas_' . $key . '_title', NULL, '<i class="fa fa-bars"></i> ' . t('Menu'));
-      $vars['offcanvas_' . $key . '_link'] = drupal_render(fett_offcanvas_add($content, $effect, $title, $direction, 'hide-' . $visibility, $key));
-    }
-  }
+  // Define activation link and expose it to page.tpl.php.
+  $vars['offcanvas_' . $key . '_link'] = '';
 
-  // Sidebars
-  foreach(array('sidebar_first','sidebar_second') as $key){
-    $vars['offcanvas_' . $key . '_link'] = '';
-    if(($visibility = fett_get_setting('offcanvas_' . $key)) && !empty($vars['page'][$key])){
-      $content = $vars['page'][$key];
-      if($visibility === 'always'){
-        unset($vars['page'][$key]);
-      }
-      else{
-        $vars[$key . '_classes_array'][] = 'show-' . $visibility;
-      }
-      $effect = fett_get_setting('offcanvas_' . $key . '_effect');
-      $direction = fett_get_setting('offcanvas_' . $key . '_direction', NULL, 'left');
-      $title = fett_get_setting('offcanvas_' . $key . '_title', NULL, '<i class="fa fa-bars"></i> ' . t('In this section'));
-      $vars['offcanvas_' . $key . '_link'] = drupal_render(fett_offcanvas_add($content, $effect, $title, $direction, 'hide-' . $visibility, $key));
+  if(($visibility = fett_get_setting('offcanvas_' . $key)) && $parents = _fett_offcanvas_element_find($vars, $key)){
+    $content = drupal_array_get_nested_value($vars, _fett_offcanvas_element_find($vars, $key));
+    if(isset($content['#attributes']['id'])){
+      $content['#attributes']['id'] .= '-oc';
     }
+    if($visibility === 'always'){
+      _fett_offcanvas_element_remove($vars, $parents);
+    }
+    else{
+      _fett_offcanvas_element_wrap($vars, $parents, $visibility);
+    }
+    $effect = fett_get_setting('offcanvas_' . $key . '_effect');
+    $direction = fett_get_setting('offcanvas_' . $key . '_direction', NULL, 'left');
+    $title = fett_get_setting('offcanvas_' . $key . '_title', NULL, '<i class="fa fa-bars"></i> ' . t('View'));
+    $vars['offcanvas_' . $key . '_link'] = drupal_render(fett_offcanvas_add($content, $effect, $title, $direction, 'hide-' . $visibility, $key));
   }
+}
+
+/**
+ * Utility class to find an element within page $vars.
+ */
+function _fett_offcanvas_element_find($vars, $key){
+  if(isset($vars[$key])){
+    return array($key);
+  }
+  if(isset($vars['page'][$key])){
+    return array('page', $key);
+  }
+  return FALSE;
+}
+
+/**
+ * Utility class to set visibility on an element within page $vars.
+ */
+function _fett_offcanvas_element_wrap(&$vars, $parents, $visibility){
+  $content = &drupal_array_get_nested_value($vars, $parents);
+  $content['#attributes']['class'][] = 'show-' . $visibility;
+}
+
+/**
+ * Utility class to remove an element from page $vars.
+ */
+function _fett_offcanvas_element_remove(&$vars, $parents){
+  $content = &drupal_array_get_nested_value($vars, $parents);
+  $content = '';
 }
 
 /**
@@ -114,6 +132,7 @@ function _fett_offcanvas_preprocess_page(&$vars){
  *   both the link and off-canvas item wrapper.
  */
 function fett_offcanvas_add($content, $effect = 1, $title = '<i class="fa fa-bars"></i>', $direction = 'left', $visibility = 'hide-for-medium-up', $unique_id = NULL){
+  $path_fett = drupal_get_path('theme', 'fett');
   $offcanvas = &drupal_static('fett_offcanvas', array(0 => array(), 1 => array()));
   $inset_effects = array(3,6,7,8,14);
   $unique_id = $unique_id && !isset($offcanvas[$unique_id]) ? $unique_id : (count($offcanvas[0]) + count($offcanvas[1]));
@@ -125,6 +144,14 @@ function fett_offcanvas_add($content, $effect = 1, $title = '<i class="fa fa-bar
     '#effect' => $effect,
     '#content' => $content,
     '#direction' => $direction,
+    '#attached' => array(
+      'css' => array(
+        "$path_fett/assets/scss/offcanvas/_effect$effect.scss" => array(
+          'group' => CSS_DEFAULT,
+          'weight' => 1, // make sure effects come after _offcanvas.scss.
+        )
+      ),
+    ),
   );
   return array(
     '#theme' => 'fett_offcanvas_link',

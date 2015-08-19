@@ -1,0 +1,44 @@
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 11: Scale and rotate pusher
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-11.oc-wrapper {
+  @include perspective(1500px);
+}
+
+.oc-effect-11 .oc-push {
+  @include transform-style(preserve-3d);
+}
+
+.oc-effect-11.oc-open {
+
+  &.oc-direction-left .oc-push {
+    @include transform(translate3d(100px, 0, -600px) rotateY(-20deg));
+  }
+
+  &.oc-direction-right .oc-push {
+    @include transform(translate3d(-100px, 0, -600px) rotateY(20deg));
+  }
+}
+
+.oc-effect-11.oc-block {
+  opacity: 1;
+
+  &.oc-direction-left {
+    @include transform(translate3d(-100%, 0, 0));
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(100%, 0, 0));
+  }
+
+  &:after{
+    display:none;
+  }
+}
+
+.oc-effect-11.oc-open .oc-effect-11.active {
+  visibility: visible;
+  @include transition(transform 0.5s);
+  @include transform(translate3d(0, 0, 0));
+}

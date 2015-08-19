@@ -1,6 +1,11 @@
 <?php
 
-function _fett_preprocess_html(&$vars){
+/**
+ * @file
+ * Preprocess theme_html.
+ */
+
+function fett_preprocess_html(&$vars){
   global $theme_key, $language;
   $path = drupal_get_path('theme', $theme_key);
   $path_fett = drupal_get_path('theme', 'fett');

@@ -17,7 +17,7 @@
  *   The name of the icon. For example, if you want to use fa-user, just pass
  *   in 'user'
  */
-@mixin fa-before($icon, $padding: 0 4px 0 0, $font-size: inherit, $color: inherit) {
+@mixin fa-before($icon, $padding: 0 4px 0 0, $font-size: inherit, $line-height: inherit,$color: inherit) {
   &:before{
     @extend .#{$fa-css-prefix};
     @extend .#{$fa-css-prefix}-#{$icon}:before;
@@ -34,12 +34,53 @@
  *   The name of the icon. For example, if you want to use fa-user, just pass
  *   in 'user'
  */
-@mixin fa-after($icon, $padding: 0 0 0 4px, $font-size: inherit, $color: inherit) {
+@mixin fa-after($icon, $padding: 0 0 0 4px, $font-size: inherit, $line-height: inherit, $color: inherit) {
   &:after{
     @extend .#{$fa-css-prefix};
     @extend .#{$fa-css-prefix}-#{$icon}:before;
     padding: $padding;
     font-size: $font-size;
+    line-height: $line-height;
     color: $color;
   }
 }
+
+/**
+ * Status message styling.
+ */
+@mixin fett-alert($color, $icon) {
+  padding:rem-calc(10);
+  font-size:90%;
+  color:#fff;
+  background:$color;
+  text-shadow: 0 1px 0 darken($color, 20%);
+
+  ul{
+    margin:0;
+    padding:0;
+    list-style-type: none;
+  }
+
+  a{
+    color: #fff;
+    font-weight: 600;
+
+    &:hover{
+      color: darken($color, 30%);
+      text-shadow: 0 1px 0 lighten($color, 15%);
+    }
+  }
+
+  .message:not(.has-krumo){
+    @include fa-before($icon);
+  }
+}
+
+/**
+ * Middle align items
+ */
+@mixin middle() {
+  position: relative;
+  top: 50%;
+  @include transform(translateY(-50%));
+ }

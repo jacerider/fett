@@ -1,6 +1,6 @@
 <?php
 
-function _fett_process_html(&$vars){
+function fett_process_html(&$vars){
   // Flatten attributes arrays
   $vars['html_attributes'] = empty($vars['html_attributes_array']) ? '' : drupal_attributes($vars['html_attributes_array']);
 

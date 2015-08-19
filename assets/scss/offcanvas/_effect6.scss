@@ -1,0 +1,62 @@
+////////////////////////////////////////////////////////////////////////////////
+/// Effect 6: Rotate pusher
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-6.oc-wrapper {
+  @include perspective(1500px);
+}
+
+.oc-effect-6 {
+
+  &.oc-direction-left .oc-push{
+    @include transform-origin(0% 50%);
+    @include transform-style(preserve-3d);
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform-origin(100% 0%);
+    @include transform-style(preserve-3d);
+  }
+}
+
+.oc-effect-6.oc-open {
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(300px, 0, 0) rotateY(-15deg));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-300px, 0, 0) rotateY(15deg));
+  }
+}
+
+.oc-effect-6.oc-block {
+  @include transform-style(preserve-3d);
+
+  &.oc-direction-left {
+    @include transform(translate3d(-100%, 0, 0));
+    @include transform-origin(100% 50%);
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(100%, 0, 0));
+    @include transform-origin(0% 50%);
+  }
+}
+
+.oc-effect-6.oc-open .oc-effect-6.active {
+  visibility: visible;
+  @include transition(transform 0.5s);
+
+  &.oc-direction-left {
+    @include transform(translate3d(-100%, 0, 0) rotateY(15deg));
+  }
+
+  &.oc-direction-right {
+    @include transform(translate3d(100%, 0, 0) rotateY(-15deg));
+  }
+}
+
+.oc-effect-6.oc-block::after {
+  display: none;
+}

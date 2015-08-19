@@ -2,3 +2,13 @@
  * @file
  * Generic styles used across this theme.
  */
+
+/**
+ * Should be used for body background color. This supports the off-canvas
+ * elements of Fett.
+ */
+body,
+.oc-content{
+  /** ONLY BACKGROUND STYLING SHOULD BE PLACED HERE */
+  background: $body-bg; // See _settings.scss file to change this variable.
+}

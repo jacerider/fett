@@ -7,6 +7,40 @@
  */
 
 /**
+ * Will add Font Awesome icons to any defined text.
+ */
+function fett_icon_text($text){
+  if(function_exists('fawesome_text')){
+    $text = fawesome_text($text, $attributes);
+  }
+  return $text;
+}
+
+/**
+ * Will convert a link to use Font Awesome icon if icon defined for link text.
+ *
+ * @see  l
+ */
+function fett_icon_link($text, $path, array $options = array()){
+  if(function_exists('fawesome_text') && $icon = fawesome_match($text)){
+    $options['html'] = TRUE;
+    if($visibility = fett_get_setting('icon_hide_labels')){
+      fett_foundation_js('tooltip');
+      $direction = isset($options['tip_direction']) ? $options['tip_direction'] : 'bottom';
+      $options['attributes']['data-tooltip'] = '';
+      $options['attributes']['title'] = $text;
+      $options['attributes']['class'][] = 'tip-' . $direction;
+      $options['attributes']['data-options'] = 'disable_for_touch:true';
+      $text = '<i class="fa fa-' . $icon['icon'] . '"></i><span class="hide-' . $visibility . '"> ' . $text . '</span>';
+    }
+    else{
+      $text = '<i class="fa fa-' . $icon['icon'] . '"></i> ' . $text;
+    }
+  }
+  return l($text, $path, $options);
+}
+
+/**
  * Retrieve a setting for the current theme or for a given theme.
  *
  * Fett's stripped down optimized version of theme_get_setting().

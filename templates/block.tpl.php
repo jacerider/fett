@@ -52,8 +52,8 @@
   <?php endif;?>
   <?php print render($title_suffix); ?>
 
-  <div class="content"<?php print $content_attributes; ?>>
+  <?php if ($block->subject): ?><div class="content"<?php print $content_attributes; ?>><?php endif; ?>
     <?php print $content ?>
-  </div>
+  <?php if ($block->subject): ?></div><?php endif; ?>
 </div>
 <!-- block.<?php print $block->module . '-' . $block->delta; ?>.end -->
