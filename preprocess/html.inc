@@ -10,6 +10,23 @@ function fett_preprocess_html(&$vars){
   $path = drupal_get_path('theme', $theme_key);
   $path_fett = drupal_get_path('theme', 'fett');
 
+  // Clean up body classes.
+  foreach($vars['classes_array'] as $key => &$name){
+    if($name == 'page-node-'){
+      unset($vars['classes_array'][$key]);
+    }
+    if($name == 'page-node'){
+      unset($vars['classes_array'][$key]);
+    }
+    elseif(strpos($name, 'page-node-') !== FALSE){
+      unset($vars['classes_array'][$key]);
+    }
+    elseif(strpos($name, 'node-type-') !== FALSE){
+      $name = str_replace('node-type','page',$name);
+      // unset($vars['classes_array'][$key]);
+    }
+  }
+
   // Use a proper attributes array for the html attributes.
   // You can add more attributes to the html elment, for example in a sub-theme you can do this:
   // $vars['html_attributes_array']['xmlns:og'][] = 'http://opengraphprotocol.org/schema/';
@@ -58,7 +75,7 @@ function fett_preprocess_html(&$vars){
   // rem.js
   $script = "\n";
   $script .= '<!--[if lt IE 9]>' . "\n";
-  $script .= '<script type="text/javascript" src="' . url($path_fett . '/assets/js/rem.min.js') . '"></script>' . "\n";
+  $script .= '<script type="text/javascript" src="' . url($path_fett . '/libraries/rem/rem.min.js', array('absolute' => TRUE)) . '"></script>' . "\n";
   $script .= '<![endif]-->' . "\n";
   $vars['page']['page_bottom']['remjs'] = array(
     '#markup' => $script,

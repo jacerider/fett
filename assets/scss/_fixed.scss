@@ -1,0 +1,25 @@
+#header{
+  @include transition(height 300ms, top 300ms);
+
+  &.sticky{
+    position: fixed;
+    top:-100%;
+    left:0;
+    right:0;
+    z-index:2000;
+  }
+
+  &.sticky-animate{
+    top:0;
+  }
+}
+
+/**
+ * Easy Admin
+ */
+body.easy-admin-menu{
+
+  #header.sticky{
+    left:90px;
+  }
+}

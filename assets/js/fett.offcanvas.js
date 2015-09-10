@@ -1,8 +1,7 @@
 (function ($, Drupal) {
 
 var FettOffCanvas = {
-  runOnce: false,
-  isMobile: Drupal.fett.isMobile()
+  runOnce: false
 };
 
 FettOffCanvas.attach = function(context, settings) {
@@ -14,9 +13,8 @@ FettOffCanvas.attach = function(context, settings) {
     if(self.$container.length){
       self.$container.data('oclasses', self.$container[0].className);
       self.$buttons = $('.oc-link', context);
-      self.eventType = self.isMobile ? 'touchstart' : 'click';
 
-      self.$buttons.on(self.eventType, function(e){
+      self.$buttons.on('click', function(e){
         e.stopPropagation();
         e.preventDefault();
         var id = $(this).data('oc-id');
@@ -30,6 +28,7 @@ FettOffCanvas.attach = function(context, settings) {
 
 FettOffCanvas.open = function(id, effect, direction) {
   var self = this;
+  self.id = id;
 
   $('#oc-block-' + id).addClass('active');
 
@@ -38,13 +37,13 @@ FettOffCanvas.open = function(id, effect, direction) {
 
   setTimeout( function() {
     self.$container.addClass('oc-open');
-    self.$container.trigger('offcanvas-open', [direction]);
+    self.$container.trigger('offcanvas-open', [id, effect, direction]);
   }, 25 );
 
-  $(document).on(self.eventType + '.offcanvas', function(e){
+  $(document).on('click' + '.offcanvas', function(e){
     if(!$(e.target).closest('.oc-block').length){
       self.close();
-      $(this).off(self.eventType + '.offcanvas');
+      $(this).off('click' + '.offcanvas');
     }
   });
 
@@ -55,7 +54,7 @@ FettOffCanvas.close = function() {
   var self = this;
   self.$container.removeClass('oc-open');
   $('.oc-block.active').removeClass('active');
-  self.$container.trigger('offcanvas-close');
+  self.$container.trigger('offcanvas-close', [self.id]);
 }
 
 Drupal.behaviors.fettOffCanvas = FettOffCanvas;

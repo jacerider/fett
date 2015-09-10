@@ -11,15 +11,16 @@ function fett_preprocess_views_view(&$vars){
   $vars['classes_array'] = array_filter($vars['classes_array'], function($class) {
     return $class == 'contextual-links-region';
   });
+  $vars['classes_array'][] = 'view';
   if(!empty($vars['css_class'])){
     $vars['classes_array'][] = $vars['css_class'];
   }
   else{
-    $vars['classes_array'][] = 'view';
-    $vars['classes_array'][] = drupal_clean_css_identifier($view->name);
+    $vars['classes_array'][] = drupal_html_class($view->name);
+    $vars['classes_array'][] = drupal_html_class($view->current_display);
   }
   if(!empty($view->use_ajax)){
-    $vars['classes_array'][] = drupal_clean_css_identifier('view-dom-id-' . $view->dom_id);
+    $vars['classes_array'][] = drupal_html_class('view-dom-id-' . $view->dom_id);
   }
 
   // Only show .view-content div wrapper around views when there are other

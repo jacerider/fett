@@ -7,7 +7,7 @@ version = "7.x-3.x-dev"
 php = 5.2
 
 
-;-------------- F E A T U R E S -------------
+;-------------- FEATURES
 features[] = logo
 features[] = favicon
 features[] = name
@@ -16,7 +16,7 @@ features[] = main_menu
 features[] = secondary_menu
 
 
-;-------------- R E G I O N S ---------------
+;-------------- REGIONS
 regions[header]         = Header
 regions[navigation]     = Navigation
 regions[help]           = Help
@@ -27,21 +27,80 @@ regions[sidebar_second] = Second Sidebar
 regions[footer]         = Footer
 
 
-;---------- S T Y L E S H E E T S -----------
+;-------------- STYLESHEETS
 ;stylesheets[all][] = assets/scss/none.scss
 
 
-;-----_----- J A V A S C R I P T ------------
+;-------------- CORE STYLESHEETS
+; These different from regular stylesheets as they are loaded into CSS_DEFAULT
+; instead of CSS_THEME which allows them to be altered later via Sonar.
+scss[] = assets/scss/_mixins.scss
+scss[] = assets/scss/_core.scss
+scss[] = assets/scss/_forms.scss
+scss[] = assets/scss/_contextual.scss
+
+
+;-------------- MODULE STYLESHEETS
+; These stylesheets are loaded if their module [key] exists.
+scss_module[betterlogin] = assets/scss/modules/_betterlogin.scss
+
+
+;-------------- JAVASCRIPT
 ; scripts[] = assets/js/none.js
 
 
-;------------- D E F A U L T S --------------
+;-------------- DEFAULTS
 settings[html_tags]          = 1
 settings[css_onefile]        = 1
 settings[js_onefile]         = 1
 
 
-;------------- U N S E T  C S S --------------
+;-------------- FORM ALTER
+; form_alter[] = 'user_login'
+
+
+;-------------- GLOBAL INCLUDES
+; These are files that will be included on each page and exist in /includes
+include_global[] = 'tools'
+include_global[] = 'css'
+include_global[] = 'js'
+include_global[] = 'foundation'
+include_global[] = 'tooltip'
+include_global[] = 'form'
+include_global[] = 'theme'
+include_global[] = 'offcanvas'
+
+
+;-------------- VARIABLE INCLUDES
+; These are files that will be included when a fett_get_settings(setting) is
+; TRUE and exist in /includes
+include_var[] = 'megamenu'
+include_var[] = 'share'
+
+
+;-------------- PREPROCESS INCLUDES
+; These are files that will be included for preprocess operations and exist
+; in /preprocess
+include_preprocess[] = 'html'
+include_preprocess[] = 'page'
+include_preprocess[] = 'entity'
+include_preprocess[] = 'node'
+include_preprocess[] = 'block'
+include_preprocess[] = 'field'
+include_preprocess[] = 'video_embed_field_embed_code'
+include_preprocess[] = 'views_view'
+include_preprocess[] = 'views_view_unformatted'
+
+
+;-------------- PROCESS INCLUDES
+; These are files that will be included for process operations and exist
+; in /preprocess
+include_process[] = 'html'
+include_process[] = 'html_tag'
+include_process[] = 'page'
+
+
+;-------------- UNSET CSS
 ; Stylesheets you may want to unset - includes all cores CSS files, except
 ; for overlay.
 unset_core[modules/aggregator/aggregator.css]     = 'aggregator.css'

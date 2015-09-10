@@ -15,14 +15,21 @@ function fett_preprocess_page(&$vars){
   // Add Fett core javascript
   $vars['page']['content']['#attached']['js'][$path_fett . '/assets/js/fett.core.js'] = array(
     'every_page' => TRUE,
-    'weight' => 1, // After drupal.js which is 0
+    // 'weight' => 1, // After drupal.js which is 0
     'group' => JS_LIBRARY,
   );
-  $vars['page']['content']['#attached']['js'][] = array(
+  // Modernizr
+  $vars['page']['content']['#attached']['js']['//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js'] = array(
     'data' => '//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.min.js',
     'type' => 'external',
     'every_page' => TRUE,
     'weight' => -100,
+    'group' => JS_LIBRARY,
+  );
+  // Fastclick
+  $vars['page']['content']['#attached']['js'][$path_fett . '/libraries/fastclick/fastclick.js'] = array(
+    'every_page' => TRUE,
+    'weight' => -99, // After drupal.js which is 0
     'group' => JS_LIBRARY,
   );
 
@@ -87,11 +94,17 @@ function fett_preprocess_page(&$vars){
 
   $vars['copyright'] = date('Y') . ' ' . check_plain($vars['site_name']) . '. ' . t('All rights reserved.');
 
+  if($vars['is_front']){
+    $vars['breadcrumb'] = '';
+  }
+
   // Mega-menu
-  _fett_megamenu_preprocess_page($vars);
+  if(fett_get_setting('megamenu')){
+    fett_megamenu_preprocess_page($vars);
+  }
 
   // Off-canvas
-  _fett_offcanvas_preprocess_page($vars);
+  fett_offcanvas_preprocess_page($vars);
 
   // Content area Foundation classes.
   $has_first = !empty($vars['page']['sidebar_first']);
@@ -104,24 +117,32 @@ function fett_preprocess_page(&$vars){
   $vars['sidebar_first_classes_array'][] = 'columns';
   $vars['sidebar_second_classes_array'][] = 'columns';
 
+  $content_large = fett_get_setting('content_class_large', NULL, 12);
+  $sidebar_large = fett_get_setting('sidebar_class_large', NULL, 3);
+
   if($has_first && $has_second){
-    $vars['content_classes_array'][] = 'large-6';
-    $vars['content_classes_array'][] = 'large-push-3';
-    $vars['sidebar_first_classes_array'][] = 'large-3';
-    $vars['sidebar_first_classes_array'][] = 'large-pull-6';
-    $vars['sidebar_second_classes_array'][] = 'large-3';
+    $content_large = 12;
+    $content_large -= $sidebar_large * 2;
+    $vars['content_classes_array'][] = 'large-' . $content_large;
+    $vars['content_classes_array'][] = 'large-push-' . $sidebar_large;
+    $vars['sidebar_first_classes_array'][] = 'large-' . $sidebar_large;
+    $vars['sidebar_first_classes_array'][] = 'large-pull-' . $content_large;
+    $vars['sidebar_second_classes_array'][] = 'large-' . $sidebar_large;
   }
   elseif($has_first){
-    $vars['content_classes_array'][] = 'large-9';
-    $vars['content_classes_array'][] = 'large-push-3';
-    $vars['sidebar_first_classes_array'][] = 'large-3';
-    $vars['sidebar_first_classes_array'][] = 'large-pull-9';
+    $content_large = 12;
+    $content_large -= $sidebar_large;
+    $vars['content_classes_array'][] = 'large-' . $content_large;
+    $vars['content_classes_array'][] = 'large-push-' . $sidebar_large;
+    $vars['sidebar_first_classes_array'][] = 'large-' . $sidebar_large;
+    $vars['sidebar_first_classes_array'][] = 'large-pull-' . $content_large;
   }
   elseif($has_second){
-    $vars['content_classes_array'][] = 'large-9';
-    $vars['sidebar_second_classes_array'][] = 'large-3';
+    $vars['content_classes_array'][] = 'large-' . $content_large;
+    $vars['sidebar_second_classes_array'][] = 'large-' . $sidebar_large;
   }
   else{
-    $vars['content_classes_array'][] = 'large-12';
+    $vars['content_classes_array'][] = 'large-' . $content_large;
+    $vars['content_classes_array'][] = 'large-centered';
   }
 }

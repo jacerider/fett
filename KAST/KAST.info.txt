@@ -6,7 +6,7 @@ engine = phptemplate
 base theme = fett
 
 
-;-------------- F E A T U R E S -------------
+;-------------- FEATURES
 features[] = logo
 features[] = favicon
 features[] = name
@@ -15,7 +15,7 @@ features[] = main_menu
 features[] = secondary_menu
 
 
-;-------------- R E G I O N S -------------
+;-------------- REGIONS
 regions[header]         = Header
 regions[navigation]     = Navigation
 regions[help]           = Help
@@ -26,7 +26,7 @@ regions[sidebar_second] = Second Sidebar
 regions[footer]         = Footer
 
 
-;-------------- S C S S -------------
+;-------------- STYLESHEETS
 ; These files are empty, just uncomment this line and start editing!
 
 ; Libraries
@@ -42,6 +42,6 @@ stylesheets[all][] = assets/scss/components/_footer.scss
 stylesheets[all][] = assets/scss/sections/_global.scss
 
 
-;-------------- S C R I P T -------------
+;-------------- JAVASCRIPT
 ; This file is empty, just uncomment this line and start editing!
 ; scripts[] = assets/js/kast.js

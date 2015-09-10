@@ -90,6 +90,7 @@
         <?php endif; ?>
         <?php print $offcanvas_sidebar_first_link; ?>
         <?php print $offcanvas_sidebar_second_link; ?>
+        <?php if ($breadcrumb): print $breadcrumb; endif; ?>
         <?php print render($page['content']); ?>
       </main>
 

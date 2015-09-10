@@ -5,6 +5,18 @@
  * Generate settings for the off-canvas sidebars.
  */
 function fett_settings_offcanvas_form(&$form, $theme_name) {
+
+  $form['offcanvas'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable Offcanvas'),
+    '#attributes' => array(
+      'class' => array('enable-extension'),
+    ),
+    '#default_value' => fett_get_setting('offcanvas'),
+    '#description' => t('Enable the use of offcanvas elements on the site and make the offcanvas API available.'),
+    '#element_validate' => array('fett_settings_validate_cleanup_children'),
+  );
+
   $effects = array(
     1 => 'Slide in on top',
     2 => 'Reveal',
@@ -33,7 +45,7 @@ function fett_settings_offcanvas_form(&$form, $theme_name) {
       '#type'        => 'fieldset',
       '#title'       => $name,
       '#collapsible' => TRUE,
-      '#collapsed'   => !fett_get_setting('offcanvas_' .$key),
+      '#collapsed'   => !fett_get_setting('offcanvas_' .$key) || !fett_get_setting('offcanvas'),
     );
 
     $form[$key]['offcanvas_' . $key] = array(

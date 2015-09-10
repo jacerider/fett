@@ -25,13 +25,11 @@ function fett_icon_link($text, $path, array $options = array()){
   if(function_exists('fawesome_text') && $icon = fawesome_match($text)){
     $options['html'] = TRUE;
     if($visibility = fett_get_setting('icon_hide_labels')){
-      fett_foundation_js('tooltip');
-      $direction = isset($options['tip_direction']) ? $options['tip_direction'] : 'bottom';
-      $options['attributes']['data-tooltip'] = '';
-      $options['attributes']['title'] = $text;
-      $options['attributes']['class'][] = 'tip-' . $direction;
-      $options['attributes']['data-options'] = 'disable_for_touch:true';
-      $text = '<i class="fa fa-' . $icon['icon'] . '"></i><span class="hide-' . $visibility . '"> ' . $text . '</span>';
+      $cache = &drupal_static(__FUNCTION__, 0);
+      $options['attributes']['class'][] = 'tip-' . $cache;
+      fett_tooltip_add('.' . 'tip-' . $cache, $text, array('maxWidth' => 400, 'touchDevices' => FALSE, 'delay' => 100));
+      $text = '<i class="fa fa-' . $icon['icon'] . '"></i> <span class="hide-' . $visibility . '"> ' . $text . '</span>';
+      $cache++;
     }
     else{
       $text = '<i class="fa fa-' . $icon['icon'] . '"></i> ' . $text;
@@ -131,7 +129,7 @@ function _fett_defaults($theme = NULL){
     }
     // Include all Foundation CSS/SCSS files by default.
     $components = fett_foundation_css_components();
-    foreach(array('orbit','joyride','magellan','pricing-tables','range-slider','reveal','offcanvas') as $key){
+    foreach(array('orbit','joyride','magellan','pricing-tables','range-slider','reveal','offcanvas','accordion','alert-boxes','panels','progress-bar','side-nav','sub-nav','top-bar','switches','thumbs','icon-bar') as $key){
       unset($components[$key]);
     }
     $conf["theme_{$theme}_settings"]['css_foundation'] = array_keys($components);
@@ -209,7 +207,8 @@ function fett_get_css_files($theme_name) {
       }
 
       // Theme info defined files
-      $info_data = fett_get_info_trail($theme_name);
+      include_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'fett') . '/template.php';
+      $info_data = _fett_theme_info_trail($theme_name);
       foreach ($info_data as $provider => $theme_info) {
         foreach ($theme_info as $this_info => $info) {
           if ($this_info == 'info') {
@@ -249,36 +248,4 @@ function fett_get_css_files($theme_name) {
   }
 
   return $styles;
-}
-
-/**
- * Returns an array keyed by theme name.
- *
- * Return the all the info file data for a particular theme including base
- * themes. Parts of this function are shamelessly ripped from Drupal core's
- * _drupal_theme_initialize().
- *
- * @param $theme_name, usually the active theme.
- */
-function fett_get_info_trail($theme_name) {
-  $info_trail = &drupal_static(__FUNCTION__, array());
-  if (empty($info_trail)) {
-    $lt = list_themes();
-
-    // First check for base themes and get info
-    $base_theme = array();
-    $ancestor = $theme_name;
-    while ($ancestor && isset($lt[$ancestor]->base_theme)) {
-      $ancestor = $lt[$ancestor]->base_theme;
-      $base_theme[] = $lt[$ancestor];
-    }
-    foreach ($base_theme as $base) {
-      $info_trail[$base->name]['info'] = $base->info;
-    }
-
-    // Now the active theme
-    $info_trail[$theme_name]['info'] = $lt[$theme_name]->info;
-  }
-
-  return $info_trail;
 }

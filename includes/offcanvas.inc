@@ -23,19 +23,14 @@ function _fett_theme_offcanvas(&$theme){
       'direction' => 'left',
     ),
   );
-
-    // 'region' => array(
-    //   'render element' => 'elements',
-    //   'template' => 'region',
-    // ),
 }
 
 /**
  * Implements template_preprocess_page().
  *
- * @see _fett_preprocess_page()
+ * @see fett_preprocess_page()
  */
-function _fett_offcanvas_preprocess_page(&$vars){
+function fett_offcanvas_preprocess_page(&$vars){
   foreach(array('main_nav', 'sidebar_first', 'sidebar_second') as $key){
     fett_offcanvas_element($key, $vars);
   }
@@ -52,19 +47,26 @@ function fett_offcanvas_element($key, &$vars){
 
   if(($visibility = fett_get_setting('offcanvas_' . $key)) && $parents = _fett_offcanvas_element_find($vars, $key)){
     $content = drupal_array_get_nested_value($vars, _fett_offcanvas_element_find($vars, $key));
-    if(isset($content['#attributes']['id'])){
-      $content['#attributes']['id'] .= '-oc';
+    if(!empty($content)){
+      if(isset($content['#attributes']['id'])){
+        $content['#attributes']['id'] .= '-oc';
+      }
+      if($visibility === 'always'){
+        _fett_offcanvas_element_remove($vars, $parents);
+      }
+      else{
+        _fett_offcanvas_element_wrap($vars, $parents, $visibility);
+      }
+      $effect = fett_get_setting('offcanvas_' . $key . '_effect');
+      $direction = fett_get_setting('offcanvas_' . $key . '_direction', NULL, 'left');
+      $title = fett_get_setting('offcanvas_' . $key . '_title', NULL, '<i class="fa fa-bars"></i> ' . t('View'));
+      $hook = 'fett_offcanvas_' . $key;
+
+      // Allow other modules to modify the offcanvas element.
+      drupal_alter($hook, $content, $effect, $direction);
+
+      $vars['offcanvas_' . $key . '_link'] = drupal_render(fett_offcanvas_add($content, $effect, $title, $direction, 'hide-' . $visibility, $key));
     }
-    if($visibility === 'always'){
-      _fett_offcanvas_element_remove($vars, $parents);
-    }
-    else{
-      _fett_offcanvas_element_wrap($vars, $parents, $visibility);
-    }
-    $effect = fett_get_setting('offcanvas_' . $key . '_effect');
-    $direction = fett_get_setting('offcanvas_' . $key . '_direction', NULL, 'left');
-    $title = fett_get_setting('offcanvas_' . $key . '_title', NULL, '<i class="fa fa-bars"></i> ' . t('View'));
-    $vars['offcanvas_' . $key . '_link'] = drupal_render(fett_offcanvas_add($content, $effect, $title, $direction, 'hide-' . $visibility, $key));
   }
 }
 
@@ -181,7 +183,7 @@ function fett_preprocess_fett_offcanvas_block(&$vars){
     $vars['direction'] = 'right';
   }
   $vars['classes_array'][] = 'oc-direction-' . $vars['direction'];
-  $vars['attributes_array']['id'] = 'oc-block-' . drupal_clean_css_identifier($vars['id']);
+  $vars['attributes_array']['id'] = 'oc-block-' . drupal_html_class($vars['id']);
 }
 
 /**
@@ -212,9 +214,9 @@ function fett_fett_offcanvas_block($vars){
  * Implements template_preprocess_fett_offcanvas_link().
  */
 function fett_preprocess_fett_offcanvas_link(&$vars) {
-  $vars['attributes_array']['id'] = 'oc-link-' . drupal_clean_css_identifier($vars['id']);
+  $vars['attributes_array']['id'] = 'oc-link-' . drupal_html_class($vars['id']);
   $vars['attributes_array']['data-oc-effect'] = $vars['effect'];
-  $vars['attributes_array']['data-oc-id'] = drupal_clean_css_identifier($vars['id']);
+  $vars['attributes_array']['data-oc-id'] = drupal_html_class($vars['id']);
   if($vars['id'] === 'sidebar_second'){
     $vars['direction'] = 'right';
   }

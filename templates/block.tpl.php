@@ -45,7 +45,7 @@
  */
 ?>
 <!-- block.<?php print $block->module . '-' . $block->delta; ?>.start -->
-<div id="<?php print $block_html_id; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
+<div <?php if($block_html_id): ?>id="<?php print $block_html_id; ?>" <?php endif; ?>class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <?php print render($title_prefix); ?>
   <?php if ($block->subject): ?>
     <h2<?php print $title_attributes; ?>><?php print $block->subject ?></h2>

@@ -1,6 +1,6 @@
 (function ($, Drupal) {
 
-  Drupal.behaviors.STARTER = {
+  Drupal.behaviors.KAST = {
     attach: function(context, settings) {
       // Get your JS started.
     }

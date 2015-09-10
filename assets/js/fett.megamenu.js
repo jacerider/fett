@@ -1,41 +1,8 @@
 (function ($, Drupal) {
 
-var FettMegaMenu = {
-  runOnce: false,
-  isMobile: Drupal.fett.isMobile()
-};
-
-FettMegaMenu.attach = function(context, settings) {
-  var self = this;
-
-  if(!self.runOnce){
-
-    // new mlPushMenu( document.getElementById( 'main-nav-offcanvas' ), document.getElementById( 'oc-link-main-nav' ) );
-
-    // $('.megamenu').each(function(){
-    //   self.megamenu($(this), settings);
-    // });
-  }
-}
-
-FettMegaMenu.megamenu = function($megamenu, settings) {
-  var self = this;
-  var eventType = self.isMobile ? 'touchstart' : 'mouseenter';
-
-  $('li.drop > a', $megamenu).on(eventType, function(e){
-    e.stopPropagation();
-    e.preventDefault();
-    var $drop = $(this).closest('li.drop');
-  });
-}
-
-Drupal.behaviors.fettMegaMenu = FettMegaMenu;
-
-
-
 var FettMegaMenuOffCanvas = {
   runOnce: false,
-  isMobile: Drupal.fett.isMobile(),
+  isMobile: Fett.isMobile(),
   support: Modernizr.csstransforms3d,
   level: 0,
   levelTotal: 0,
@@ -46,23 +13,25 @@ var FettMegaMenuOffCanvas = {
     levelSpacing : 40
   },
   direction: 'left',
-  $trigger: null,
   $el: null,
   $wrapper: null,
   $levels: null,
   $menuItems: null,
+  $levelBack: null
 };
 
 FettMegaMenuOffCanvas.attach = function(context, settings) {
   var self = this;
   if(self.support && !self.runOnce){
-    self.$trigger = $('#oc-link-main-nav');
-    self.$el = $('#main-nav-offcanvas');
+    self.$el = $('#main-nav-oc-offcanvas');
     self.$wrapper = $('.oc-wrapper');
     self.$levels = $('div.mp-level', self.$el);
     self.setLevelDepth();
     self.$menuItems = $('li', self.$el);
-    self.eventType = self.isMobile ? 'touchstart' : 'click';
+    self.$levelBack = $('.mp-back', self.$el);
+    self.$activeLink = $('a.active-trail:last', self.$el);
+    self.$activeLevel = null;
+    self.eventType = 'click';
     self.$el.addClass('mp-' + self.options.type);
     self.init();
   }
@@ -70,44 +39,35 @@ FettMegaMenuOffCanvas.attach = function(context, settings) {
 
 FettMegaMenuOffCanvas.init = function() {
   var self = this;
+  self.$wrapper.on('offcanvas-open', function(e, id, effect, direction){
+    // Only act on main-nav.
+    if(id == 'main-nav'){
+      if( self.open ) {
+        self.resetMenu();
+      }
+      else {
+        // Set active level
+        if(self.$activeLink.length && self.$activeLink.length === 1){
+          self.$activeLevel = $(self.$activeLink).closest('div.mp-level');
+          var level = self.$activeLevel.data('mp-level');
+          if(level > 1){
+            self.$activeLevel.parents('.mp-level').addClass('mp-level-overlay');
+            self.level = level - 1;
+          }
+        }
 
-  self.$wrapper.on('offcanvas-open', function(e, direction){
-    if( self.open ) {
-      self.resetMenu();
-    }
-    else {
-      self.direction = direction;
-      self.openMenu();
-      // the menu should close if clicking somewhere on the body (excluding clicks on the menu)
-      // $(document).on(self.eventType + '.megamenu', function(e){
-      //   if(self.open && !$(e.target).closest('#' + self.$el.attr('id')).length){
-      //     self.resetMenu();
-      //     $(document).off(self.eventType + '.megamenu');
-      //   }
-      // });
+        self.direction = direction;
+        self.openMenu(self.$activeLevel);
+      }
     }
   });
 
-  self.$wrapper.on('offcanvas-close', function(){
-    self.resetMenu();
-  })
-
-  // self.$trigger.on(self.eventType, function(e){
-  //   e.preventDefault();
-  //   if( self.open ) {
-  //     self.resetMenu();
-  //   }
-  //   else {
-  //     self.openMenu();
-  //     // the menu should close if clicking somewhere on the body (excluding clicks on the menu)
-  //     $(document).on(self.eventType + '.megamenu', function(e){
-  //       if(self.open && !$(e.target).closest('#' + self.$el.attr('id')).length){
-  //         self.resetMenu();
-  //         $(document).off(self.eventType + '.megamenu');
-  //       }
-  //     });
-  //   }
-  // });
+  self.$wrapper.on('offcanvas-close', function(e, id){
+    // Only act on main-nav.
+    if(id == 'main-nav'){
+      self.resetMenu();
+    }
+  });
 
   self.$menuItems.each(function(e){
     var $li = $(this);
@@ -139,6 +99,19 @@ FettMegaMenuOffCanvas.init = function() {
       }
     })
   });
+
+  // by clicking on a specific element
+  self.$levelBack.each(function(e){
+    $(this).on(self.eventType, function(e){
+      e.preventDefault();
+      var level = $(this).closest('.mp-level').data('mp-level');
+      if(self.level <= level){
+        e.stopPropagation();
+        self.level = level - 1;
+        self.level === 0 ? self.resetMenu() : self.closeMenu();
+      }
+    })
+  });
 }
 
 FettMegaMenuOffCanvas.openMenu = function($subLevel) {
@@ -148,19 +121,16 @@ FettMegaMenuOffCanvas.openMenu = function($subLevel) {
   var levelFactor = ( self.level - 1 ) * self.options.levelSpacing;
   var translateVal = self.options.type === 'overlap' ? self.$el.width() + levelFactor : self.$el.width();
 
-  // self.$wrapper.css({transform: 'translate3d(' + translateVal + 'px,0,0)'});
-  // self.$el.parent().css({width: translateVal + 'px'});
-
-  // self.$wrapper.removeClass('mp-level-' + (self.level - 1)).addClass('mp-level-' + self.level);
   self.levelClass();
 
   if($subLevel) {
     // reset transform for sublevel
     $subLevel.css({transform: ''});
     // need to reset the translate value for the level menus that have the same level depth and are not open
+
     self.$levels.each(function(){
       var $levelEl = $(this);
-      if(!$subLevel.is($levelEl) && !$levelEl.hasClass('mp-level-open')){
+      if(!$subLevel.is($levelEl) && !$levelEl.hasClass('mp-level-open') && !$levelEl.hasClass('mp-level-base')){
         if(self.direction == 'right'){
           $levelEl.css({transform: 'translate3d(0,0,0) translate3d(' - -1*levelFactor + 'px,0,0)'});
         }
@@ -172,7 +142,6 @@ FettMegaMenuOffCanvas.openMenu = function($subLevel) {
   }
 
   if(self.level === 1){
-    // self.$wrapper.addClass('mp-pushed');
     self.open = true;
   }
 
@@ -180,6 +149,7 @@ FettMegaMenuOffCanvas.openMenu = function($subLevel) {
 
   // add class mp-level-open to the opening level element
   $subLevel.addClass('mp-level-open');
+  $subLevel.parents('div.mp-level').addClass('mp-level-open');
 }
 
 FettMegaMenuOffCanvas.levelClass = function(){
@@ -194,16 +164,13 @@ FettMegaMenuOffCanvas.closeMenu = function(){
   var self = this;
   var levelFactor = ( self.level - 1 ) * self.options.levelSpacing;
   var translateVal = self.options.type === 'overlap' ? self.$el.width() + levelFactor : self.$el.width();
-  // self.$wrapper.css({transform: 'translate3d(' + translateVal + 'px,0,0)'});
   self.levelClass();
   self.toggleLevels();
 }
 
 FettMegaMenuOffCanvas.resetMenu = function(){
   var self = this;
-  // self.$wrapper.css({transform: 'translate3d(0,0,0)'});
   self.level = 0;
-  // self.$wrapper.removeClass('mp-pushed');
   self.toggleLevels();
   self.open = false;
 }
@@ -212,7 +179,7 @@ FettMegaMenuOffCanvas.toggleLevels = function(){
   var self = this;
   self.$levels.each(function(){
     var $levelEl = $(this);
-    var level = Number($levelEl.data( 'mp-level' ));
+    var level = Number($levelEl.data( 'mp-level'));
     if( level  >= self.level + 1 ) {
       $levelEl.removeClass('mp-level-open mp-level-overlay');
     }
@@ -227,7 +194,7 @@ FettMegaMenuOffCanvas.setLevelDepth = function() {
   self.$levels.each(function(){
     var level = $(this).parents('.mp-level').length + 1;
     self.levelTotal = Math.max(level, self.levelTotal);
-    $(this).data('mp-level', level).attr('data-mp-mp-level', level);
+    $(this).data('mp-level', level).attr('data-mp-level', level);
   });
 }
 

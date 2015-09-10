@@ -38,6 +38,14 @@
 }
 
 /**
+ * Easy Admin
+ */
+body.easy-admin-menu{
+  margin:0;
+  padding-left:90px;
+}
+
+/**
  * Status Messages
  */
 .alert.status{
@@ -66,6 +74,53 @@
 }
 .alert.error{
   @include fett-alert($alert-color, minus-circle);
+}
+
+/**
+ * Dates and Dates Module
+ */
+.date-display-range{
+  display:inline;
+}
+
+/**
+ * Container inline
+ */
+.container-inline{
+
+  > div{
+    display:inline-block;
+  }
+}
+
+/**
+ * Various basic styles
+ */
+table{
+  width:100%;
+}
+
+/**
+ * Token Module
+ */
+.treeTable{
+
+  tr{
+
+    td .expander{
+      cursor: pointer;
+      padding: 0;
+      zoom: 1; /* IE7 Hack */
+    }
+
+    &.collapsed td .expander{
+      @include fa-before(caret-right);
+    }
+
+    &.expanded td .expander{
+      @include fa-before(caret-down);
+    }
+  }
 }
 
 /**
@@ -108,6 +163,46 @@
   height: auto;
 }
 
+/**
+ * Ajax loaders.
+ */
+
+ // h3{
+ //  &:before{
+ //    @include fa-pulse(spinner);
+ //  }
+ // }
+
+.ajax-progress-throbber{
+  position:absolute;
+  z-index:3000;
+  background:rgba(0,0,0,.5);
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  height:100%;
+  color:transparent;
+
+  .throbber{
+    background:none;
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-left:rem-calc(-20);
+    margin-top:rem-calc(-20);
+  }
+
+  .throbber:before {
+    @include fa-pulse(spinner);
+    font-size:rem-calc(40);
+    width: rem-calc(40);
+    line-height: rem-calc(40);
+    color:#fff;
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 /// Utility Classes
 ////////////////////////////////////////////////////////////////////////////////
@@ -145,5 +240,14 @@
 .middle-small{
   @media #{$small-only} {
     @include middle();
+  }
+}
+
+html.flexbox{
+  @media #{$medium-up} {
+    .row-middle{
+      @include display(flex);
+      @include align-items(center);
+    }
   }
 }

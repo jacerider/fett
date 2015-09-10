@@ -14,6 +14,7 @@ function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = N
   // Includes
   include_once './' . $path_fett . '/includes/foundation.inc';
   include_once './' . $path_fett . '/includes/tools.inc';
+  include_once './' . $path_fett . '/includes/share.inc';
   $form['#attached']['js'][] = $path_fett .'/assets/js/fett.theme.settings.js';
 
   // Set defaults if necessary
@@ -104,6 +105,45 @@ function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = N
 
 
   //////////////////////////////////////////////////////////////////////////////
+  // Social Sharing Buttons.
+  //////////////////////////////////////////////////////////////////////////////
+
+  $form['fett']['share'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Social Sharing Buttons'),
+  );
+
+  require_once($path_fett . '/settings/share.inc');
+  fett_settings_share_form($form['fett']['share'], $theme_name);
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Megamenu
+  //////////////////////////////////////////////////////////////////////////////
+
+  $form['fett']['megamenu'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Mega Menu'),
+  );
+
+  require_once($path_fett . '/settings/megamenu.inc');
+  fett_settings_megamenu_form($form['fett']['megamenu'], $theme_name);
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Tooltips
+  //////////////////////////////////////////////////////////////////////////////
+
+  $form['fett']['tooltip'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Tooltip'),
+  );
+
+  require_once($path_fett . '/settings/tooltip.inc');
+  fett_settings_tooltip_form($form['fett']['tooltip'], $theme_name);
+
+
+  //////////////////////////////////////////////////////////////////////////////
   // Tools
   //////////////////////////////////////////////////////////////////////////////
 
@@ -112,11 +152,11 @@ function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = N
     '#title' => t('Tools'),
   );
 
-  $form['fett']['tools']['megamenu'] = array(
+  $form['fett']['tools']['header_fixed'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Enable Mega Menu'),
-    '#default_value' => fett_get_setting('megamenu'),
-    '#description' => t('The main menu will be converted into mega-menu/dropdown ready markup.'),
+    '#title' => t('Enable Fixed Header'),
+    '#default_value' => fett_get_setting('header_fixed'),
+    '#description' => t('Will fix the header to the top of the page when scrolling.'),
   );
 
   $form['fett']['tools']['html_tags'] = array(
@@ -139,6 +179,24 @@ function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = N
       '#default_value' => fett_get_setting('icon_hide_labels'),
     );
   }
+
+  $options = array(1,2,3,4,5,6,7,8,9,10,11,12);
+  $form['fett']['tools']['content_class_large'] = array(
+    '#type' => 'select',
+    '#title' => t('Content size without sidebars'),
+    '#options' => drupal_map_assoc($options),
+    '#default_value' => fett_get_setting('content_class_large', NULL, 12),
+    '#description' => t('The Foundation large size of the main content area when no sidebars exist.'),
+  );
+
+  $options = array(1,2,3,4,5,6,7,8,9,10,11,12);
+  $form['fett']['tools']['sidebar_class_large'] = array(
+    '#type' => 'select',
+    '#title' => t('Sidebar size'),
+    '#options' => drupal_map_assoc($options),
+    '#default_value' => fett_get_setting('sidebar_class_large', NULL, 3),
+    '#description' => t('The Foundation large size of the sidebars.'),
+  );
 
 
   //////////////////////////////////////////////////////////////////////////////
@@ -166,11 +224,30 @@ function fett_settings_submit($form, &$form_state){
   drupal_theme_rebuild();
 }
 
+/**
+ * Validation best assigned to checkboxes. It will remove all empty values from
+ * the saved array.
+ */
 function fett_settings_validate_cleanup($element, &$form_state, $form) {
   if(isset($form_state['values'][$element['#name']]) && is_array($form_state['values'][$element['#name']])){
     $form_state['values'][$element['#name']] = array_values(array_filter($form_state['values'][$element['#name']]));
     if(empty($form_state['values'][$element['#name']])){
       unset($form_state['values'][$element['#name']]);
+    }
+  }
+}
+
+/**
+ * Validation best assigned to a checkbox. If value of checkbox is FALSE then
+ * all children started with the checkbox key will be removed.
+ */
+function fett_settings_validate_cleanup_children($element, &$form_state, $form) {
+  if(empty($form_state['values'][$element['#name']])){
+    foreach($form_state['values'] as $key => $value){
+      $result = preg_match('#^' . $element['#name'] . '#i', $key);
+      if($result != 0){
+        unset($form_state['values'][$key]);
+      }
     }
   }
 }

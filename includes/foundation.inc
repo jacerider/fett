@@ -9,7 +9,7 @@
 function fett_foundation_css_components(){
   $files = array();
   if(module_exists('sonar')){
-    $file = file_get_contents(dirname(dirname(__FILE__)) . '/assets/foundation/scss/foundation.scss');
+    $file = file_get_contents(dirname(dirname(__FILE__)) . '/libraries/foundation/scss/foundation.scss');
     preg_match_all("/components\/(.*)?';/",$file,$matches, PREG_PATTERN_ORDER);
     if(!empty($matches[1])){
       foreach($matches[1] as $name){
@@ -41,12 +41,12 @@ function fett_foundation_css($name = NULL){
 
   // Get theme-enabled css files. Only do this the first time this function is
   // called as the results are cached.
-  $components = !isset($files) ? fett_get_setting('css_foundation') : array();
+  $components = !isset($files) ? fett_get_setting('css_foundation', NULL, array()) : array();
 
   if(isset($name) && module_exists('sonar')){
     $components[] = $name;
   }
-  if(!empty($components)){
+  // if(!empty($components)){
     $options = array(
       'every_page' => TRUE,
       'group' => CSS_DEFAULT,
@@ -56,25 +56,25 @@ function fett_foundation_css($name = NULL){
       'group' => CSS_SYSTEM,
     );
     if(module_exists('sonar')){
-      $files["$path_fett/assets/foundation/scss/normalize.scss"] = $options_init + $options;
+      $files["$path_fett/libraries/foundation/scss/normalize.scss"] = $options_init + $options;
+      $files["$path_fett/libraries/foundation/scss/foundation/_functions.scss"] = $options_init + $options;
       if($theme_key !== 'fett'){
         // Add theme-specific Foundation settings override file.
         $path_current = drupal_get_path('theme', $theme_key);
-        $files["$path_fett/assets/foundation/scss/foundation/_functions.scss"] = $options_init + $options;
         $files["$path_current/assets/scss/libraries/_settings.scss"] = $options_init + $options;
-        // We want global to load in CSS_SYSTEM so it loads with all libraries but we want it to load at the very end.
-        $files["$path_fett/assets/foundation/scss/foundation/components/_global.scss"] = array('weight' => -98) + $options_init + $options;
       }
+      // We want global to load in CSS_SYSTEM so it loads with all libraries but we want it to load at the very end.
+      $files["$path_fett/libraries/foundation/scss/foundation/components/_global.scss"] = array('weight' => -98) + $options_init + $options;
       foreach($components as $name){
-        $files["$path_fett/assets/foundation/scss/foundation/components/_$name.scss"] = $options;
+        $files["$path_fett/libraries/foundation/scss/foundation/components/_$name.scss"] = $options;
       }
     }
     else{
       foreach($components as $name){
-        $files["$path_fett/assets/foundation/css/$name.css"] = $options;
+        $files["$path_fett/libraries/foundation/css/$name.css"] = $options;
       }
     }
-  }
+  // }
   return $files ? $files : array();
 }
 
@@ -91,7 +91,7 @@ function fett_foundation_css($name = NULL){
  */
 function fett_sonar_scss_alter(&$groups){
   if(!empty($groups[0]) && !empty($groups[1])){
-    $files = array('assets/foundation/scss/foundation/_functions.scss','assets/scss/libraries/_settings.scss','assets/foundation/scss/foundation/components/_global.scss');
+    $files = array('libraries/foundation/scss/foundation/_functions.scss','assets/scss/libraries/_settings.scss','libraries/foundation/scss/foundation/components/_global.scss');
     $includes = array();
     foreach($files as $needle){
       foreach($groups[0] as $key => $file){
@@ -113,7 +113,7 @@ function fett_sonar_scss_alter(&$groups){
  */
 function fett_foundation_js_components(){
   $files = array();
-  $base = dirname(dirname(__FILE__)) . '/assets/foundation/js/foundation';
+  $base = dirname(dirname(__FILE__)) . '/libraries/foundation/js/foundation';
   $match = array_diff(scandir($base), array('.', '..'));
   foreach($match as $file){
     if($file !== 'foundation.js'){
@@ -151,9 +151,9 @@ function fett_foundation_js($name = NULL){
       'every_page' => TRUE,
       'scope'      => 'footer'
     );
-    $files["$path_fett/assets/foundation/js/foundation/foundation.js"] = $options;
+    $files["$path_fett/libraries/foundation/js/foundation/foundation.js"] = $options;
     foreach($components as $name){
-      $files["$path_fett/assets/foundation/js/foundation/foundation.$name.js"] = $options;
+      $files["$path_fett/libraries/foundation/js/foundation/foundation.$name.js"] = $options;
     }
     $files['inline'] = $options + array(
       'type'   => 'inline',

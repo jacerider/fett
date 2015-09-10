@@ -1,0 +1,30 @@
+$form-spacing: rem-calc(16) !default;
+$form-placeholder-color: #A5A5A5 !default;
+$form-placeholder-weight: 200 !default;
+$form-placeholder-size: rem-calc(12) !default;
+
+form{
+
+  .description{
+    font-size:rem-calc(12);
+    line-height:rem-calc(16);
+    padding-top:rem-calc(5);
+    margin-top: -$form-spacing;
+    margin-bottom: $form-spacing;
+
+    @if (lightness($body-font-color) > 50) {
+      color: darken($body-font-color, 40%);
+    } @else {
+      color: lighten($body-font-color, 40%);
+    }
+  }
+}
+
+input:not([type]), input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], input[type="color"], textarea{
+  @include placeholder {
+    color: $form-placeholder-color;
+    weight: $form-placeholder-weight;
+    font-size: $form-placeholder-size;
+    text-transform: uppercase;
+  }
+}
