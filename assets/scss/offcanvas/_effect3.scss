@@ -32,3 +32,29 @@
   visibility: visible;
   @include transition(transform 0.5s);
 }
+
+////////////////////////////////////////////////////////////////////////////////
+/// Megamenu
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-3.oc-open.mp-level-2{
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(340px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-340px, 0, 0));
+  }
+}
+
+.oc-effect-3.oc-open.mp-level-3{
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(380px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-380px, 0, 0));
+  }
+}

@@ -34,3 +34,37 @@
   @include transition(transform 0.5s);
   @include transform(translate3d(0, 0, 0));
 }
+
+////////////////////////////////////////////////////////////////////////////////
+/// Megamenu
+////////////////////////////////////////////////////////////////////////////////
+
+.oc-effect-4.oc-open.mp-level-2{
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(340px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-340px, 0, 0));
+  }
+}
+
+.oc-effect-4.oc-open.mp-level-3{
+
+  &.oc-direction-left .oc-push{
+    @include transform(translate3d(380px, 0, 0));
+  }
+
+  &.oc-direction-right .oc-push{
+    @include transform(translate3d(-380px, 0, 0));
+  }
+}
+
+.oc-effect-4.oc-open.mp-level-2 .oc-effect-4.active{
+  @include transform(translate3d(40px, 0, 0));
+}
+
+.oc-effect-4.oc-open.mp-level-3 .oc-effect-4.active{
+  @include transform(translate3d(80px, 0, 0));
+}
