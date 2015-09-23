@@ -40,7 +40,7 @@ FettOffCanvas.open = function(id, effect, direction) {
     self.$container.trigger('offcanvas-open', [id, effect, direction]);
   }, 25 );
 
-  $(document).on('click' + '.offcanvas', function(e){
+  $('.oc-push').on('click' + '.offcanvas', function(e){
     if(!$(e.target).closest('.oc-block').length){
       self.close();
       $(this).off('click' + '.offcanvas');
