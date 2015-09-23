@@ -80,4 +80,58 @@ function fett_preprocess_html(&$vars){
   $vars['page']['page_bottom']['remjs'] = array(
     '#markup' => $script,
   );
+
+  // Add Foundation CSS/SCSS
+  foreach(fett_foundation_css() as $file => $options){
+    // $element['#attached']['css'][$file] = $options;
+    drupal_add_css($file, $options);
+  }
+  // Add Foundation JS
+  foreach(fett_foundation_js() as $file => $options){
+    $element['#attached']['js'][$file] = $options;
+    drupal_add_js($file, $options);
+  }
+  // Add core CSS files.
+  if(module_exists('sonar')){
+    // Add Fett and children SCSS files to page.
+    if($theme_key !== 'fett'){
+      $theme_path = drupal_get_path('theme', $theme_key);
+      $options = array(
+        'every_page' => TRUE,
+        'group' => CSS_SYSTEM,
+        'weight' => -100,
+      );
+      drupal_add_css("$theme_path/assets/scss/libraries/_variables.scss", $options);
+      drupal_add_css("$theme_path/assets/scss/libraries/_mixins.scss", $options);
+    }
+    foreach(_fett_theme_info_all('scss', array()) as $theme_key_id => $scss){
+      $theme_path = drupal_get_path('theme', $theme_key_id);
+      $options = array(
+        'group' => $theme_key_id == 'fett' ? CSS_DEFAULT : CSS_THEME,
+        'every_page' => TRUE,
+        'weight' => -10,
+      );
+      foreach($scss as $file){
+        drupal_add_css("$theme_path/$file", $options);
+      }
+    }
+    // Add Fett module-dependant SCSS files to page.
+    foreach(_fett_theme_info('scss_module', array()) as $module => $scss){
+      if(module_exists($module)){
+        $options = array(
+          'group' => CSS_DEFAULT,
+          'every_page' => TRUE,
+          'weight' => -5,
+        );
+        drupal_add_css("$path_fett/$scss", $options);
+      }
+    }
+  }
+  // Fixed header.
+  if(fett_get_setting('header_fixed')){
+    $element['#attached']['library'][] = array('fett','fett.fixed');
+  }
+
+  // Tooltips
+  fett_tooltip_process();
 }

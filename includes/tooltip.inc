@@ -11,21 +11,36 @@
  *   Options to pass to the tooltip. See URL for list of options.
  *   http://iamceege.github.io/tooltipster/#getting-started
  */
-function fett_tooltip_add($selector, $content, $options = array()){
-  drupal_add_library('fett', 'fett.tooltips');
+function fett_tooltip_add($selector = NULL, $content = NULL, $options = array()){
+  $tooltips = &drupal_static(__FUNCTION__, array());
 
-  $defaults = array(
-    'contentAsHTML' => TRUE,
-    'theme' => 'fett-tooltip radius',
-  );
-  if(isset($options['class'])){
-    if(!is_array($options['class'])){
-      $options['class'] = array($options['class']);
+  if (isset($selector)) {
+
+    $defaults = array(
+      'contentAsHTML' => TRUE,
+      'theme' => 'fett-tooltip radius',
+    );
+    if(isset($options['class'])){
+      if(!is_array($options['class'])){
+        $options['class'] = array($options['class']);
+      }
+      $defaults['theme'] .= ' ' . implode(' ', $options['class']);
     }
-    $defaults['theme'] .= ' ' . implode(' ', $options['class']);
+    $options['content'] = $content;
+    $options += $defaults;
+    $tooltips[$selector] = $options;
   }
-  $options['content'] = $content;
-  $options += $defaults;
 
-  drupal_add_js(array('fett_tooltip' => array($selector => $options)), 'setting');
+  return $tooltips;
+}
+
+/**
+ * Add tooltips to request.
+ */
+function fett_tooltip_process(){
+  $tooltips = fett_tooltip_add();
+  if(!empty($tooltips)){
+    drupal_add_library('fett', 'fett.tooltips');
+    drupal_add_js(array('fett_tooltip' => $tooltips), 'setting');
+  }
 }
