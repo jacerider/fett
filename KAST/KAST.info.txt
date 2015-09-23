@@ -29,18 +29,18 @@ regions[footer]         = Footer
 ; These files are empty, just uncomment this line and start editing!
 
 ; Libraries
-stylesheets[all][] = assets/scss/libraries/_variables.scss
-stylesheets[all][] = assets/scss/libraries/_mixins.scss
+scss[] = assets/scss/libraries/_variables.scss
+scss[] = assets/scss/libraries/_mixins.scss
 
 ; Components
-stylesheets[all][] = assets/scss/components/_typography.scss
-stylesheets[all][] = assets/scss/components/_header.scss
-stylesheets[all][] = assets/scss/components/_footer.scss
+scss[] = assets/scss/components/_typography.scss
+scss[] = assets/scss/components/_header.scss
+scss[] = assets/scss/components/_footer.scss
 
 ; Sections
-stylesheets[all][] = assets/scss/sections/_global.scss
+scss[] = assets/scss/sections/_global.scss
 
 
 ;-------------- JAVASCRIPT
 ; This file is empty, just uncomment this line and start editing!
-; scripts[] = assets/js/kast.js
+; scripts[] = assets/js/KAST.js
