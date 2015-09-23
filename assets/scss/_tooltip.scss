@@ -3,19 +3,6 @@
  * Tooltip styling for Fett.
  */
 
-$include-html-tooltip-classes: true !default;
-
-$tooltip-padding: rem-calc(8 10) !default;
-$tooltip-bg: $oil !default;
-$tooltip-font-size: rem-calc(13) !default;
-$tooltip-font-weight: $font-weight-normal !default;
-$tooltip-font-color: $white !default;
-$tooltip-line-height: 1.3 !default;
-$tooltip-radius: $global-radius !default;
-$tooltip-rounded: $global-rounded !default;
-$tooltip-pip-size: 5px !default;
-$tooltip-max-width: 300px !default;
-
 @if $include-html-tooltip-classes {
 
   .fett-tooltip {

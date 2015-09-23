@@ -32,7 +32,7 @@ function fett_process_page(&$vars){
   else{
     // .window is used by fett.position.js and is the main scrollable
     // element.
-    $vars['classes_array'] = 'window';
+    $vars['classes_array'][] = 'window';
   }
 
   // Page prefix and suffix.
@@ -63,6 +63,7 @@ function fett_process_page(&$vars){
 }
 
 function fett_process_page_pre_render(&$element){
+  global $theme_key;
   $path_fett = drupal_get_path('theme', 'fett');
 
   // Add Foundation CSS/SCSS
@@ -76,11 +77,24 @@ function fett_process_page_pre_render(&$element){
   // Add core CSS files.
   if(module_exists('sonar')){
     // Add Fett and children SCSS files to page.
-    foreach(_fett_theme_info_all('scss', array()) as $theme_key => $scss){
+    if($theme_key !== 'fett'){
       $theme_path = drupal_get_path('theme', $theme_key);
+      $element['#attached']['css']["$theme_path/assets/scss/libraries/_variables.scss"] = array(
+        'every_page' => TRUE,
+        'group' => CSS_SYSTEM,
+        'weight' => -100,
+      );
+      $element['#attached']['css']["$theme_path/assets/scss/libraries/_mixins.scss"] = array(
+        'every_page' => TRUE,
+        'group' => CSS_SYSTEM,
+        'weight' => -100,
+      );
+    }
+    foreach(_fett_theme_info_all('scss', array()) as $theme_key_id => $scss){
+      $theme_path = drupal_get_path('theme', $theme_key_id);
       foreach($scss as $file){
         $element['#attached']['css']["$theme_path/$file"] = array(
-          'group' => $theme_key === 'fett' ? CSS_DEFAULT : CSS_THEME,
+          'group' => $theme_key_id == 'fett' ? CSS_DEFAULT : CSS_THEME,
           'every_page' => TRUE,
           'weight' => -10,
         );

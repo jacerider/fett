@@ -60,7 +60,6 @@ function fett_megamenu_alter_link_theme(&$links, $theme = 'megamenu', $depth = 0
   $depth++;
   if(isset($links['#theme_wrappers'])){
     $links['#theme_wrappers'][0] = 'menu_tree__' . $theme . '_' . $depth;
-    $links['#wrapper_attributes'] = array('asdf');
   }
   $icons_enabled = fett_get_setting('megamenu_icon') || fett_get_setting('megamenu_icon_oc');
   $icons = array();
@@ -154,9 +153,12 @@ function fett_menu_link__megamenu_1($vars) {
     $element['#attributes']['class'][] = 'active';
   }
   if(!empty($element['#icon']) && fett_get_setting('megamenu_icon')){
-    $icon = $element['#icon'] == '_default' ? 'circle-thin' : $element['#icon'];
-    $element['#title'] = '<i class="fa fa-' . $icon . '"></i> ' . $element['#title'];
-    $element['#localized_options']['html'] = TRUE;
+    $icon = $element['#icon'] == '_default' ? '' : $element['#icon'];
+    if($icon){
+      $element['#title'] = '<i class="fa fa-' . $icon . '"></i> <span>' . $element['#title'] . '</span>';
+      $element['#localized_options']['html'] = TRUE;
+      $element['#localized_options']['attributes']['class'][] = 'has-icon';
+    }
   }
   $output = l($element['#title'], $element['#href'], $element['#localized_options']);
   return '<li' . drupal_attributes($element['#attributes']) . '>' . $output . $sub_menu . "</li>\n";
@@ -174,7 +176,7 @@ function fett_menu_link__megamenu_2($vars) {
   if ($element['#below']) {
     $sub_menu = drupal_render($element['#below']);
   }
-  if(!empty($element['#icon']) && fett_get_setting('megamenu_icon_oc')){
+  if(!empty($element['#icon']) && fett_get_setting('megamenu_icon')){
     $icon = $element['#icon'] == '_default' ? 'circle-thin' : $element['#icon'];
     $element['#title'] = '<i class="fa fa-' . $icon . '"></i> ' . $element['#title'];
     $element['#localized_options']['html'] = TRUE;

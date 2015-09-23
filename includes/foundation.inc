@@ -61,7 +61,9 @@ function fett_foundation_css($name = NULL){
       if($theme_key !== 'fett'){
         // Add theme-specific Foundation settings override file.
         $path_current = drupal_get_path('theme', $theme_key);
-        $files["$path_current/assets/scss/libraries/_settings.scss"] = $options_init + $options;
+        // Load Foundation settings file AFTER scripts with a -100 weight.
+        // (_variables & _mixins when in a child theme)
+        $files["$path_current/assets/scss/libraries/_foundation.scss"] = array('weight' => -99) + $options_init + $options;
       }
       // We want global to load in CSS_SYSTEM so it loads with all libraries but we want it to load at the very end.
       $files["$path_fett/libraries/foundation/scss/foundation/components/_global.scss"] = array('weight' => -98) + $options_init + $options;
@@ -76,33 +78,6 @@ function fett_foundation_css($name = NULL){
     }
   // }
   return $files ? $files : array();
-}
-
-/**
- * Implements hook_sonar_scss_alter().
- *
- * Sonar 2.0 supports the ability to break out SCSS files into two groups and to
- * create two seperate files. One file is for the 'every_page' SCSS files. The
- * other is for page-specific files.
- *
- * We want our Foundation variables and functions available to these
- * page-specific SCSS files so we fetch them from the 'every_page' group and add
- * them to the page-specific group.
- */
-function fett_sonar_scss_alter(&$groups){
-  if(!empty($groups[0]) && !empty($groups[1])){
-    $files = array('libraries/foundation/scss/foundation/_functions.scss','assets/scss/libraries/_settings.scss','libraries/foundation/scss/foundation/components/_global.scss');
-    $includes = array();
-    foreach($files as $needle){
-      foreach($groups[0] as $key => $file){
-        if(strpos($key, $needle) !== FALSE){
-          $file['every_page'] = FALSE;
-          $includes[$key] = $file;
-        }
-      }
-    }
-    $groups[1] = $includes + $groups[1];
-  }
 }
 
 /**

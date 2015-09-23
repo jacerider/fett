@@ -1,25 +1,4 @@
 
-// config settings
-$share-txt:         #fff    !default;
-$share-email:       #0a88ff !default;
-$share-print:       #749FC4 !default;
-$share-facebook:    #306199 !default;
-$share-tumblr:      #32506d !default;
-$share-linkedin:    #007bb6 !default;
-$share-twitter:     #26c4f1 !default;
-$share-googleplus:  #e93f2e !default;
-$share-reddit:      #8bbbe3 !default;
-$share-pinterest:   #b81621 !default;
-$share-pocket:      #ed4054 !default;
-$share-github:      #444    !default;
-$share-instagram:   #517fa4 !default;
-
-// Set the border radius for the buttons
-$share-border-radius: $global-radius !default;
-
-// Font size
-$share-font-size: rem-calc(13) !default;
-
 // Variable list for all social button colors to be iterated over.
 $social-list: (
   share-email       $share-email,
