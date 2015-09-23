@@ -11,7 +11,8 @@ class Indenter {
         $options = array(
             'indentation_character' => '    '
         ),
-        $inline_elements = array('b', 'big', 'i', 'small', 'tt', 'abbr', 'acronym', 'cite', 'code', 'dfn', 'em', 'kbd', 'strong', 'samp', 'var', 'a', 'bdo', 'br', 'img', 'span', 'sub', 'sup', 'textarea', 'pre'),
+        $inline_elements = array('b', 'big', 'i', 'small', 'tt', 'abbr', 'acronym', 'cite', 'code', 'dfn', 'em', 'kbd', 'strong', 'samp', 'var', 'a', 'bdo', 'br', 'img', 'span', 'sub', 'sup', 'textarea'),
+        $wrapper_elements = array('pre', 'svg'),
         $temporary_replacements_script = array(),
         $temporary_replacements_inline = array();
 
@@ -75,6 +76,13 @@ class Indenter {
                 $input = str_replace($match, 'ᐃ' . ($i + 1) . 'ᐃ', $input);
             }
         }
+        // Remove wrapper elements and replace them with text entities.
+        // if (preg_match_all('/<(' . implode('|', $this->wrapper_elements) . ')[^>]*>(.|\n)*<\/(' . implode('|', $this->wrapper_elements) . ')>/', $input, $matches)) {
+        //     // $this->temporary_replacements_inline += $matches[0];
+        //     // foreach ($matches[0] as $i => $match) {
+        //     //     $input = str_replace($match, 'ᐃ' . ($i + 1) . 'ᐃ', $input);
+        //     // }
+        // }
 
         // Removing double whitespaces to make the source code easier to read.
         // With exception of <pre>/ CSS white-space changing the default behaviour, double whitespace is meaningless in HTML output.

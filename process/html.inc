@@ -12,11 +12,12 @@ function fett_process_html(&$vars){
 
   // Dintenter
   // Only show if krumo has not been invoked.
-  require_once(dirname(dirname(__FILE__)) . '/libraries/dindent/Indenter.php');
-  $indenter = new \Gajus\Dindent\Indenter();
-  if(strpos($vars['page'], 'krumo') === FALSE){
-    $vars['page'] = $indenter->indent($vars['page']);
-  }
-  $vars['page_top'] = $indenter->indent($vars['page_top']);
-  $vars['page_bottom'] = $indenter->indent($vars['page_bottom']);
+  // Removed due to performance issues.
+  // require_once(dirname(dirname(__FILE__)) . '/libraries/dindent/Indenter.php');
+  // $indenter = new \Gajus\Dindent\Indenter();
+  // if(strpos($vars['page'], 'krumo') === FALSE){
+  //   $vars['page'] = $indenter->indent($vars['page']);
+  // }
+  // $vars['page_top'] = $indenter->indent($vars['page_top']);
+  // $vars['page_bottom'] = $indenter->indent($vars['page_bottom']);
 }
