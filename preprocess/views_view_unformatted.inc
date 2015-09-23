@@ -13,7 +13,7 @@ function fett_preprocess_views_view_unformatted(&$vars){
     $classes = '';
     if(!empty($view->style_options['row_class'])){
       $vars['wrap_content'] = TRUE;
-      $classes = drupal_html_class($view->style_options['row_class']);
+      $classes = $view->style_options['row_class'];
     }
   }
 }
