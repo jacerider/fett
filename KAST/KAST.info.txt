@@ -8,7 +8,6 @@ base theme = fett
 
 ;-------------- FEATURES
 features[] = logo
-features[] = favicon
 features[] = name
 features[] = slogan
 features[] = main_menu
