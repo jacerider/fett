@@ -1,6 +1,6 @@
 <?php
 
-function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = NULL) {
+function fett_form_system_theme_settings_alter(&$form, &$form_state, $form_id = NULL) {
   if (isset($form_id)) return;
 
   // Variables
@@ -16,21 +16,58 @@ function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = N
   include_once './' . $path_fett . '/includes/tools.inc';
   include_once './' . $path_fett . '/includes/share.inc';
   $form['#attached']['js'][] = $path_fett .'/assets/js/fett.theme.settings.js';
+  $form_state['theme_name'] = $theme_name;
 
-  // Set defaults if necessary
-  _fett_defaults();
+  if(module_exists('sonar')){
+    $bg = drupal_get_path('theme', $theme_name) . '/assets/images/settings.png';
+    $lines = $path_fett . '/assets/images/settings-lines.png';
+    if(!file_exists($bg)){
+      $bg = $path_fett . '/assets/images/settings.png';
+    }
+    sonar_add_var('fett-settings-bg-image', "'" . url($bg) . "'");
+    sonar_add_var('fett-settings-bg-lines', "'" . url($lines) . "'");
+    $form['#attached']['css'][$path_fett . '/assets/scss/_settings.scss'] = array('every_page' => FALSE);
+  }
 
   $title = 'Fe&#8224;&#8224;';
   if($theme_name !== 'fett'){
     $themes = list_themes();
     $theme = $themes[$theme_name];
-    $title = $theme->name . ' <small><em>a lowly clone of</em> '.$title.'</small>';
+    $title = $theme->info['name'] . ' <small><em>a student of</em> '.$title.' <em>'.$themes['fett']->info['version'].'</em></small>';
   }
+
+  $form['#id'] = 'fett-settings-wrapper';
 
   $form['fett'] = array(
     '#type'   => 'vertical_tabs',
     '#weight' => -10,
-    '#prefix' => '<h1>' . $title . '</h1>',
+    '#prefix' => '
+      <div id="fett-settings-header">
+        <canvas id="starfield" style="background-color:#000000"></canvas>
+        <div class="bg"></div>
+        <div class="shine"></div>
+        <div class="image"></div>
+        <div class="lines"></div>
+      </div>
+      <div id="fett-settings">
+      <h1>' . $title . '</h1>',
+    '#suffix' => '</div>',
+  );
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Status
+  //////////////////////////////////////////////////////////////////////////////
+
+  $form['fett']['fett_status'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Status'),
+    '#description' => t('This bounty is worth more when all requirements and recommendations are met.'),
+    '#weight' => -100,
+  );
+
+  $form['fett']['fett_status']['status'] = array(
+    '#type' => 'item',
+    '#markup' => fett_form_system_status()
   );
 
 
@@ -134,13 +171,26 @@ function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = N
   // Tooltips
   //////////////////////////////////////////////////////////////////////////////
 
-  $form['fett']['tooltip'] = array(
+  // $form['fett']['tooltip'] = array(
+  //   '#type' => 'fieldset',
+  //   '#title' => t('Tooltip'),
+  // );
+
+  // require_once($path_fett . '/settings/tooltip.inc');
+  // fett_settings_tooltip_form($form['fett']['tooltip'], $theme_name);
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Favicons
+  //////////////////////////////////////////////////////////////////////////////
+
+  $form['fett']['favicons'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Tooltip'),
+    '#title' => t('Favicons'),
   );
 
-  require_once($path_fett . '/settings/tooltip.inc');
-  fett_settings_tooltip_form($form['fett']['tooltip'], $theme_name);
+  require_once($path_fett . '/settings/favicons.inc');
+  fett_settings_favicons_form($form['fett']['favicons'], $form_state, $theme_name);
 
 
   //////////////////////////////////////////////////////////////////////////////
@@ -211,7 +261,6 @@ function fett_form_system_theme_settings_alter(&$form, $form_state, $form_id = N
   if(isset($form['theme_settings'])){
     $form['fett']['fett_general']['theme_settings'] = $form['theme_settings'];
     $form['fett']['fett_general']['logo'] = $form['logo'];
-    $form['fett']['fett_general']['favicon'] = $form['favicon'];
     unset($form['theme_settings']);
     unset($form['logo']);
     unset($form['favicon']);
@@ -238,6 +287,14 @@ function fett_settings_validate_cleanup($element, &$form_state, $form) {
 }
 
 /**
+ * Validation for removing values that should not be saved.
+ */
+function fett_settings_validate_remove($element, &$form_state, $form) {
+  // File field support included.
+  unset($form_state['values'][str_replace(array('files[', ']'), '', $element['#name'])]);
+}
+
+/**
  * Validation best assigned to a checkbox. If value of checkbox is FALSE then
  * all children started with the checkbox key will be removed.
  */
@@ -250,4 +307,66 @@ function fett_settings_validate_cleanup_children($element, &$form_state, $form) 
       }
     }
   }
+}
+
+function fett_form_system_status(){
+  global $theme_key;
+  include_once DRUPAL_ROOT . '/includes/install.inc';
+
+  $output = array();
+
+  $info = drupal_parse_info_file(drupal_get_path('theme', 'fett') . '/fett.info');
+  if($info){
+    $output[] = fett_form_system_status_item('<i class="fa fa-crosshairs"></i> Version', $info['version']);
+  }
+
+  if(module_exists('sonar')){
+    if(sonar_is_enabled()){
+      $status = 'Enabled';
+      $output[] = fett_form_system_status_item('SASS Support (Sonar)', $status, NULL, REQUIREMENT_OK);
+    }
+    else{
+      $output[] = fett_form_system_status_item('SASS Support (Sonar)', 'Disabled', t('The Sonar module is installed but it is not set to compile SASS. !url', array('!url' => l('Configure', 'admin/config/system/sonar'))), REQUIREMENT_WARNING);
+    }
+  }
+  else{
+    $output[] = fett_form_system_status_item('SASS Support (Sonar)', 'Disabled', t('!sonar is <strong>not</strong> enabled. Sonar adds SASS support to Fett and is essential for unleashing the awesomeness of Fett.', array('!sonar' => l('Sonar', 'https://github.com/JaceRider/Sonar'))), REQUIREMENT_WARNING);
+  }
+
+  if(module_exists('fawesome')){
+    $output[] = fett_form_system_status_item('Font Awesome (FAwesome)', 'Enabled', NULL, REQUIREMENT_OK);
+  }
+  else{
+    $output[] = fett_form_system_status_item('Font Awesome (FAwesome)', 'Disabled', t('!fa is a simple module that adds SASS powered Font Awesome to your site. Although it is not required, it does add awesomeness to Fett.', array('!fa' => l('FAwesome', 'https://github.com/JaceRider/Fawesome'))), REQUIREMENT_WARNING);
+  }
+
+  if(module_exists('jquery_update')){
+    $version = variable_get('jquery_update_jquery_version');
+    if($version == '1.10'){
+      $output[] = fett_form_system_status_item('jQuery Update', 'Enabled', NULL, REQUIREMENT_OK);
+    }
+    else{
+      $output[] = fett_form_system_status_item('jQuery Update', 'Incorrect', t('The jQuery Update module is not configured to use jQuery 1.10. !url', array('!url' => l('Configure', 'admin/config/development/jquery_update'))), REQUIREMENT_WARNING);
+    }
+  }
+  else{
+    $output[] = fett_form_system_status_item('jQuery Update', 'Disabled', t('!jq module is required as Foundation 5 needs jQuery 10.2. Make sure to download the dev version of this module.', array('!jq' => l('jQuery Update', 'https://drupal.org/project/jquery_update'))), REQUIREMENT_WARNING);
+  }
+
+  // Add Modernizr
+  $output[] = fett_form_system_status_item('Modernizr', 'Enabled <small>(CDN)</small>', '', REQUIREMENT_OK);
+
+  return theme('status_report', array(
+    'requirements' => $output,
+  ));
+}
+
+function fett_form_system_status_item($title, $value, $description = NULL, $severity = REQUIREMENT_INFO, $weight = 0){
+  return array(
+    'title' => '<strong>' . t($title) . '</strong>',
+    'value' => t($value),
+    'description' => '<small>' . t($description) . '</small>',
+    'severity' => $severity,
+    'weight' => $weight,
+  );
 }
