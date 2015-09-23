@@ -108,38 +108,6 @@ function fett_set_setting($setting_name, $value, $theme = NULL, $default = NULL)
 }
 
 /**
- * Load Fett theme defaults when necessary.
- *
- * We do this as a function because Foundation changes their components
- * regularly and this allows us to dymaically set the defaults based on the
- * currently existing files.
- */
-function _fett_defaults($theme = NULL){
-  global $conf;
-
-  // If no key is given, use the current theme if we can determine it.
-  if (!isset($theme)) {
-    $theme = !empty($GLOBALS['theme_key']) ? $GLOBALS['theme_key'] : '';
-  }
-
-  if(!isset($conf["theme_{$theme}_settings"])){
-    $settings_path = "admin/appearance/settings/$theme";
-    if(current_path() !== $settings_path){
-      drupal_set_message(t('You have not yet customized your theme settings. <a href="@url">Visit the settings page.</a>', array('@url' => $settings_path)), 'warning');
-    }
-    // Include all Foundation CSS/SCSS files by default.
-    $components = fett_foundation_css_components();
-    foreach(array('orbit','joyride','magellan','pricing-tables','range-slider','reveal','offcanvas','accordion','alert-boxes','panels','progress-bar','side-nav','sub-nav','top-bar','switches','thumbs','icon-bar') as $key){
-      unset($components[$key]);
-    }
-    $conf["theme_{$theme}_settings"]['css_foundation'] = array_keys($components);
-
-    // Include no Foundation JS files by default.
-    $conf["theme_{$theme}_settings"]['js_foundation'] = array();
-  }
-}
-
-/**
  * Return lists of CSS files to unset.
  *
  * This returns a very small amount of data (< 10kb), but is very expensive

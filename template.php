@@ -12,9 +12,6 @@ _fett_include(_fett_theme_info('include_preprocess', array()), 'preprocess');
 // Process Includes
 _fett_include(_fett_theme_info('include_process', array()), 'process');
 
-// Load in theme defaults if needed.
-_fett_defaults();
-
 /*
  * Implements hook_preprocess_HOOK().
  */
@@ -42,6 +39,24 @@ function fett_html_head_alter(&$head_elements) {
       'content' => 'width=device-width, initial-scale=1.0',
     ),
   );
+
+  // Remove Generator META tag.
+  if (isset($head_elements['system_meta_generator'])) {
+    unset($head_elements['system_meta_generator']);
+  }
+
+  // Remove the default favicon from the head section.
+  if(fett_get_setting('favicons_default_remove', NULL, 0) && isset($head_elements['fett_favicons'])){
+    foreach ($head_elements as $key => $element) {
+      if (!empty($element['#attributes'])) {
+        if (array_key_exists('rel', $element['#attributes'])) {
+          if ($element['#attributes']['rel'] === 'shortcut icon') {
+            unset($head_elements[$key]);
+          }
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -142,25 +157,41 @@ function fett_fawesome_icons(){
 }
 
 /**
- * Add CSS
+ * Implements hook_sonar_scss_alter().
+ *
+ * Sonar 2.0 supports the ability to break out SCSS files into two groups and to
+ * create two seperate files. One file is for the 'every_page' SCSS files. The
+ * other is for page-specific files.
+ *
+ * We want our Fett variables and Foundation variables and functions available
+ * to these page-specific SCSS files so we fetch them from the 'every_page'
+ * group and add them to the page-specific group.
  */
-// function _fett_add_core_css(){
-//   // Load in Foundation CSS
-//   foreach(fett_foundation_css() as $file => $options){
-//     drupal_add_css($file, $options);
-//   }
-
-//   // Add core CSS files.
-//   if(module_exists('sonar')){
-//     $path_fett = drupal_get_path('theme', 'fett');
-//     foreach(array('mixins','core','contextual') as $scss){
-//       drupal_add_css("$path_fett/assets/scss/_$scss.scss", array(
-//         'group' => CSS_DEFAULT,
-//         'every_page' => TRUE,
-//       ));
-//     }
-//   }
-// }
+function fett_sonar_scss_alter(&$groups){
+  if(!empty($groups[0]) && !empty($groups[1])){
+    $files = array(
+      'libraries/foundation/scss/foundation/_functions.scss',
+      'assets/scss/libraries/_variables.scss',
+      'assets/scss/libraries/_mixins.scss',
+      'assets/scss/libraries/_foundation.scss',
+      'assets/scss/_variables.scss',
+      'assets/scss/_mixins.scss',
+      'assets/scss/libraries/_foundation.scss',
+      'libraries/foundation/scss/foundation/components/_global.scss',
+    );
+    $includes = array();
+    foreach($files as $needle){
+      foreach($groups[0] as $key => $file){
+        if(strpos($key, $needle) !== FALSE){
+          $file['every_page'] = FALSE;
+          $includes[$key] = $file;
+          $includes[$key]['weight'] = $includes[$key]['weight'] - $includes[$key]['group'];
+        }
+      }
+    }
+    $groups[1] = $includes + $groups[1];
+  }
+}
 
 /**
  * Get Fett theme info.
