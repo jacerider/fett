@@ -43,3 +43,49 @@ You can easily add your own items by calling:
     fett_offcanvas_add($content)
 
 This will return a link that will trigger the off-canvas block.
+
+                            __QMmm
+                          _gMMMMMB~__  _gMma__ .____
+                        _MMMMMMMR(MMMmMMMMMMMMMMMMMMMe
+                       .MMMMMMMt _MMMMMMMMMMMMMMMMMMMM,
+                       _MMMMMMMm  3MMMMMMMMMMMMMMMMMMM)
+                       _MMMMMMMMMQMMMMMMMMMMMMMMMMMMMM)
+                        _@MMMMMMMMMMMMMMMMMMMMMMMMMMMM
+                          3MMMMMMMMMMMMMMMMMMMMMMMMT+` _,
+                            7MMMMMMMMMMMMMMMMMMT'     _'
+                              /MMMMMMMMMMMMMT`       dME
+                                NMMMMMMMMMT`        _MMMp
+                     .JMm        MMMMMMMF`          _MMMM~
+                     3MMM]        9MMMF            .dMMMM~
+                     _MMMm         4ME            _MMMMMT
+                      MMMMMm,      JMME       ._QMMMMMF
+                      /MMMMMMMe   ._MMB     _gMMMMMMMt
+                       3MMMMMMMMe._MMME    (MMMMMMMM%     ._.
+              _gMMMm,     dMMMMMM] "MMM.  JMMMMMMMMt    _MMMMMma,
+            .JMMMMMMMma   _MMMMMMMMmMMMm. MMMMMMMMP   .JMMMMMMMMMQ,
+           _MMMMMMMMMMMm,  JMMMMMMMMMMMMmAMMMMMMMMb _MMMMMMMMMMMMMME
+          _MMMMMMMMMMMMMMm  3MMMMMMMMMMMMMMMMMMMME JMMMMMMMMMMMMMMM!
+        _MMMMMMMMMMMMMMMME  _MMMMMMMMMMMMMMMMMMMt _MMMMMMMMMMMMMMMmmmA_
+       _MMMMMMMMMMMMMMMMM:   MMMMMMMMMMMMMMMME `    (MMMMMMMMMMMMMFMMMM]
+      _MMMMMMMMMMMMMMMF'     MMMMMMMMMMMMMMMME        3MMMMMMMMMMMmMMMME
+     _MMMMMMMMMMMMMMt        /MMMTMMMMMMMMMMMMA         3MMMMMMMMMMMMMMm
+     JMMMMMMMMMMMMT`           `` _MMMMMMT7MMMm           3MMMMMMMMMMMMM)
+     dMMMMMMMMMMF~                 (MMMMME_MMMM            .9MMMMMMMMMMM]
+     MMMMMMMMMM!                   JMMMF`_MMMMt              3MMMMMMMMMM]
+    _MMMMMMMMR`               _gmm _MMMm,_MMM`                3MMMMMMMMME
+    _MMMMMMME                _MMMMm_MMV"jMMMb                  _MMMMMMMMM
+    dMMMMMME                 _MMMMMe    _MMM:                   dMMMMMMMMEa
+    dMMMMMM]                 dMMMMMMp. _MMM|                    _MMMMMMMME
+    4MMMMME                  dMMMMMM] _MMMM,                     MMMMMMMME
+    _MMMMMM,                 3MMMMMM) (MMMB,                     dMMMMMMM%
+     /MMMMMm,                 MMMMME  dMMMM,                    .MMMMMMMt
+      3MMMMMM,                 9MMMF  dMMMMb                    _MMMMMM%
+       /MMMMMM/.              .. 9M]  _MMMMD                  _gMMMMMM'
+         JMMMMMMm___.        /MM] Jm  _MMMT                _gMMMMMMMt
+           /VTTT"9""""^      _MM] JM` _MMt _,                 `^^'`
+                              MM]  MA _MM` ME
+                              3M]  ME  ME  M]
+                              _M`  dE  dE  M]
+                               7   /E  _E  3b
+                                   _b  _$  _m.
+                                            J`
