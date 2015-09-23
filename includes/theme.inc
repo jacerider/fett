@@ -206,7 +206,6 @@ function fett_menu_local_task(&$variables) {
   $output .= fett_icon_link($link_text, $link['href'], $link['localized_options']);
   $output .= "</li>\n";
 
-  fett_tooltip_add('#asdf', 'asdf', array('maxWidth' => 400, 'position' => 'right'));
   return  $output;
 }
 
