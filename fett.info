@@ -31,7 +31,7 @@ regions[footer]         = Footer
 
 
 ;-------------- CORE STYLESHEETS
-; These different from regular stylesheets as they are loaded into CSS_DEFAULT
+; These differ from regular stylesheets as they are loaded into CSS_DEFAULT
 ; instead of CSS_THEME which allows them to be altered later via Sonar.
 scss[] = assets/scss/_variables.scss
 scss[] = assets/scss/_mixins.scss
