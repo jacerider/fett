@@ -9,7 +9,6 @@ php = 5.2
 
 ;-------------- FEATURES
 features[] = logo
-features[] = favicon
 features[] = name
 features[] = slogan
 features[] = main_menu
@@ -34,6 +33,7 @@ regions[footer]         = Footer
 ;-------------- CORE STYLESHEETS
 ; These different from regular stylesheets as they are loaded into CSS_DEFAULT
 ; instead of CSS_THEME which allows them to be altered later via Sonar.
+scss[] = assets/scss/_variables.scss
 scss[] = assets/scss/_mixins.scss
 scss[] = assets/scss/_core.scss
 scss[] = assets/scss/_forms.scss
@@ -50,9 +50,24 @@ scss_module[betterlogin] = assets/scss/modules/_betterlogin.scss
 
 
 ;-------------- DEFAULTS
-settings[html_tags]          = 1
-settings[css_onefile]        = 1
-settings[js_onefile]         = 1
+settings[html_tags]               = 1
+settings[css_onefile]             = 1
+settings[js_onefile]              = 1
+settings[css_exclude]             = 1
+settings[favicons_default_remove] = 1
+; Foundation CSS
+settings[css_foundation][]   = 'grid'
+settings[css_foundation][]   = 'block-grid'
+settings[css_foundation][]   = 'breadcrumbs'
+settings[css_foundation][]   = 'button-groups'
+settings[css_foundation][]   = 'buttons'
+settings[css_foundation][]   = 'flex-video'
+settings[css_foundation][]   = 'forms'
+settings[css_foundation][]   = 'pagination'
+settings[css_foundation][]   = 'split-buttons'
+settings[css_foundation][]   = 'tables'
+settings[css_foundation][]   = 'type'
+settings[css_foundation][]   = 'visibility'
 
 
 ;-------------- FORM ALTER
@@ -69,6 +84,7 @@ include_global[] = 'tooltip'
 include_global[] = 'form'
 include_global[] = 'theme'
 include_global[] = 'offcanvas'
+include_global[] = 'favicons'
 
 
 ;-------------- VARIABLE INCLUDES

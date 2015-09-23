@@ -86,7 +86,7 @@ function fett_preprocess_page(&$vars){
       'attributes' => array(
         'rel'   => 'home',
         'title' => strip_tags($vars['site_name']) . ' ' . t('Home'),
-        'id'    => 'page-logo',
+        'id'    => 'logo',
       ),
       'html' => TRUE,
     ));
@@ -144,5 +144,15 @@ function fett_preprocess_page(&$vars){
   else{
     $vars['content_classes_array'][] = 'large-' . $content_large;
     $vars['content_classes_array'][] = 'large-centered';
+  }
+
+  // Favicons
+  $tags = fett_favicons_load_all_icons();
+  if (!empty($tags['found'])) {
+    $html = array(
+      '#type' => 'markup',
+      '#markup' => implode(PHP_EOL, $tags['found']) . PHP_EOL,
+    );
+    drupal_add_html_head($html, 'fett_favicons');
   }
 }
