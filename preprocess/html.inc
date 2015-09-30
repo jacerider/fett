@@ -129,7 +129,7 @@ function fett_preprocess_html(&$vars){
   }
   // Fixed header.
   if(fett_get_setting('header_fixed')){
-    $element['#attached']['library'][] = array('fett','fett.fixed');
+    drupal_add_library('fett','fett.fixed', true);
   }
 
   // Tooltips
