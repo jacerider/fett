@@ -246,8 +246,7 @@ table{
 html.flexbox{
   @media #{$medium-up} {
     .row-middle{
-      @include display(flex);
-      @include align-items(center);
+      @include middle-flex();
     }
   }
 }
