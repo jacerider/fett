@@ -45,7 +45,7 @@ Fett.position.sizes = function(){
 // Window top position
 Fett.position.windowTopPosition = function(){
   var self = this;
-  return self.$window[0].scrollTop;
+  return self.$window[0].scrollTop + self.$window.offset().top;
 }
 
 // Scroll
@@ -92,7 +92,8 @@ Fett.position.scrolling = function(windowTopP){
 Fett.position.scrollingPosition = function($element) {
   var self = this;
   var blockH = $element.outerHeight();
-  var blockTopPos = $element.data('position');
+  var blockTopPos = $element.data('positionTop');
+  var blockLeftPos = $element.offset().left;
   var blockBottomPos = blockTopPos + blockH;
   var totalH = blockTopPos + blockH;
   var percent = 0;
@@ -115,6 +116,7 @@ Fett.position.scrollingPosition = function($element) {
 
   return {
     top: blockTopPos,
+    left: blockLeftPos,
     bottom: blockBottomPos,
     height: blockH,
     percent: percent,
@@ -170,8 +172,8 @@ Fett.position.track = function($view, options) {
         }
       };
       this.size = function(){
-        $view.data('position', ($view.offset().top + self.$window.scrollTop()) | 0);
         options.size();
+        $view.data('positionTop', ($view.offset().top + self.$window.scrollTop()) | 0);
       }
     })()
   );
