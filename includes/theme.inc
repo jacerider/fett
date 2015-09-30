@@ -127,16 +127,16 @@ function fett_links__system_secondary_menu($vars) {
 function fett_field($vars) {
   $output = '';
   if (!$vars['label_hidden']) {
-    $output .= '<div ' . $vars['title_attributes'] . '>' . $vars['label'] . (!empty($vars['no_colon']) ? '' : ':') . '&nbsp;</div>';
+    $output .= '<div ' . $vars['title_attributes'] . '>' . $vars['label'] . ($vars['no_colon'] ? '' : ':') . '&nbsp;</div>';
   }
-  if(count($vars['items']) > 1){
-    // $output .= '<div class="field-items"' . $vars['content_attributes'] . '>';
+  if($vars['content_wrap'] && count($vars['items']) > 1){
+    $output .= '<' . $vars['content_wrap_element'] . $vars['content_attributes'] . '>';
   }
   foreach ($vars['items'] as $item) {
     $output .= drupal_render($item);
   }
-  if(count($vars['items']) > 1){
-    // $output .= '</div>';
+  if($vars['content_wrap'] && count($vars['items']) > 1){
+    $output .= '</' . $vars['content_wrap_element'] . '>';
   }
   $output = '<div class="' . $vars['classes'] . '"' . $vars['attributes'] . '>' . $output . '</div>';
   return $output;

@@ -6,6 +6,11 @@
  */
 
 function fett_preprocess_field(&$vars){
+  $vars['no_colon'] = false;
+  $vars['content_wrap'] = false;
+  $vars['content_wrap_element'] = 'div';
+  $vars['content_attributes_array']['class'][] = 'items';
+
   $vars['classes_array'] = array();
   $vars['classes_array'][] = 'field';
   if(isset($vars['element']['#field_name'])){
