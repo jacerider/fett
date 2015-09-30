@@ -20,18 +20,23 @@ Drupal.behaviors.fett_fixed = {
             $placeholder.height($header.outerHeight()).insertAfter($header);
             $header.addClass('sticky mini');
             timeout = setTimeout(function(){
-              $header.addClass('sticky-animate');
+              $header.addClass('sticky-animate').css({top:viewPos.top + 'px',left:viewPos.left + 'px'});
             }, 10);
           }
           if(floated && viewPosOriginal.bottom >= viewPos.windowTopPos){
             $header.removeClass('mini');
           }
           if(floated && viewPosOriginal.top >= viewPos.windowTopPos){
-            floated = false;
-            clearTimeout(timeout);
-            $placeholder.remove();
-            $header.removeClass('sticky sticky-animate');
+            unfloat(viewPos);
           }
+        }
+
+        var unfloat = function(){
+          floated = false;
+          clearTimeout(timeout);
+          $placeholder.remove();
+          $header.removeClass('sticky sticky-animate');
+          $header.removeAttr('style');
         }
 
         var pause = function(viewPos, isInit){
@@ -40,10 +45,14 @@ Drupal.behaviors.fett_fixed = {
         var on = function(viewPos){
           fixed(viewPos);
         }
+        var size = function(){
+          unfloat();
+        }
 
         Fett.position.track($header, {
           pause: pause,
-          on: on
+          on: on,
+          size: size
         });
       }
     }
