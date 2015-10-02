@@ -26,11 +26,7 @@ regions[footer]         = Footer
 
 
 ;-------------- STYLESHEETS
-; These files are empty, just uncomment this line and start editing!
-
-; Libraries
-scss[] = assets/scss/libraries/_variables.scss
-scss[] = assets/scss/libraries/_mixins.scss
+; Custom SCSS stylesheets should be added here.
 
 ; Components
 scss[] = assets/scss/components/_typography.scss
