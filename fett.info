@@ -44,6 +44,7 @@ scss[] = assets/scss/_contextual.scss
 ; These stylesheets are loaded if their module [key] exists.
 scss_module[betterlogin] = assets/scss/modules/_betterlogin.scss
 scss_module[linkit] = assets/scss/modules/_linkit.scss
+scss_module[flexslider] = assets/scss/modules/_flexslider.scss
 
 
 ;-------------- JAVASCRIPT
