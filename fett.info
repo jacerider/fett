@@ -117,6 +117,12 @@ include_process[] = 'html_tag'
 include_process[] = 'page'
 
 
+;-------------- CRAWL CSS
+; Folders within sites/all/modules that should be crawled for CSS files that
+; can be excluded via the theme settings page.
+css_folders_crawl[] = 'contrib'
+
+
 ;-------------- UNSET CSS
 ; Stylesheets you may want to unset - includes all cores CSS files, except
 ; for overlay.

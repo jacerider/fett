@@ -124,23 +124,35 @@ function fett_get_css_files($theme_name) {
       $styles = $cache->data;
     }
     else {
+      include_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'fett') . '/template.php';
+      $info_data = _fett_theme_info_trail($theme_name);
+      $crawl = array();
+      foreach ($info_data as $provider => $theme_info) {
+        foreach ($theme_info as $this_info => $info) {
+          if(isset($info['css_folders_crawl']) && is_array($info['css_folders_crawl'])){
+            $crawl = array_merge($crawl, $info['css_folders_crawl']);
+          }
+        }
+      }
+      $crawl = '/\/(' . implode($crawl, '|') . ')\//';
 
       // Contrib module
       $module_data = system_rebuild_module_data();
       foreach ($module_data as $module => $data) {
         if ($data->status) {
-          if (!empty($data->info['stylesheets'])) {
-            foreach ($data->info['stylesheets'] as $media => $content) {
-              foreach ($content as $file) {
-                $styles[$file] = array(
-                  'type' => 'contrib',
-                  'source' => $module,
-                );
+          // Only crawl folders defined.
+          if(preg_match($crawl, $data->filename)){
+            if (!empty($data->info['stylesheets'])) {
+              foreach ($data->info['stylesheets'] as $media => $content) {
+                foreach ($content as $file) {
+                  $styles[$file] = array(
+                    'type' => 'contrib',
+                    'source' => $module,
+                  );
+                }
               }
             }
-          }
-          else{
-            if(strpos($data->filename, '/contrib/') !== FALSE || strpos($data->filename, '/community/') !== FALSE){
+            else{
               $module_path = pathinfo($data->filename, PATHINFO_DIRNAME);
               $module_files = file_scan_directory($module_path, '/.*\.css$/');
               foreach ($module_files as $path => $file) {
@@ -175,8 +187,6 @@ function fett_get_css_files($theme_name) {
       }
 
       // Theme info defined files
-      include_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'fett') . '/template.php';
-      $info_data = _fett_theme_info_trail($theme_name);
       foreach ($info_data as $provider => $theme_info) {
         foreach ($theme_info as $this_info => $info) {
           if ($this_info == 'info') {
