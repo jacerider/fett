@@ -266,7 +266,17 @@ function fett_form_system_theme_settings_alter(&$form, &$form_state, $form_id = 
     unset($form['favicon']);
   }
 
+  $form['#after_build'][] = 'fett_settings_after_build';
+
   $form['#submit'][] = 'fett_settings_submit';
+}
+
+function fett_settings_after_build($form_element){
+  if(isset($form_element['jquery_update'])){
+    $form_element['fett']['fett_general']['jquery_update'] = $form_element['jquery_update'];
+    unset($form_element['jquery_update']);
+  }
+  return $form_element;
 }
 
 function fett_settings_submit($form, &$form_state){
@@ -341,9 +351,9 @@ function fett_form_system_status(){
   }
 
   if(module_exists('jquery_update')){
-    $version = variable_get('jquery_update_jquery_version');
+    $version = fett_get_setting('jquery_update_jquery_version', NULL, variable_get('jquery_update_jquery_version'));
     if($version == '1.10'){
-      $output[] = fett_form_system_status_item('jQuery Update', 'Enabled', NULL, REQUIREMENT_OK);
+      $output[] = fett_form_system_status_item('jQuery Update', 'Enabled <small>(' . $version . ')</small>', NULL, REQUIREMENT_OK);
     }
     else{
       $output[] = fett_form_system_status_item('jQuery Update', 'Incorrect', t('The jQuery Update module is not configured to use jQuery 1.10. !url', array('!url' => l('Configure', 'admin/config/development/jquery_update'))), REQUIREMENT_WARNING);

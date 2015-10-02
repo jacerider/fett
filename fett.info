@@ -57,6 +57,7 @@ settings[css_onefile]             = 1
 settings[js_onefile]              = 1
 settings[css_exclude]             = 1
 settings[favicons_default_remove] = 1
+settings[jquery_update_jquery_version] = '1.10'
 ; Foundation CSS
 settings[css_foundation][]   = 'grid'
 settings[css_foundation][]   = 'block-grid'
