@@ -21,7 +21,7 @@ function fett_process_page(&$vars){
     // .window is used by fett.position.js and is the main scrollable
     // element.
     $vars['page_prefix']['offcanvas'] = array(
-      '#markup' => '<div class="oc-push">' . render($offcanvas[1]) . '<div class="oc-content window"><div class="oc-content-inner">',
+      '#markup' => '<div class="oc-push">' . render($offcanvas[1]) . '<div class="oc-content window"><div class="oc-content-inner document">',
       '#weight' => -999
     );
     $vars['page_suffix']['offcanvas'] = array(
