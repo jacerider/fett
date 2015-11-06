@@ -25,6 +25,6 @@ function fett_preprocess_block(&$vars){
   }
   else{
     $vars['classes_array'][] = drupal_html_class($block->module);
-    $vars['classes_array'][] = drupal_html_class($block->delta);
+    $vars['classes_array'][] = drupal_html_class('id-' . $block->delta);
   }
 }
