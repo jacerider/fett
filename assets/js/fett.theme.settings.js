@@ -151,7 +151,6 @@
         star[i][4] = 0;
       }
       var starfield = $i('starfield');
-      console.log(starfield);
       starfield.style.position = 'absolute';
       starfield.width = w;
       starfield.height = h;
