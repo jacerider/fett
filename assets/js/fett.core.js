@@ -16,7 +16,9 @@ Fett.isMobile = function(){
 (function ($, Drupal) {
 
 // Fast click
-FastClick.attach(document.body);
+$(function() {
+  FastClick.attach(document.body);
+});
 
 //Change &amp;, &#039; and &quot; to &, ' and " in select list options
 $('select option').each(function() {
