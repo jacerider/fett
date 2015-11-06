@@ -1,60 +1,53 @@
 (function ($, Drupal) {
 
 Drupal.behaviors.fett_fixed = {
-  once:0,
   attach: function (context, settings) {
-    if(!this.once){
-      this.once = 1;
-      var $header = $('#header');
-      if($header.length){
+    var $header = $('#header').once('fett-fixed');
+    if($header.length){
+      var floated = false;
+      var $placeholder = $('<div id="sticky-placeholder"></div>');
+      var viewPosOriginal;
 
-        var floated = false;
-        var $placeholder = $('<div id="sticky-placeholder"></div>');
-        var timeout;
-        var viewPosOriginal;
-
-        var fixed = function(viewPos){
-          viewPosOriginal = viewPosOriginal || viewPos;
-          if(!floated && viewPosOriginal.bottom <= viewPos.windowTopPos){
-            floated = true;
-            $placeholder.height($header.outerHeight()).insertAfter($header);
-            $header.addClass('sticky mini');
-            timeout = setTimeout(function(){
-              $header.addClass('sticky-animate').css({top:viewPos.top + 'px',left:viewPos.left + 'px'});
-            }, 10);
-          }
-          if(floated && viewPosOriginal.bottom >= viewPos.windowTopPos){
-            $header.removeClass('mini');
-          }
-          if(floated && viewPosOriginal.top >= viewPos.windowTopPos){
-            unfloat(viewPos);
-          }
+      var fixed = function(viewPos){
+        viewPosOriginal = viewPosOriginal || viewPos;
+        if(!floated && viewPosOriginal.bottom <= viewPos.windowTopPos){
+          floated = true;
+          $placeholder.height($header.outerHeight()).insertAfter($header);
+          $header.addClass('sticky');
         }
-
-        var unfloat = function(){
-          floated = false;
-          clearTimeout(timeout);
-          $placeholder.remove();
-          $header.removeClass('sticky sticky-animate');
-          $header.removeAttr('style');
+        if(floated && (viewPosOriginal.bottom + viewPosOriginal.height) <= viewPos.windowTopPos){
+          $header.addClass('sticky-animate');
         }
-
-        var pause = function(viewPos, isInit){
-          fixed(viewPos);
+        if(floated && (viewPosOriginal.bottom + viewPosOriginal.height) > viewPos.windowTopPos){
+          // $header.removeClass('sticky-animate');
         }
-        var on = function(viewPos){
-          fixed(viewPos);
+        if(floated && viewPos.windowTopPos == 0){
+          unfloat(viewPos);
         }
-        var size = function(){
-          unfloat();
-        }
-
-        Fett.position.track($header, {
-          pause: pause,
-          on: on,
-          size: size
-        });
       }
+
+      var unfloat = function(){
+        floated = false;
+        $placeholder.remove();
+        $header.removeClass('sticky sticky-animate');
+      }
+
+      var pause = function(viewPos, isInit){
+        fixed(viewPos);
+      }
+      var on = function(viewPos){
+        fixed(viewPos);
+      }
+      var size = function(){
+        viewPosOriginal = null;
+        unfloat();
+      }
+
+      Fett.position.track('header', $header, {
+        onPause: pause,
+        onVisible: on,
+        onSize: size
+      });
     }
   }
 }
