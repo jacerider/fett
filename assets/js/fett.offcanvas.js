@@ -43,7 +43,6 @@ FettOffCanvas.open = function(id, effect, direction) {
   $('.oc-push').on('click' + '.offcanvas', function(e){
     if(!$(e.target).closest('.oc-block').length){
       self.close();
-      $(this).off('click' + '.offcanvas');
     }
   });
 
@@ -54,6 +53,7 @@ FettOffCanvas.close = function() {
   var self = this;
   self.$container.removeClass('oc-open');
   $('.oc-block.active').removeClass('active');
+  $('.oc-push').off('click' + '.offcanvas');
   self.$container.trigger('offcanvas-close', [self.id]);
 }
 
