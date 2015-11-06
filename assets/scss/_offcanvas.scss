@@ -39,9 +39,14 @@ body{
 }
 
 .oc-content {
+  position: relative;
   overflow-x: hidden;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+}
+
+.oc-push {
+  @include transform(rotate(0deg));
 }
 
 .oc-content,
