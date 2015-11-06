@@ -66,7 +66,7 @@ function drush_fett_sub_theme($name = NULL, $machine_name = NULL, $description =
   // Create the template.php file with replaced theme name
   drush_op('fett_file_str_replace', "$subtheme_path/template.php", 'KAST', "$machine_name");
   // Rename the .info reference to the custom js file
-  drush_op('fett_file_str_replace', "$subtheme_path/$machine_name.info", 'theme.js', "$machine_name.js");
+  drush_op('fett_file_str_replace', "$subtheme_path/$machine_name.info", 'KAST.js', "$machine_name.js");
   // Rename the Drupal behavior name in the custom js file.
   drush_op('fett_file_str_replace', "$subtheme_path/assets/js/$machine_name.js", 'KAST', "$machine_name");
 
