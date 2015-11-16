@@ -29,9 +29,6 @@ Drupal.behaviors.fett_fixed = {
             $header.addClass('sticky-animate');
           }
         }
-        if(floated && (viewPosOriginal.bottom + viewPosOriginal.height) > viewPos.windowTopPos){
-          // $header.removeClass('sticky-animate');
-        }
         if(floated && viewPos.windowTopPos == 0){
           unfloat(viewPos);
         }
