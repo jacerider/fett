@@ -38,7 +38,12 @@ function fett_preprocess_video_embed_field_embed_code(&$vars) {
   // Prepare embed code.
   if ($handler && isset($handler['function']) && function_exists($handler['function'])) {
     $embed_code = call_user_func($handler['function'], $vars['url'], $vars['style_settings']);
-    $vars['embed_code'] = '<div class="player flex-video widescreen vimeo">' . drupal_render($embed_code) . '</div>';
+    if(arg(0) == 'vef'){
+      $variables['embed_code'] = drupal_render($embed_code);
+    }
+    else{
+      $vars['embed_code'] = '<div class="player flex-video widescreen '.$vars['handler'].'">' . drupal_render($embed_code) . '</div>';
+    }
   }
   else {
     $vars['embed_code'] = l($vars['url'], $vars['url']);
