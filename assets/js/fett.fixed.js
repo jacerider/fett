@@ -6,7 +6,8 @@ Drupal.behaviors.fett_fixed = {
     if($header.length){
       var floated = false;
       var $placeholder = $('<div id="sticky-placeholder"></div>');
-      var viewPosOriginal;
+      var viewPosOriginal, viewPosLast;
+      var options = settings.fett_fixed;
 
       var fixed = function(viewPos){
         viewPosOriginal = viewPosOriginal || viewPos;
@@ -16,7 +17,17 @@ Drupal.behaviors.fett_fixed = {
           $header.addClass('sticky');
         }
         if(floated && (viewPosOriginal.bottom + viewPosOriginal.height) <= viewPos.windowTopPos){
-          $header.addClass('sticky-animate');
+          if(options.scroll){
+            if(viewPosLast && viewPos.windowTopPos < viewPosLast.windowTopPos){
+              $header.removeClass('sticky-animate-out').addClass('sticky-animate-in');
+            }
+            else{
+              $header.removeClass('sticky-animate-in').addClass('sticky-animate-out');
+            }
+          }
+          else{
+            $header.addClass('sticky-animate');
+          }
         }
         if(floated && (viewPosOriginal.bottom + viewPosOriginal.height) > viewPos.windowTopPos){
           // $header.removeClass('sticky-animate');
@@ -24,12 +35,13 @@ Drupal.behaviors.fett_fixed = {
         if(floated && viewPos.windowTopPos == 0){
           unfloat(viewPos);
         }
+        viewPosLast = viewPos;
       }
 
       var unfloat = function(){
         floated = false;
         $placeholder.remove();
-        $header.removeClass('sticky sticky-animate');
+        $header.removeClass('sticky sticky-animate sticky-animate-in sticky-animate-out');
       }
 
       var pause = function(viewPos, isInit){

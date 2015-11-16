@@ -130,6 +130,11 @@ function fett_preprocess_html(&$vars){
   // Fixed header.
   if(fett_get_setting('header_fixed')){
     drupal_add_library('fett','fett.fixed', true);
+    drupal_add_js(array('fett_fixed' =>
+      array(
+        'scroll' => fett_get_setting('header_scroll_up'),
+      ),
+    ), 'setting');
   }
 
   // Tooltips

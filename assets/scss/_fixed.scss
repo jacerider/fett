@@ -1,16 +1,26 @@
 #header{
-  @include transition(height 300ms, top 300ms);
 
   &.sticky{
     position: fixed;
-    top:-100%;
+    top:0;
     left:0;
     right:0;
     z-index:2000;
+    @include transform(translate3d(0,-100%,0));
   }
 
   &.sticky-animate{
-    top:0;
+    @include transition(transform 300ms);
+    @include transform(translate3d(0,0,0));
+  }
+
+  &.sticky-animate-in{
+    @include transition(transform 300ms);
+    @include transform(translate3d(0,0,0));
+  }
+
+  &.sticky-animate-out{
+    @include transition(transform 300ms);
   }
 }
 
@@ -21,5 +31,25 @@ body.easy-admin-menu{
 
   #header.sticky{
     left:90px;
+  }
+}
+
+
+@include keyframes(fettFixedIn) {
+  from {
+    @include transform(translate3d(0,-100%,0));
+  }
+  to {
+    @include transform(translate3d(0,0,0));
+  }
+}
+
+
+@include keyframes(fettFixedOut) {
+  from {
+    @include transform(translate3d(0,0,0));
+  }
+  to {
+    @include transform(translate3d(0,-100%,0));
   }
 }
