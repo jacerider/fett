@@ -171,6 +171,11 @@ function fett_button($vars) {
     $element['#attributes']['class'][] = 'form-button-disabled';
   }
 
+  // Fastclick.js fix for ajax form buttons
+  if(!empty($element['#ajax'])){
+    $element['#attributes']['class'][] = 'needsclick';
+  }
+
   // Prepare input whitelist - added to ensure ajax functions don't break
   $whitelist = _fett_element_whitelist();
 
