@@ -28,10 +28,11 @@ function fett_settings_offcanvas_form(&$form, $theme_name) {
     8 => '3D rotate out',
     9 => 'Scale down pusher',
     10 => 'Scale Up',
-    11 => 'Scale &amp; rotate pusher',
+    11 => 'Scale & rotate pusher',
     12 => 'Open door',
     13 => 'Fall down',
     14 => 'Delayed 3D Rotate',
+    'custom' => 'Custom',
   );
   $sizes = array(
     'for-medium-up' => t('Small'),

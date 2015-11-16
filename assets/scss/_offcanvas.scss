@@ -45,6 +45,10 @@ body{
   -webkit-overflow-scrolling: touch;
 }
 
+.oc-close{
+  display:none;
+}
+
 .oc-push {
   // @include transform(rotate(0deg));
 }

@@ -117,7 +117,7 @@ function _fett_offcanvas_element_remove(&$vars, $parents){
   *    8 => '3D rotate out'
   *    9 => 'Scale down pusher'
   *    10 => 'Scale Up'
-  *    11 => 'Scale &amp; rotate pusher'
+  *    11 => 'Scale & rotate pusher'
   *    12 => 'Open door'
   *    13 => 'Fall down'
   *    14 => 'Delayed 3D Rotate'
@@ -206,7 +206,7 @@ function fett_process_fett_offcanvas_block(&$vars){
 function fett_fett_offcanvas_block($vars){
   $output = '<div' . $vars['attributes'] . ' class="' . $vars['classes'] . '">';
   $output .= drupal_render($vars['content']);
-  $output .= '</div>';
+  $output .= '<a class="oc-close" href="#"></a></div>';
   return $output;
 }
 

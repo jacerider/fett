@@ -31,6 +31,10 @@ FettOffCanvas.open = function(id, effect, direction) {
   self.id = id;
 
   $('#oc-block-' + id).addClass('active');
+  $('a.oc-close', '#oc-block-' + id).on('click', function(e){
+    e.preventDefault();
+    self.close();
+  });
 
   self.$container[0].className = self.$container.data('oclasses');
   self.$container.addClass('oc-effect-' + effect + ' oc-direction-' + direction);
@@ -52,6 +56,7 @@ FettOffCanvas.open = function(id, effect, direction) {
 FettOffCanvas.close = function() {
   var self = this;
   self.$container.removeClass('oc-open');
+  $('a.oc-close', '.oc-block.active').off('click');
   $('.oc-block.active').removeClass('active');
   $('.oc-push').off('click' + '.offcanvas');
   self.$container.trigger('offcanvas-close', [self.id]);
