@@ -14,13 +14,13 @@
           $wrap = $('<div class="file-upload-wrapper row collapse">'),
           $parent = $(this).closest('.form-managed-file'),
           $upload = $('button[type=submit],input[type=submit]', $parent),
-          $inputWrapper = $('<div class="small-9 columns" />'),
+          $inputWrapper = $('<div class="small-12 medium-9 columns" />'),
           $input = $('<input type="text" class="file-upload-input disabled" disabled />'),
           // Button that will be used in non-IE browsers
-          $buttonWrapper = $('<div class="small-3 columns" />'),
-          $button = $('<button type="button" class="file-upload-button button postfix" style="border-radius:0;"><i class="fa fa-upload"></i> Select a File</button></div>'),
+          $buttonWrapper = $('<div class="small-12 medium-3 columns" />'),
+          $button = $('<button type="button" class="file-upload-button button postfix needsclick" style="border-radius:0;"><i class="fa fa-upload"></i> Select a File</button></div>'),
           // Hack for IE
-          $labelWrapper = $('<div class="small-3 columns" />'),
+          $labelWrapper = $('<div class="small-12 medium-3 columns" />'),
           $label = $('<label class="file-upload-button" for="'+ $file[0].id +'">Select a File</label>');
 
       // Hide by shifting to the left so we
