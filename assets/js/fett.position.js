@@ -1,24 +1,24 @@
 (function ($, Drupal) {
 
 Fett.position = {
-  once: 0
+  once: 0,
+  targets: {}
 };
 
 // Initialize
 Fett.position.init = function(){
   var self = this;
-  self.$window = $('.window').first();
-  if(self.$window.length){
+  $('.window').once('fett-position').first().each(function(){
+    self.$window = $(this);
     self.$document = $('.document').length ? $('.document') : $(document);
     self.sizes();
-
     if(!self.once){
       self.once = 1;
       var $window = $(window);
       var windowW = $window.width();
       var windowH = $window.height();
       var timeout;
-      $window.resize(function(){
+      $window.off('resize.fett-position').on('resize.fett-position', function(){
         var newWindowW = $window.width();
         var newWindowH = $window.height();
         if(newWindowW!==windowW || newWindowH!==windowH){ //IE 8 fix
@@ -31,10 +31,10 @@ Fett.position.init = function(){
           }, 300);
         }
       });
+      self.scroll();
     }
 
-    self.scroll();
-  }
+  });
 }
 
 // Size
@@ -163,7 +163,6 @@ Fett.position.scrollingPosition = function($element) {
 }
 
 // Players
-Fett.position.targets = {};
 Fett.position.track = function(id, $view, options) {
   var self = this, key, $element;
   var defaults = {
@@ -219,14 +218,10 @@ Fett.position.track = function(id, $view, options) {
 }
 
 Drupal.behaviors.fett_position = {
-  once:0,
   attach: function (context, settings) {
-    if(!this.once){
-      // this.once = 1;
-      setTimeout(function(){
-        Fett.position.init();
-      }, 10);
-    }
+    setTimeout(function(){
+      Fett.position.init();
+    }, 10);
   }
 }
 
