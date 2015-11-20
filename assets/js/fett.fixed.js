@@ -7,7 +7,7 @@ Drupal.behaviors.fett_fixed = {
       var $placeholder = $('<div id="sticky-placeholder"></div>'),
           viewPosOriginal,
           viewPosLast,
-          animEvent,
+          resetTimer,
           fixed = 0,
           shown = 0,
           options = settings.fettFixed;
@@ -39,11 +39,10 @@ Drupal.behaviors.fett_fixed = {
         }
         else{
           if(fixed){
-            animEvent = $header.on(Fett.transEndEventName + '.fixed', function(e){
-              if(e.originalEvent.propertyName == 'transform'){
-                reset();
-              }
-            });
+            fixed = shown = 0;
+            resetTimer = setTimeout(function(e){
+              reset();
+            }, 300);
           }
         }
 
@@ -52,7 +51,7 @@ Drupal.behaviors.fett_fixed = {
 
       var fix = function(){
         if(!fixed){
-          $header.off(Fett.transEndEventName + '.fixed');
+          clearTimeout(resetTimer);
           fixed = 1;
           $header.addClass('sticky');
           $placeholder.show();
