@@ -13,6 +13,15 @@ Fett.isMobile = function(){
   return Fett._isMobile;
 };
 
+Fett.transEndEventNames = {
+  'WebkitTransition' : 'webkitTransitionEnd',
+  'MozTransition'    : 'transitionend',
+  'OTransition'      : 'oTransitionEnd otransitionend',
+  'msTransition'     : 'MSTransitionEnd',
+  'transition'       : 'transitionend'
+}
+Fett.transEndEventName = Fett.transEndEventNames[ Modernizr.prefixed('transition') ];
+
 (function ($, Drupal) {
 
 // Fast click

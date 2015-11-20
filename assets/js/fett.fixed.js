@@ -4,57 +4,90 @@ Drupal.behaviors.fett_fixed = {
   attach: function (context, settings) {
     var $header = $('#header').once('fett-fixed');
     if($header.length){
-      var floated = false;
-      var $placeholder = $('<div id="sticky-placeholder"></div>');
-      var viewPosOriginal, viewPosLast;
-      var options = settings.fett_fixed;
+      var $placeholder = $('<div id="sticky-placeholder"></div>'),
+          viewPosOriginal,
+          viewPosLast,
+          animEvent,
+          fixed = 0,
+          shown = 0,
+          options = settings.fettFixed;
 
-      var fixed = function(viewPos){
+      $placeholder.height($header.outerHeight()).insertAfter($header);
+
+      var check = function(viewPos){
         viewPosOriginal = viewPosOriginal || viewPos;
-        if(!floated && viewPosOriginal.bottom <= viewPos.windowTopPos){
-          floated = true;
-          $placeholder.height($header.outerHeight()).insertAfter($header);
-          $header.addClass('sticky');
-        }
-        if(floated && (viewPosOriginal.bottom + viewPosOriginal.height) <= viewPos.windowTopPos){
-          if(options.scroll){
-            if(viewPosLast && viewPos.windowTopPos < viewPosLast.windowTopPos){
-              $header.removeClass('sticky-animate-out').addClass('sticky-animate-in');
+
+        if(viewPosOriginal.bottom <= viewPos.windowTopPos){
+          fix();
+
+          if((viewPosOriginal.bottom + viewPosOriginal.height) <= viewPos.windowTopPos){
+            if(options.scroll){
+              if(viewPosLast && viewPos.windowTopPos < viewPosLast.windowTopPos){
+                show();
+              }
+              else{
+                hide();
+              }
             }
             else{
-              $header.removeClass('sticky-animate-in').addClass('sticky-animate-out');
+              show();
             }
           }
           else{
-            $header.addClass('sticky-animate');
+            hide();
           }
         }
-        if(floated && viewPos.windowTopPos == 0){
-          unfloat(viewPos);
+        else{
+          if(fixed){
+            animEvent = $header.on(Fett.transEndEventName + '.fixed', function(e){
+              if(e.originalEvent.propertyName == 'transform'){
+                reset();
+              }
+            });
+          }
         }
+
         viewPosLast = viewPos;
       }
 
-      var unfloat = function(){
-        floated = false;
-        $placeholder.remove();
-        $header.removeClass('sticky sticky-animate sticky-animate-in sticky-animate-out');
+      var fix = function(){
+        if(!fixed){
+          $header.off(Fett.transEndEventName + '.fixed');
+          fixed = 1;
+          $header.addClass('sticky');
+          $placeholder.show();
+        }
       }
 
-      var pause = function(viewPos, isInit){
-        fixed(viewPos);
+      var reset = function(){
+        fixed = shown = 0;
+        $header.removeClass('sticky sticky-show sticky-hide');
+        $placeholder.hide();
       }
-      var on = function(viewPos){
-        fixed(viewPos);
+
+      var show = function(){
+        if(!shown){
+          shown = 1;
+          $header.removeClass('sticky-hide').addClass('sticky-show');
+        }
       }
+
+      var hide = function(){
+        if(shown){
+          shown = 0;
+          $header.removeClass('sticky-show').addClass('sticky-hide');
+        }
+      }
+
       var size = function(){
         viewPosOriginal = null;
-        unfloat();
+        reset();
+        $placeholder.height($header.outerHeight());
       }
 
       Fett.position.track('header', $header, {
-        onPause: pause,
-        onVisible: on,
+        onPause: check,
+        onVisible: check,
         onSize: size
       });
     }
