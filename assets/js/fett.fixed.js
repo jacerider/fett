@@ -39,7 +39,9 @@ Drupal.behaviors.fett_fixed = {
         }
         else{
           if(fixed){
+            hide();
             fixed = shown = 0;
+            clearTimeout(resetTimer);
             resetTimer = setTimeout(function(e){
               reset();
             }, 300);
