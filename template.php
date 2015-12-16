@@ -251,7 +251,8 @@ function _fett_theme_info_trail($theme_name) {
     }
 
     // Now the active theme
-    $info_trail[$theme_name]['info'] = $lt[$theme_name]->info;
+    $info_trail = array($theme_name => array('info' => $lt[$theme_name]->info)) + $info_trail;
+    $info_trail = array_reverse($info_trail);
   }
 
   return $info_trail;

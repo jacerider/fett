@@ -95,14 +95,20 @@ function fett_preprocess_html(&$vars){
   if(module_exists('sonar')){
     // Add Fett and children SCSS files to page.
     if($theme_key !== 'fett'){
-      $theme_path = drupal_get_path('theme', $theme_key);
+      $theme_info = _fett_theme_info_trail($theme_key);
       $options = array(
         'every_page' => TRUE,
         'group' => CSS_SYSTEM,
         'weight' => -100,
       );
-      drupal_add_css("$theme_path/assets/scss/libraries/_variables.scss", $options);
-      drupal_add_css("$theme_path/assets/scss/libraries/_mixins.scss", $options);
+      foreach($theme_info as $theme_tree_key => $theme_tree_info){
+        if($theme_tree_key !== 'fett'){
+          $theme_path = drupal_get_path('theme', $theme_tree_key);
+          drupal_add_css("$theme_path/assets/scss/libraries/_variables.scss", $options);
+          // Load variables first and then follow up with mixins.
+          drupal_add_css("$theme_path/assets/scss/libraries/_mixins.scss", array('weight' => -99.9) + $options);
+        }
+      }
     }
     foreach(_fett_theme_info_all('scss', array()) as $theme_key_id => $scss){
       $theme_path = drupal_get_path('theme', $theme_key_id);

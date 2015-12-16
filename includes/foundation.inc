@@ -59,11 +59,16 @@ function fett_foundation_css($name = NULL){
       $files["$path_fett/libraries/foundation/scss/normalize.scss"] = $options_init + $options;
       $files["$path_fett/libraries/foundation/scss/foundation/_functions.scss"] = $options_init + $options;
       if($theme_key !== 'fett'){
-        // Add theme-specific Foundation settings override file.
-        $path_current = drupal_get_path('theme', $theme_key);
-        // Load Foundation settings file AFTER scripts with a -100 weight.
-        // (_variables & _mixins when in a child theme)
-        $files["$path_current/assets/scss/libraries/_foundation.scss"] = array('weight' => -99) + $options_init + $options;
+        $theme_info = _fett_theme_info_trail($theme_key);
+        foreach($theme_info as $theme_tree_key => $theme_tree_info){
+          if($theme_tree_key !== 'fett'){
+            // Add theme-specific Foundation settings override file.
+            $path_current = drupal_get_path('theme', $theme_tree_key);
+            // Load Foundation settings file AFTER scripts with a -100 weight.
+            // (_variables & _mixins when in a child theme)
+            $files["$path_current/assets/scss/libraries/_foundation.scss"] = array('weight' => -99) + $options_init + $options;
+          }
+        }
       }
       // We want global to load in CSS_SYSTEM so it loads with all libraries but we want it to load at the very end.
       $files["$path_fett/libraries/foundation/scss/foundation/components/_global.scss"] = array('weight' => -98) + $options_init + $options;
