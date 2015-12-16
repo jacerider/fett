@@ -65,7 +65,8 @@ function fett_offcanvas_element($key, &$vars){
       // Allow other modules to modify the offcanvas element.
       drupal_alter($hook, $content, $effect, $direction);
 
-      $vars['offcanvas_' . $key . '_link'] = drupal_render(fett_offcanvas_add($content, $effect, $title, $direction, 'hide-' . $visibility, $key));
+      $render = fett_offcanvas_add($content, $effect, $title, $direction, 'hide-' . $visibility, $key);
+      $vars['offcanvas_' . $key . '_link'] = drupal_render($render);
     }
   }
 }
@@ -239,5 +240,5 @@ function fett_process_fett_offcanvas_link(&$vars) {
  * Return themed output for fett_offcanvas_link.
  */
 function fett_fett_offcanvas_link($vars) {
-  return '<a href="#"' . $vars['attributes'] . ' class="' . $vars['classes'] . '">' . $vars['title'] . '</a>';
+  return '<span ' . $vars['attributes'] . ' class="' . $vars['classes'] . '"><a href="#">' . $vars['title'] . '</a></span>';
 }
