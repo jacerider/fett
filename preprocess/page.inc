@@ -92,7 +92,7 @@ function fett_preprocess_page(&$vars){
     ));
   }
 
-  $vars['copyright'] = date('Y') . ' ' . check_plain($vars['site_name']) . '. ' . t('All rights reserved.');
+  $vars['copyright'] = '&copy; ' . date('Y') . ' ' . check_plain($vars['site_name']) . '. ' . t('All rights reserved.');
 
   if($vars['is_front']){
     $vars['breadcrumb'] = '';
