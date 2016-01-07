@@ -40,3 +40,9 @@ scss[] = assets/scss/sections/_global.scss
 ;-------------- JAVASCRIPT
 ; This file is empty, just uncomment this line and start editing!
 ; scripts[] = assets/js/KAST.js
+
+
+;-------------- CRAWL CSS
+; Folders within sites/all/modules that should be crawled for CSS files that
+; can be excluded via the theme settings page.
+css_folders_crawl[] = 'contrib'
