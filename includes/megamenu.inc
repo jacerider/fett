@@ -37,7 +37,7 @@ function fett_megamenu_preprocess_page(&$vars){
       'every_page' => TRUE,
     );
     $source = variable_get('menu_main_links_source', 'main-menu');
-    $tree = menu_tree_all_data($source, null, 3);
+    $tree = menu_tree_all_data($source, null, fett_get_setting('megamenu_depth', null, 3));
     _fett_menu_tree_add_active_path($tree);
     $links = menu_tree_output($tree);
     unset($links['#theme_wrappers']);

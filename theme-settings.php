@@ -158,6 +158,35 @@ function fett_form_system_theme_settings_alter(&$form, &$form_state, $form_id = 
   // Megamenu
   //////////////////////////////////////////////////////////////////////////////
 
+  $form['fett']['header'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Header'),
+  );
+
+  $form['fett']['header']['header_fixed'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable Fixed Header'),
+    '#default_value' => fett_get_setting('header_fixed'),
+    '#description' => t('Will fix the header to the top of the page when scrolling.'),
+  );
+
+  $form['fett']['header']['header_scroll_up'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable Scroll-Only Header'),
+    '#default_value' => fett_get_setting('header_scroll_up'),
+    '#description' => t('Will only show the fixed header when the user is scrolling up.'),
+    '#states' => array(
+      'visible' => array(
+        'input[name="header_fixed"]' => array('checked' => TRUE),
+      ),
+    ),
+  );
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Megamenu
+  //////////////////////////////////////////////////////////////////////////////
+
   $form['fett']['megamenu'] = array(
     '#type' => 'fieldset',
     '#title' => t('Mega Menu'),
@@ -200,25 +229,6 @@ function fett_form_system_theme_settings_alter(&$form, &$form_state, $form_id = 
   $form['fett']['tools'] = array(
     '#type' => 'fieldset',
     '#title' => t('Tools'),
-  );
-
-  $form['fett']['tools']['header_fixed'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Enable Fixed Header'),
-    '#default_value' => fett_get_setting('header_fixed'),
-    '#description' => t('Will fix the header to the top of the page when scrolling.'),
-  );
-
-  $form['fett']['tools']['header_scroll_up'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Enable Scroll-Only Header'),
-    '#default_value' => fett_get_setting('header_scroll_up'),
-    '#description' => t('Will only show the fixed header when the user is scrolling up.'),
-    '#states' => array(
-      'visible' => array(
-        'input[name="header_fixed"]' => array('checked' => TRUE),
-      ),
-    ),
   );
 
   $form['fett']['tools']['html_tags'] = array(
