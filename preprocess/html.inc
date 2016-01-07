@@ -122,14 +122,17 @@ function fett_preprocess_html(&$vars){
       }
     }
     // Add Fett module-dependant SCSS files to page.
-    foreach(_fett_theme_info('scss_module', array()) as $module => $scss){
-      if(module_exists($module)){
-        $options = array(
-          'group' => CSS_DEFAULT,
-          'every_page' => TRUE,
-          'weight' => -5,
-        );
-        drupal_add_css("$path_fett/$scss", $options);
+    foreach(_fett_theme_info_all('scss_module', array()) as $theme_key_id => $data){
+      foreach($data as $module => $scss){
+        if(module_exists($module)){
+          $theme_path = drupal_get_path('theme', $theme_key_id);
+          $options = array(
+            'group' => CSS_DEFAULT,
+            'every_page' => TRUE,
+            'weight' => -5,
+          );
+          drupal_add_css("$theme_path/$scss", $options);
+        }
       }
     }
   }
