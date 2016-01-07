@@ -124,6 +124,14 @@ table{
 }
 
 /**
+ * For anything you want to hide on page load when JS is enabled, so
+ * that you can use the JS to control visibility and avoid flicker.
+ */
+html.js .js-hide {
+  display: none;
+}
+
+/**
  * Hide elements from all users.
  *
  * Used for elements which should not be immediately displayed to any user. An

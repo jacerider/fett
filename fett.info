@@ -124,8 +124,8 @@ include_process[] = 'page'
 
 ;-------------- CRAWL CSS
 ; Folders within sites/all/modules that should be crawled for CSS files that
-; can be excluded via the theme settings page.
-css_folders_crawl[] = 'contrib'
+; can be excluded via the theme settings page. Child themes should define this.
+; css_folders_crawl[] = 'contrib'
 
 
 ;-------------- UNSET CSS

@@ -17,6 +17,14 @@ function fett_settings_megamenu_form(&$form, $theme_name) {
     '#element_validate' => array('fett_settings_validate_cleanup_children'),
   );
 
+  $form['megamenu_depth'] = array(
+    '#type' => 'select',
+    '#title' => t('Meny depth'),
+    '#options' => drupal_map_assoc(array(2,3)),
+    '#default_value' => fett_get_setting('megamenu_depth', $theme_name, 3),
+    '#description' => t('The depth of the menu tree.'),
+  );
+
   if(module_exists('fawesome')){
     $form['megamenu_icon'] = array(
       '#type' => 'checkbox',

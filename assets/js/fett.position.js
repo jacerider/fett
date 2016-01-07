@@ -115,25 +115,23 @@ Fett.position.scrollingPosition = function($element) {
     return Math.min(Math.max(Math.round(((number - min) / (max - min)) * 100), 0), 100);
   }
 
-  if(canScrollDown){
-    direction = 'top';
-    number = self.windowBottomPos;
-    min = blockTopPos;
-    max = Math.min((blockTopPos + self.windowH), blockBottomPos);
-  }
-  else if(canScrollUp){
-    direction = 'bottom';
-    number = self.windowBottomPos;
-    min = blockTopPos;
-    max = Math.min((blockTopPos + self.windowH), blockBottomPos);
-    // percent = Math.min(Math.max(100 - ((self.windowBottomPos - blockTopPos) / (self.documentH - blockTopPos)) * 100 , 0), 100);
-  }
-  else{
+  if(canScrollDown && canScrollUp){
     direction = 'middle';
     number = self.windowBottomPos;
     min = blockTopPos;
     max = Math.min((blockTopPos + self.windowH), blockBottomPos);
-    // percent = Math.min(Math.max(100 - (self.windowTopPos / (self.documentH - self.windowH) * 100), 0), 100);
+  }
+  else if(canScrollDown){
+    direction = 'top';
+    number = self.windowTopPos;
+    min = blockTopPos;
+    max = blockBottomPos;
+  }
+  else{
+    direction = 'bottom';
+    number = self.windowBottomPos;
+    min = blockTopPos;
+    max = Math.min((blockTopPos + self.windowH), blockBottomPos);
   }
 
   percent = rangeToPercent(number, min, max);
