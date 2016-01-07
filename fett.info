@@ -3,7 +3,7 @@ description = [Foundation] [SASS] This is my face...
 screenshot = assets/images/screenshot.png
 core = 7.x
 engine = phptemplate
-version = "7.x-3.x-dev"
+version = "7.x-3.0"
 php = 5.2
 
 
