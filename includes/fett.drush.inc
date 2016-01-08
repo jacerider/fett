@@ -78,7 +78,7 @@ function drush_fett_generate($name) {
   drush_op('rename', "$subtheme_path/KAST.theme", "$subtheme_path/$machine_name.theme");
   drush_op('rename', "$subtheme_path/css/KAST.css", "$subtheme_path/css/$machine_name.css");
   drush_op('rename', "$subtheme_path/scss/KAST.scss", "$subtheme_path/scss/$machine_name.scss");
-  drush_op('rename', "$subtheme_path/templates/base/page--front.html.twig.txt", "$subtheme_path/templates/base/page--front.html.twig");
+  drush_op('rename', "$subtheme_path/templates/layout/page--front.html.twig.txt", "$subtheme_path/templates/layout/page--front.html.twig");
 
   // Replace KAST in info.yml
   drush_op('fett_file_str_replace', "$subtheme_path/$machine_name.info.yml", 'KAST', "$machine_name");
