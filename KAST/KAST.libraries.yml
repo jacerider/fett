@@ -1,0 +1,9 @@
+global-css:
+  version: VERSION
+  css:
+    base:
+      css/KAST.css: {}
+global-js:
+  version: VERSION
+  js:
+    js/KAST.js: {}

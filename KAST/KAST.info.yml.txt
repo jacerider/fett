@@ -1,0 +1,16 @@
+name: KAST
+type: theme
+description: '[Fett] Boba Fett was a Mandalorian warrior and bounty hunter. Not a clone.'
+core: 8.x
+base theme: fett
+libraries:
+  - KAST/global-css
+  - KAST/global-js
+regions:
+  header: Header
+  featured: Featured
+  sidebar_first: 'Sidebar first'
+  content: Content
+  sidebar_second: 'Sidebar second'
+  footer_top: 'Footer Top'
+  footer_bottom: 'Footer Bottom'

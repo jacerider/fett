@@ -1,0 +1,12 @@
+global:
+  version: VERSION
+  js:
+    js/fett.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal.ajax
+    - core/drupal
+    - core/drupalSettings
+    - core/modernizr
+    - core/underscore

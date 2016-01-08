@@ -1,0 +1,8 @@
+.DS_Store
+*.html
+humans.txt
+robots.txt
+MIT-LICENSE.txt
+config.js
+bower_components
+node_modules

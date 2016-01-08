@@ -1,0 +1,15 @@
+name: Fett
+type: theme
+description: This is my face...
+core: 8.x
+screenshot: images/screenshot.png
+libraries:
+  - fett/global
+regions:
+  header: Header
+  featured: Featured
+  sidebar_first: 'Sidebar first'
+  content: Content
+  sidebar_second: 'Sidebar second'
+  footer_top: 'Footer Top'
+  footer_bottom: 'Footer Bottom'

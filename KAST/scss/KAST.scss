@@ -1,0 +1,24 @@
+/* @file
+ * This file is a custom file that loads all files. Each non-base layer
+ * can be disabled.
+ *
+ * Do not name this file "KAST.scss". This file should be named
+ * THEMENAME.scss. If you used the drush command to generate this subtheme,
+ * it should be named for you.
+ *
+ * This application file (ntest.scss) is where all the partials are
+ * imported.
+ */
+
+// Make sure the charset is set appropriately
+@charset "UTF-8";
+
+// Import normalize.css
+@import "../../fett/bower_components/normalize-scss/_normalize.scss";
+
+// Import Bourbon.
+@import "../../fett/bower_components/bourbon/app/assets/stylesheets/bourbon";
+
+// Import Neat.
+@import "../../fett/bower_components/neat/app/assets/stylesheets/neat";
+@import "../../fett/bower_components/neat/app/assets/stylesheets/neat-helpers";
