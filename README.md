@@ -1,7 +1,7 @@
 # Fett Drupal 8 Theme
 ##### Gulp, Bourbon, Neat, Bitters
 
-## Installation
+## System Setup
 
 **Gulp and Bower are required to manage assets.**
 
@@ -12,7 +12,7 @@ sudo may be required.
 
     npm install -g gulp bower
 
-## Setup
+## Installation
 
 From the fett theme directory, enter the following in the command line. This
 will pull in the component assets for Fett. These are referenced includes from
