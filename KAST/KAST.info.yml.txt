@@ -1,7 +1,8 @@
-name: KAST
+name: Fett Starter
 type: theme
 description: '[Fett] Boba Fett was a Mandalorian warrior and bounty hunter. Not a clone.'
 core: 8.x
+screenshot: images/screenshot.png
 base theme: fett
 libraries:
   - KAST/global-css

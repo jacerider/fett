@@ -80,13 +80,19 @@ function drush_fett_generate($name) {
   drush_op('rename', "$subtheme_path/scss/KAST.scss", "$subtheme_path/scss/$machine_name.scss");
   drush_op('rename', "$subtheme_path/templates/layout/page--front.html.twig.txt", "$subtheme_path/templates/layout/page--front.html.twig");
 
-  // Replace KAST in info.yml
-  drush_op('fett_file_str_replace', "$subtheme_path/$machine_name.info.yml", 'KAST', "$machine_name");
+  // Update the .info file
+  drush_op('fett_file_str_replace', "$subtheme_path/$machine_name.info.yml", 'Fett Starter', "$name");
+
+  // Update the .md file
+  drush_op('fett_file_str_replace', "$subtheme_path/README.md", 'Fett Starter', "$name");
 
   // Change the description of the theme
   if (!empty($description)) {
     drush_op('fett_file_str_replace', "$subtheme_path/$machine_name.info.yml", '[Fett] Boba Fett was a Mandalorian warrior and bounty hunter. Not a clone.', "$description");
   }
+
+  // Replace KAST in info.yml
+  drush_op('fett_file_str_replace', "$subtheme_path/$machine_name.info.yml", 'KAST', "$machine_name");
 
   // Rename functions in .theme
   drush_op('fett_file_str_replace', "$subtheme_path/$machine_name.theme", 'KAST', "$machine_name");
