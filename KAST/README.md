@@ -1,4 +1,5 @@
-# Fett Starter (Fett, Gulp, Bourbon, Neat, Bitters) Drupal Theme
+# Fett Starter Drupal Theme
+##### Fett, Gulp, Bourbon, Neat, Bitters
 
 ## System Setup
 
