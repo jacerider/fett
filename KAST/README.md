@@ -21,7 +21,11 @@ setup.
 
 ## Usage
 
-Run 'gulp' from the theme directory via command line to compile CSS from SASS.
-gulpfile.js controls what happens in this process. Feel free to add your own
-tools into this file to facilitate development. Saving will trigger a cache
+Run the following from the theme directory via command line to compile CSS from
+SASS.
+
+    gulp
+
+gulpfile.js controls what happens in this process. Feel free to add your
+own tools into this file to facilitate development. Saving will trigger a cache
 rebuild, css/js rebuild, and all BrowserSync browsers to reload.
