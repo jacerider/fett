@@ -5,12 +5,14 @@
 
 **Gulp and Bower are required to manage assets.**
 
-First, you will need to install NodeJS.
+First, you will need to install [NodeJS](https://nodejs.org/en/download/package-manager/).
 
 Install gulp and bower with the following from the command line. On some setups,
 sudo may be required.
 
     npm install -g gulp bower
+
+## Setup
 
 From the fett theme directory, enter the following in the command line. This
 will pull in the component assets for Fett. These are referenced includes from
