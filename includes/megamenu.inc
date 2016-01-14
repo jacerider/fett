@@ -228,7 +228,8 @@ function fett_fett_megamenu_offcanvas($vars){
 function fett_menu_tree__megamenu_offcanvas_2($vars) {
   $parent = fett_offcanvas_parent_storage();
   $icon = !empty($parent['#icon']) ? $parent['#icon'] : 'chevron-right';
-  return '<div class="mp-level"><div class="mp-back-icon"><i class="fa fa-' . $icon . '"></i></div><h2>'. $parent['#title'] .'</h2><a class="mp-back" href="#">back</a><ul class="mm-2">' . $vars['tree'] . '</ul></div>';
+  // return '<div class="mp-level"><div class="mp-back-icon"><i class="fa fa-' . $icon . '"></i></div><h2>'. $parent['#title'] .'</h2><a class="mp-back" href="#">back</a><ul class="mm-2">' . $vars['tree'] . '</ul></div>';
+  return '<div class="mp-level"><div class="mp-back-icon"><i class="fa fa-' . $icon . '"></i></div><a class="mp-back" href="#">back</a><ul class="mm-2">' . $vars['tree'] . '</ul></div>';
 }
 
 function fett_menu_tree__megamenu_offcanvas_3($vars) {
@@ -246,6 +247,11 @@ function fett_menu_link__megamenu_offcanvas_1($vars) {
   unset($element['#attributes']['class']);
   if($element['#below']) {
     fett_offcanvas_parent_storage($element);
+    $first_below = reset($element['#below']);
+    $parent = $element;
+    $parent['#below'] = array();
+    $parent['#theme'] = $first_below['#theme'];
+    $element['#below'] = array($parent['#original_link']['mlid'] => $parent) + $element['#below'];
     $sub_menu = drupal_render($element['#below']);
     $element['#attributes']['class'][] = 'mp-nest';
   }
