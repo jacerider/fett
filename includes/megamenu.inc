@@ -221,20 +221,20 @@ function fett_offcanvas_parent_storage($title = NULL){
 // }
 
 function fett_fett_megamenu_offcanvas($vars){
-  $icon = 'chevron-right';
+  $icon = 'chevron-left';
   return '<nav ' . drupal_attributes($vars['attributes']) . '><div class="mp-level mp-level-open mp-level-base"><div class="mp-back-icon"><i class="fa fa-' . $icon . '"></i></div><h2>Site Navigation</h2><ul class="mm-1">' . drupal_render($vars['tree']) . '</ul></div></nav>';
 }
 
 function fett_menu_tree__megamenu_offcanvas_2($vars) {
   $parent = fett_offcanvas_parent_storage();
-  $icon = !empty($parent['#icon']) ? $parent['#icon'] : 'chevron-right';
+  $icon = !empty($parent['#icon']) ? $parent['#icon'] : 'chevron-left';
   // return '<div class="mp-level"><div class="mp-back-icon"><i class="fa fa-' . $icon . '"></i></div><h2>'. $parent['#title'] .'</h2><a class="mp-back" href="#">back</a><ul class="mm-2">' . $vars['tree'] . '</ul></div>';
   return '<div class="mp-level"><div class="mp-back-icon"><i class="fa fa-' . $icon . '"></i></div><a class="mp-back" href="#">back</a><ul class="mm-2">' . $vars['tree'] . '</ul></div>';
 }
 
 function fett_menu_tree__megamenu_offcanvas_3($vars) {
   $parent = fett_offcanvas_parent_storage();
-  $icon = !empty($parent['#icon']) ? $parent['#icon'] : 'chevron-right';
+  $icon = !empty($parent['#icon']) ? $parent['#icon'] : 'chevron-left';
   return '<div class="mp-level"><div class="mp-back-icon"><i class="fa fa-' . $icon . '"></i></div><h2>'. $parent['#title'] .'</h2><a class="mp-back" href="#">back</a><ul class="mm-3">' . $vars['tree'] . '</ul></div>';
 }
 
