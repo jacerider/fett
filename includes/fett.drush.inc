@@ -21,8 +21,8 @@ function fett_drush_command() {
       'description'  => 'Your sub-theme description.',
     ),
     'examples' => array(
-      'drush ngt "custom theme name"' => 'Create a sub-theme with the default options.',
-      'drush ngt "foo bar" "foo_bar" --description="My custom Fett theme."' => 'Create a sub-theme with additional options.',
+      'drush fett "custom theme name"' => 'Create a sub-theme with the default options.',
+      'drush fett "foo bar" "foo_bar" --description="My custom Fett theme."' => 'Create a sub-theme with additional options.',
     ),
   );
 
@@ -32,12 +32,12 @@ function fett_drush_command() {
 /**
  * Create a Fett sub-theme.
  */
-function drush_fett_generate($name) {
+function drush_fett_generate($name, $machine_name = NULL) {
   $description = drush_get_option('description');
-  $machine_name = drush_get_option('machine_name');
+  // $machine_name = drush_get_option('machine_name');
 
   if (empty($name)) {
-    drush_set_error(dt("Please provide a name for the sub-theme.\nUSAGE:\tdrush ngt [name] --machine_name=[machine_name !OPTIONAL] --description=[description !OPTIONAL]\n"));
+    drush_set_error(dt("Please provide a name for the sub-theme.\nUSAGE:\tdrush fett [name] [machine_name !OPTIONAL] --description=[description !OPTIONAL]\n"));
     return;
   }
 
@@ -78,6 +78,7 @@ function drush_fett_generate($name) {
   drush_op('rename', "$subtheme_path/KAST.theme", "$subtheme_path/$machine_name.theme");
   drush_op('rename', "$subtheme_path/css/KAST.css", "$subtheme_path/css/$machine_name.css");
   drush_op('rename', "$subtheme_path/scss/KAST.scss", "$subtheme_path/scss/$machine_name.scss");
+  drush_op('rename', "$subtheme_path/js/KAST.js", "$subtheme_path/js/$machine_name.js");
   drush_op('rename', "$subtheme_path/templates/layout/page--front.html.twig.txt", "$subtheme_path/templates/layout/page--front.html.twig");
 
   // Update the .info file
