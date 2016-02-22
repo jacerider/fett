@@ -20,7 +20,7 @@ function fett_share_preprocess_node(&$vars){
   );
   $share['#attached']['js'][] = "$path_fett/assets/js/fett.share.js";
   $share['#markup'] = fett_share_node_render($vars['node']);
-  $share['#weight'] = -1000;
+  $share['#weight'] = 1000;
 
   $vars['content']['share'] = $share;
 }
