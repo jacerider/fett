@@ -44,7 +44,11 @@ function drush_fett_sub_theme($name = NULL, $machine_name = NULL, $description =
   $machine_name = str_replace('-', '_', $machine_name);
 
   // Find theme paths.
-  $fett_path = drush_locate_root() . '/' . drupal_get_path('theme', 'fett');
+  $drupal_root = drush_get_context('DRUSH_DRUPAL_ROOT');
+  if ($drupal_root == NULL) {
+    $drupal_root = drush_get_option(array('r', 'root'), drush_locate_root());
+  }
+  $fett_path = $drupal_root . '/' . drupal_get_path('theme', 'fett');
   $subtheme_path = dirname($fett_path) . '/' . $machine_name;
 
   // Make a fresh copy of the subtheme.
