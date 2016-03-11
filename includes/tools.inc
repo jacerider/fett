@@ -11,7 +11,7 @@
  */
 function fett_icon_text($text){
   if(function_exists('fawesome_text')){
-    $text = fawesome_text($text, $attributes);
+    $text = fawesome_text($text);
   }
   return $text;
 }
@@ -119,9 +119,10 @@ function fett_set_setting($setting_name, $value, $theme = NULL, $default = NULL)
  */
 function fett_get_css_files($theme_name) {
   $styles = &drupal_static(__FUNCTION__, array());
-  if (empty($styles)) {
-    if ($cache = cache_get('fett_get_css_files')) {
-      $styles = $cache->data;
+  if (!isset($styles[$theme_name])) {
+    $cache_name = 'fett_'.$theme_name.'_get_css_files';
+    if ($cache = cache_get($cache_name)) {
+      $styles[$theme_name] = $cache->data;
     }
     else {
       include_once DRUPAL_ROOT . '/' . drupal_get_path('theme', 'fett') . '/template.php';
@@ -145,7 +146,7 @@ function fett_get_css_files($theme_name) {
             if (!empty($data->info['stylesheets'])) {
               foreach ($data->info['stylesheets'] as $media => $content) {
                 foreach ($content as $file) {
-                  $styles[$file] = array(
+                  $styles[$theme_name][$file] = array(
                     'type' => 'contrib',
                     'source' => $module,
                   );
@@ -156,7 +157,7 @@ function fett_get_css_files($theme_name) {
               $module_path = pathinfo($data->filename, PATHINFO_DIRNAME);
               $module_files = file_scan_directory($module_path, '/.*\.css$/');
               foreach ($module_files as $path => $file) {
-                $styles[$file->uri] = array(
+                $styles[$theme_name][$file->uri] = array(
                   'type' => 'contrib',
                   'source' => $module,
                 );
@@ -177,7 +178,7 @@ function fett_get_css_files($theme_name) {
         foreach ($libraries as $lib_key => $library) {
           if (is_array($library) && !empty($library)) {
             foreach ($library as $lib_file) {
-              $styles[$lib_file->uri] = array(
+              $styles[$theme_name][$lib_file->uri] = array(
                 'type' => 'library',
                 'source' => $lib_file->uri,
               );
@@ -193,7 +194,7 @@ function fett_get_css_files($theme_name) {
             // Fett defined
             if (isset($info['unset_core'])) {
               foreach ($info['unset_core'] as $module_path => $description) {
-                $styles[$module_path] = array(
+                $styles[$theme_name][$module_path] = array(
                   'type' => 'unset_core',
                   'source' => $description,
                 );
@@ -202,7 +203,7 @@ function fett_get_css_files($theme_name) {
             // Active theme defined explicit excludes
             if (isset($info['unset_css'])) {
               foreach ($info['unset_css'] as $module_path => $description) {
-                $styles[$module_path] = array(
+                $styles[$theme_name][$module_path] = array(
                   'type' => 'user_defined',
                   'source' => $description,
                 );
@@ -211,7 +212,7 @@ function fett_get_css_files($theme_name) {
             // Active theme and ancestors, never show in admin
             foreach ($info['stylesheets'] as $media => $stylesheets) {
               foreach ($stylesheets as $file => $path) {
-                $styles[$path] = array(
+                $styles[$theme_name][$path] = array(
                   'type' => 'theme',
                   'source' => $provider,
                 );
@@ -220,10 +221,9 @@ function fett_get_css_files($theme_name) {
           }
         }
       }
-
-      cache_set('fett_get_css_files', $styles, 'cache');
+      cache_set($cache_name, $styles[$theme_name], 'cache');
     }
   }
 
-  return $styles;
+  return $styles[$theme_name];
 }
