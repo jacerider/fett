@@ -67,6 +67,9 @@ body.easy-admin-menu{
     a{
       color:darken($info-color, 60%);
     }
+    div.krumo-preview{
+      color:darken($info-color, 50%);
+    }
   }
 }
 .alert.warning{
