@@ -186,6 +186,7 @@
 
 /* overlap */
 .mp-overlap .mp-level.mp-level-open {
+  background: $mp-bg;
   box-shadow: 1px 0 2px darken($mp-bg, 30%);
   @include transform(translate3d(-40px, 0, 0));
 }
