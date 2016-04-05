@@ -21,6 +21,12 @@
   }
 }
 
+.oc-block{
+  background: $mp-bg;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
 /**
  * Only affects the dropdown nav when it is in the header region.
  */
@@ -119,7 +125,8 @@
   z-index:5;
   width: 100%;
   height: 100%;
-  background: $mp-bg;
+  overflow-x: hidden;
+  overflow-y: scroll;
   @include transform(translate3d(-100%, 0, 0));
 }
 
