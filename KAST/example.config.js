@@ -1,17 +1,19 @@
 module.exports = {
+  compileScss: true,
+  compileJs: true,
+  compressImages: true,
+  purgeRenderCache: true,
+
   browserSync: {
+    enable: true,
     hostname: "localhost",
     port: 8080,
-    openAutomatically: false,
-    reloadDelay: 50
+    openAutomatically: true
   },
 
   drush: {
-    enabled: false,
-    alias: 'drush @SITE-ALIAS cache-rebuild'
-  },
-
-  twig: {
-    useCache: true
+    css_js: 'drush cc css-js',
+    render: 'drush cc render',
+    cr: 'drush cr'
   }
 };

@@ -1,17 +1,18 @@
-# Fett Starter Drupal Theme
-##### Fett, Gulp, Bourbon, Neat, Bitters
+# map Drupal Theme
+##### Fett, Gulp, Foundation
 
-## System Setup
+## Development Setup
 
-If you have not already done so, please reference the README.md file found in
-the *fett* parent theme.
+First, you will need to install [NodeJS](https://nodejs.org/en/download/package-manager/).
 
-## Installation
-
-From your theme directory, enter the following in the command line. This will
-install the required tools to compile assets.
+Run the following from the command line:
 
     npm install
+
+For SCSS linting, Ruby version greater than 2.3.0 is recommended. Install the
+following gem from the command line:
+
+    gem install scss_lint
 
 Make a copy of example.config.js and set your local development settings here.
 Add this file to your .gitignore file to prevent breaking of team-members' dev
@@ -19,13 +20,8 @@ setup.
 
     cp example.config.js config.js
 
-## Usage
-
-Run the following from the theme directory via command line to compile CSS from
-SASS.
+Run the following from the command line from the module directory to have gulp
+compile and watch for changes to both .scss files and .js files found within
+the /dev folder.
 
     gulp
-
-gulpfile.js controls what happens in this process. Feel free to add your
-own tools into this file to facilitate development. Saving will trigger a cache
-rebuild, css/js rebuild, and all BrowserSync browsers to reload.

@@ -1,6 +1,6 @@
 name: Fett
 type: theme
-description: This is my face...
+description: "A Foundation 6 base theme for Drupal."
 core: 8.x
 screenshot: images/screenshot.png
 libraries:

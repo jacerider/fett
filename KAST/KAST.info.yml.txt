@@ -1,6 +1,6 @@
 name: Fett Starter
 type: theme
-description: '[Fett] Boba Fett was a Mandalorian warrior and bounty hunter. Not a clone.'
+description: "[FETT] A Foundation 6 base theme for Drupal."
 core: 8.x
 screenshot: images/screenshot.png
 base theme: fett

@@ -51,34 +51,20 @@ function drush_fett_generate($name, $machine_name = NULL) {
   $subtheme_path = dirname($fett_path) . '/' . $machine_name;
   $relative_path = str_replace('fett', $machine_name, drupal_get_path('theme', 'fett'));
 
-  // Make sure bower components are present
-  if (!file_exists("$fett_path/bower_components")) {
-    drush_set_error(dt("Please run bower install before generating the subtheme.\n"));
-    return;
-  }
-
   // Make a fresh copy of the subtheme.
   $s = drush_copy_dir("$fett_path/KAST/", $subtheme_path);
   if (empty($s)) {
     return;
   }
 
-  // Copy Bitters to the subtheme folder
-  $b = drush_copy_dir("$fett_path/bower_components/bitters/app/assets/stylesheets/", "$subtheme_path/scss/base", FILE_EXISTS_MERGE);
-  if (empty($b)) {
-    return;
-  }
-
-  // Fix the bitters grid settings neat import (unneeded import).
-  drush_op('fett_fix_bitters_neat_import', "$subtheme_path/scss/base/_grid-settings.scss");
-
   // Rename files and fill in the theme machine name
   drush_op('rename', "$subtheme_path/KAST.info.yml.txt", "$subtheme_path/$machine_name.info.yml");
   drush_op('rename', "$subtheme_path/KAST.libraries.yml", "$subtheme_path/$machine_name.libraries.yml");
   drush_op('rename', "$subtheme_path/KAST.theme", "$subtheme_path/$machine_name.theme");
   drush_op('rename', "$subtheme_path/css/KAST.css", "$subtheme_path/css/$machine_name.css");
-  drush_op('rename', "$subtheme_path/scss/KAST.scss", "$subtheme_path/scss/$machine_name.scss");
   drush_op('rename', "$subtheme_path/js/KAST.js", "$subtheme_path/js/$machine_name.js");
+  drush_op('rename', "$subtheme_path/dev/scss/KAST.scss", "$subtheme_path/dev/scss/$machine_name.scss");
+  drush_op('rename', "$subtheme_path/dev/js/KAST.js", "$subtheme_path/dev/js/$machine_name.js");
   drush_op('rename', "$subtheme_path/templates/layout/page--front.html.twig.txt", "$subtheme_path/templates/layout/page--front.html.twig");
 
   // Update the .info file
@@ -105,7 +91,7 @@ function drush_fett_generate($name, $machine_name = NULL) {
   drush_op('fett_file_str_replace', "$subtheme_path/gulpfile.js", 'KAST', "$machine_name");
 
   // Replace THEMENAME in KAST.scss
-  drush_op('fett_file_str_replace', "$subtheme_path/scss/$machine_name.scss", 'THEMENAME', "$machine_name");
+  drush_op('fett_file_str_replace', "$subtheme_path/dev/scss/$machine_name.scss", 'THEMENAME', "$machine_name");
 
   // Replace KAST in the libraries.yml
   drush_op('fett_file_str_replace', "$subtheme_path/$machine_name.libraries.yml", 'KAST', "$machine_name");
@@ -126,15 +112,6 @@ function fett_file_str_replace($file_path, $find, $replace) {
   $file_contents = file_get_contents($file_path);
   $file_contents = str_replace($find, $replace, $file_contents);
   file_put_contents($file_path, $file_contents);
-}
-
-/**
-  * Internal Helper: Remove first line of file.
-  */
-function fett_fix_bitters_neat_import($file_path) {
-  $file = file($file_path);
-  $file[0] = '@import "../../../fett/bower_components/neat/app/assets/stylesheets/neat-helpers";';
-  file_put_contents($file_path, $file);
 }
 
 /**

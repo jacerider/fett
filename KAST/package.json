@@ -1,15 +1,35 @@
 {
   "name": "KAST",
   "version": "8.0.0",
+  "description": "A Foundation 6 base theme for Drupal.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacerider/fett.git"
+  },
+  "scripts": {
+    "start": "gulp"
+  },
+  "author": "JaceRider",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jacerider/fett/issues"
+  },
+  "homepage": "https://github.com/jacerider/fett#readme",
   "devDependencies": {
-    "browser-sync": "^2.11.0",
-    "gulp": "^3.9.0",
+    "browser-sync": "^2.13.0",
+    "foundation-sites": "^6.2.3",
+    "fs": "0.0.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-clean-css": "^2.0.11",
+    "gulp-imagemin": "^3.0.2",
     "gulp-notify": "^2.2.0",
-    "gulp-sass": "^2.1.1",
-    "gulp-shell": "^0.5.1",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.5.1",
-    "gulp-util": "^3.0.7",
-    "gulp-watch": "^4.3.5"
+    "gulp-sass": "^2.3.2",
+    "gulp-scss-lint": "^0.4.0",
+    "gulp-shell": "^0.5.2",
+    "gulp-size": "^2.1.0",
+    "gulp-svgmin": "^1.2.2",
+    "gulp-uglify": "^1.5.4",
+    "gulp-util": "^3.0.7"
   }
 }
