@@ -1,7 +1,7 @@
 <div role="document" class="page">
   {%  if page.header %}
-    <header class="site-header">
-      <div class="outer-wrapper">
+    <header class="header">
+      <div class="wrapper">
         {{ page.header }}
       </div>
     </header>
@@ -9,7 +9,7 @@
 
   {%  if page.featured %}
     <section class="featured">
-      <div class="columns">
+      <div class="wrapper">
         {{ page.featured }}
       </div>
     </section>
@@ -17,7 +17,7 @@
 
   {% if messages %}
     <section class="messages">
-      <div class="outer-wrapper">
+      <div class="wrapper">
         {{ messages }}
       </div>
     </section>
@@ -25,43 +25,47 @@
 
   {% if breadcrumb %}
     <section class="breadcrumb">
-      <div class="outer-wrapper">
+      <div class="wrapper">
         {{ breadcrumb }}
       </div>
     </section>
   {% endif %}
 
-  <main class="main" role="main" class="outer-wrapper">
-    {% if page.sidebar_first %}
-      <aside class="sidebar first" role="complementary">
-        {{ page.sidebar_first }}
-      </aside>
-    {% endif %}
+  <main class="main" role="main">
+    <div class="wrapper">
+      {% if page.sidebar_first %}
+        <aside class="sidebar first" role="complementary">
+          {{ page.sidebar_first }}
+        </aside>
+      {% endif %}
 
-    <section class="content">
-      {{ page.content }}
-    </section>
+      <section class="content">
+        {{ page.content }}
+      </section>
 
-    {% if page.sidebar_second %}
-      <aside class="sidebar sidebar-second" role="complementary">
-        {{ page.sidebar_second }}
-      </aside>
-    {% endif %}
+      {% if page.sidebar_second %}
+        <aside class="sidebar second" role="complementary">
+          {{ page.sidebar_second }}
+        </aside>
+      {% endif %}
+    </div>
   </main>
 
   {% if page.footer_top or page.footer_bottom %}
-    <footer class="site-footer" role="contentinfo">
-      {% if page.footer_top %}
-        <section class="footer-top">
-          {{ page.footer_top }}
-        </section>
-      {% endif %}
+    <footer class="footer" role="contentinfo">
+      <div class="wrapper">
+        {% if page.footer_top %}
+          <section class="top">
+            {{ page.footer_top }}
+          </section>
+        {% endif %}
 
-      {% if page.footer_bottom %}
-        <section class="footer-bottom">
-          {{ page.footer_bottom }}
-        </section>
-      {% endif %}
+        {% if page.footer_bottom %}
+          <section class="bottom">
+            {{ page.footer_bottom }}
+          </section>
+        {% endif %}
+      </div>
     </footer>
   {% endif %}
 </div>
