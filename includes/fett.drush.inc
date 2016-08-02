@@ -62,6 +62,7 @@ function drush_fett_generate($name, $machine_name = NULL) {
   drush_op('rename', "$subtheme_path/KAST.libraries.yml", "$subtheme_path/$machine_name.libraries.yml");
   drush_op('rename', "$subtheme_path/KAST.theme", "$subtheme_path/$machine_name.theme");
   drush_op('rename', "$subtheme_path/css/KAST.css", "$subtheme_path/css/$machine_name.css");
+  drush_op('rename', "$subtheme_path/css/KAST.css.map", "$subtheme_path/css/$machine_name.css.map");
   drush_op('rename', "$subtheme_path/js/KAST.js", "$subtheme_path/js/$machine_name.js");
   drush_op('rename', "$subtheme_path/dev/scss/KAST.scss", "$subtheme_path/dev/scss/$machine_name.scss");
   drush_op('rename', "$subtheme_path/dev/js/KAST.js", "$subtheme_path/dev/js/$machine_name.js");
@@ -92,6 +93,9 @@ function drush_fett_generate($name, $machine_name = NULL) {
 
   // Replace THEMENAME in KAST.scss
   drush_op('fett_file_str_replace', "$subtheme_path/dev/scss/$machine_name.scss", 'THEMENAME', "$machine_name");
+
+  // Replace KAST in KAST.css.map
+  drush_op('fett_file_str_replace', "$subtheme_path/css/$machine_name.css.map", 'KAST', "$machine_name");
 
   // Replace KAST in the libraries.yml
   drush_op('fett_file_str_replace', "$subtheme_path/$machine_name.libraries.yml", 'KAST', "$machine_name");
