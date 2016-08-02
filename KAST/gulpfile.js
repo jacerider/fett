@@ -209,7 +209,8 @@ gulp.task('default', function(){
     }
 
     if (config.purgeRenderCache) {
-      gulp.watch(['./templates/*.html.twig', './templates/**/*.html.twig'], ['drush:render']);
+      gulp.watch(['../fett/templates/**/*.html.twig', './templates/**/*.html.twig'], ['drush:render']);
+      gulp.watch(['../fett/*.theme','./*.theme'], ['drush:cr']);
     }
   }
 });
