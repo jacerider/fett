@@ -1,0 +1,217 @@
+html,
+body,
+.offcanvas-wrapper,
+.offcanvas-push,
+.offcanvas-scroll {
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+}
+
+.offcanvas-wrapper {
+  position: relative;
+  overflow: hidden;
+  // perspective: 1500px;
+
+  /**
+   * When offcanvas element is active.
+   */
+  &.animate {
+    // overflow: hidden;
+
+    .offcanvas-close {
+
+      &::before,
+      &::after {
+        width: 80%;
+      }
+    }
+  }
+}
+
+
+.offcanvas-scroll {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.offcanvas-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: transparent;
+  height: rem-calc(56);
+  width: rem-calc(56);
+  display: block;
+  text-indent: -9999px;
+  border: 0;
+  text-align: center;
+
+  &::before,
+  &::after {
+    width: 0;
+    height: 6px;
+    content: '';
+    background-color: $white;
+    display: block;
+    margin: 50% auto 0;
+    transform: rotate(45deg);
+    border-radius: 4px;
+    transition: width 300ms ease 500ms, left 300ms, background-color 300ms;
+  }
+
+  &::after {
+    bottom: 0;
+    transform: rotate(-45deg);
+    margin: -54% auto 0;
+  }
+
+  &:hover {
+    border: 0;
+    color: transparent;
+
+    &::before,
+    &::after {
+      background-color: $primary-color;
+    }
+  }
+}
+
+
+/**
+ * Content Wrapper
+ */
+
+.offcanvas-push {
+  position: relative;
+  left: 0;
+  z-index: 100;
+  transform-style: preserve-3d;
+  transition: all 500ms;
+
+  .active & {
+    // height: 100%;
+    // overflow: hidden;
+    // transition: all 500ms;
+    // perspective: 1000px;
+    // transform-style: preserve-3d;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    background: rgba($black, 0.4);
+    transition: opacity 500ms, width 1ms 5ms, height 1ms 5ms;
+    z-index: 9999;
+    opacity: 0;
+  }
+
+  .animate & {
+
+    &::after {
+      width: 100%;
+      height: 100%;
+      opacity: 1;
+      transition: opacity 500ms;
+    }
+  }
+
+  .animate.left & {
+    transform: translate3d($offcanvas-size, 0, 0);
+    // transform: translate3d(0, 0, -300px);
+  }
+
+  .animate.right & {
+    transform: translate3d($offcanvas-size * -1, 0, 0);
+  }
+
+  .animate.top & {
+    transform: translate3d(0, $offcanvas-size, 0);
+  }
+
+  .animate.bottom & {
+    transform: translate3d(0, $offcanvas-size * -1, 0);
+  }
+}
+
+
+/**
+ * Offcanvas Items Wrapper
+ */
+
+.offcanvas-items {
+  position: absolute;
+  background: $black;
+  display: none;
+  z-index: 99;
+
+  .left &,
+  .right & {
+    top: 0;
+    bottom: 0;
+    width: $offcanvas-size;
+  }
+
+  .active & {
+    display: block;
+    transition: all 500ms;
+  }
+
+  .left & {
+    left: 0;
+    transform: translate3d($offcanvas-size * -0.5, 0, 0);
+  }
+
+  .animate.left & {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .right & {
+    right: 0;
+    transform: translate3d($offcanvas-size * 0.5, 0, 0);
+  }
+
+  .animate.right & {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .top &,
+  .bottom & {
+    left: 0;
+    right: 0;
+    height: $offcanvas-size;
+  }
+
+  .top & {
+    top: 0;
+    transform: translate3d(0, $offcanvas-size * -1, 0);
+  }
+
+  .animate.top & {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .bottom & {
+    bottom: 0;
+    transform: translate3d(0, $offcanvas-size, 0);
+  }
+
+  .animate.bottom & {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+
+.offcanvas-item {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}

@@ -15,7 +15,7 @@
       {% if item.url %}
         <a href="{{ item.url }}">{{ item.text }}</a>
       {% else %}
-        {{ item.text }}
+        <span>{{ item.text }}</span>
       {% endif %}
     {% endfor %}
   </nav>

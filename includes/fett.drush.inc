@@ -60,7 +60,9 @@ function drush_fett_generate($name, $machine_name = NULL) {
   // Rename files and fill in the theme machine name
   drush_op('rename', "$subtheme_path/KAST.info.yml.txt", "$subtheme_path/$machine_name.info.yml");
   drush_op('rename', "$subtheme_path/KAST.libraries.yml", "$subtheme_path/$machine_name.libraries.yml");
+  drush_op('rename', "$subtheme_path/KAST.breakpoints.yml", "$subtheme_path/$machine_name.breakpoints.yml");
   drush_op('rename', "$subtheme_path/KAST.theme", "$subtheme_path/$machine_name.theme");
+  drush_op('rename', "$subtheme_path/config/install/KAST.settings.yml", "$subtheme_path/config/install/$machine_name.settings.yml");
   drush_op('rename', "$subtheme_path/css/KAST.css", "$subtheme_path/css/$machine_name.css");
   drush_op('rename', "$subtheme_path/css/KAST.css.map", "$subtheme_path/css/$machine_name.css.map");
   drush_op('rename', "$subtheme_path/js/KAST.js", "$subtheme_path/js/$machine_name.js");
@@ -82,13 +84,22 @@ function drush_fett_generate($name, $machine_name = NULL) {
   // Replace KAST in info.yml
   drush_op('fett_file_str_replace', "$subtheme_path/$machine_name.info.yml", 'KAST', "$machine_name");
 
+  // Replace KAST in breakpoints.yml
+  drush_op('fett_file_str_replace', "$subtheme_path/$machine_name.breakpoints.yml", 'KAST', "$machine_name");
+
   // Rename functions in .theme
   drush_op('fett_file_str_replace', "$subtheme_path/$machine_name.theme", 'KAST', "$machine_name");
+
+  // Rename functions in .settings.yml
+  drush_op('fett_file_str_replace', "$subtheme_path/config/install/$machine_name.settings.yml", 'KAST', "$machine_name");
 
   // Replace KAST in package.json
   drush_op('fett_file_str_replace', "$subtheme_path/package.json", 'KAST', "$machine_name");
 
-  // Replace KAST in Gulpfile.js
+  // Replace KAST in bower.json
+  drush_op('fett_file_str_replace', "$subtheme_path/bower.json", 'KAST', "$machine_name");
+
+  // Replace KAST in gulpfile.js
   drush_op('fett_file_str_replace', "$subtheme_path/gulpfile.js", 'KAST', "$machine_name");
 
   // Replace THEMENAME in KAST.scss

@@ -1,0 +1,37 @@
+// Make sure the charset is set appropriately
+@charset 'UTF-8';
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Vendor
+// -----------------------------------------------------------------------------
+// Here we load vendor utilities. Bourbon and Foundation 6 are core. You can
+// selectively load foundation components but by default everything is loaded.
+// We load our variables and custom foundation (found in utils/) before we
+// load in the Foundation componenets so we can override them.
+
+@import 'foundation';
+@import 'utils/variables';
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Utilities
+// -----------------------------------------------------------------------------
+// The utils/ folder gathers all Sass tools and helpers we’ll use across the
+// project. Got a function? A mixin? Put it in there.
+
+@import 'utils/mixins';
+@import 'utils/functions';
+@import 'utils/placeholders';
+
+
+////////////////////////////////////////////////////////////////////////////////
+// COMPONENT
+// -----------------------------------------------------------------------------
+// For smaller components, there is the components/ folder. While layout/ is
+// kind of macro (defining the global wireframe), components/ is more micro. It
+// can contain all kinds of specific modules like a slider, a loader, a widget,
+// or anything along those lines. There are usually a lot of files in
+// components/ since your site should be mostly composed of tiny modules.
+
+@import 'components/offcanvas';

@@ -1,7 +1,10 @@
-global:
+fett.global:
   version: VERSION
+  css:
+    theme:
+      css/fett.css: {}
   js:
-    js/fett.js: {}
+    js/fett.js: { minified: true }
   # dependencies:
   #   - core/jquery
   #   - core/jquery.once
@@ -10,3 +13,124 @@ global:
   #   - core/drupalSettings
   #   - core/modernizr
   #   - core/underscore
+
+# Offcanvas
+fett.offcanvas:
+  version: "8.x-1.0"
+  css:
+    theme:
+      css/fett.offcanvas.css: {}
+  js:
+    js/fett.offcanvas.js: { minified: true }
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings
+
+# Mobile Menu
+fett.mobile_menu:
+  version: "8.x-1.0"
+  css:
+    theme:
+      css/fett.mobile_menu.css: {}
+  js:
+    js/fett.mobile_menu.js: { minified: true }
+  dependencies:
+    - fett/fett.offcanvas
+
+# Foundation
+fett.foundation.core:
+  version: VERSION
+  bower: true
+  js:
+    vendor/foundation-sites/js/foundation.core.js: {}
+    vendor/foundation-sites/js/foundation.util.mediaQuery.js: {}
+  dependencies:
+    - core/jquery
+
+fett.foundation.timerAndImageLoader:
+  version: VERSION
+  bower: true
+  js:
+    vendor/foundation-sites/js/foundation.util.timerAndImageLoader.js: {}
+  dependencies:
+    - fett/fett.foundation.core
+
+fett.foundation.equalizer:
+  version: VERSION
+  bower: true
+  js:
+    vendor/foundation-sites/js/foundation.equalizer.js: {}
+  dependencies:
+    - fett/fett.foundation.core
+    - fett/fett.foundation.timerAndImageLoader
+
+# Fastclick
+fett.fastclick:
+  remote: https://raw.githubusercontent.com/ftlabs/fastclick
+  version: "1.0.6"
+  license:
+    name: MIT
+    url: https://raw.githubusercontent.com/ftlabs/fastclick/master/LICENSE
+    gpl-compatible: true
+  js:
+    https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js: { type: external, minified: true }
+  dependencies:
+    - core/jquery
+
+# Fastclick initialize
+fett.fastclick_initialize:
+  version: "8.x-1.0"
+  js:
+    js/fett.fastclick.js: { minified: true }
+  dependencies:
+    - fett/fett.fastclick
+
+# html5shiv
+fett.html5shiv:
+  # Block the page from being loaded until html5shiv is initialized.
+  header: true
+  remote: https://github.com/aFarkas/html5shiv
+  version: "3.7.3"
+  license:
+    name: GNU-GPL-2.0-or-later
+    url: http://www.gnu.org/licenses/gpl-2.0.html
+    gpl-compatible: true
+  js:
+    https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js: { weight: -22, browsers: { IE: 'lte IE 8', '!IE': false }, minified: true }
+
+# Respond
+fett.respond:
+  remote: https://github.com/scottjehl/Respond
+  version: "1.4.2"
+  license:
+    name: MIT
+    url: https://raw.githubusercontent.com/scottjehl/Respond/master/LICENSE-MIT
+    gpl-compatible: true
+  js:
+    https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js: { type: external, browsers: { IE: 'lte IE 8', '!IE': false }, minified: true }
+
+# Selectivizr
+fett.selectivizr:
+  remote: https://github.com/keithclark/selectivizr
+  version: "1.0.2"
+  license:
+    name: MIT
+    url: http://opensource.org/licenses/mit-license.php
+    gpl-compatible: true
+  js:
+    https://cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js: { type: external, browsers: { IE: 'lte IE 8', '!IE': false }, minified: true }
+  dependencies:
+    - fett/fett.yui3
+
+# test with YUI3 for selectivizr
+fett.yui3:
+  remote: https://github.com/yui/yui3
+  version: "3.18.0"
+  license:
+    name: BSD
+    url: https://raw.githubusercontent.com/yui/yui3/master/LICENSE.md
+    gpl-compatible: true
+  js:
+    http://yui.yahooapis.com/3.18.1/build/yui/yui-min.js:  { type: external, browsers: { IE: 'lte IE 8', '!IE': false }, minified: true }

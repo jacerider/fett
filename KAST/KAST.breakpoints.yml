@@ -1,0 +1,28 @@
+KAST.simple.small:
+  label: small
+  mediaQuery: ''
+  weight: 0
+  multipliers:
+    - 1x
+  group: KAST.simple
+KAST.simple.medium:
+  label: medium
+  mediaQuery: 'all and (min-width: 40em)'
+  weight: 1
+  multipliers:
+    - 1x
+  group: KAST.simple
+KAST.simple.large:
+  label: large
+  mediaQuery: 'all and (min-width: 64em)'
+  weight: 2
+  multipliers:
+    - 1x
+  group: KAST.simple
+KAST.simple.xlarge:
+  label: xlarge
+  mediaQuery: 'all and (min-width: 120em)'
+  weight: 3
+  multipliers:
+    - 1x
+  group: KAST.simple

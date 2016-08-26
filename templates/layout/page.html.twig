@@ -1,13 +1,15 @@
-<div role="document" class="page">
-  {%  if page.header %}
+{{ prefix }}
+<div role="document" {{ attributes.addClass('page') }}>
+  {% if page.header %}
     <header class="header">
       <div class="wrapper">
         {{ page.header }}
+        {{ offcanvas_links }}
       </div>
     </header>
   {% endif %}
 
-  {%  if page.featured %}
+  {% if page.featured %}
     <section class="featured">
       <div class="wrapper">
         {{ page.featured }}
@@ -69,3 +71,4 @@
     </footer>
   {% endif %}
 </div>
+{{ suffix }}

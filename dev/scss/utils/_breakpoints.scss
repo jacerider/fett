@@ -1,0 +1,12 @@
+/**
+ * This file is dynamically generated from:
+ * fett.breakpoints.yml
+ */
+
+$breakpoints: (
+  small: 0,
+  medium: all and (min-width: 40em),
+  large: all and (min-width: 64em),
+  xlarge: all and (min-width: 120em),
+);
+$breakpoint-classes: (small medium large xlarge);

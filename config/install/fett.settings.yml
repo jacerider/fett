@@ -1,0 +1,9 @@
+settings:
+  extensions_form_open: 1
+  enable_extensions: 1
+  enable_mobile_menus: 1
+  mobile_menu: main
+  mobile_menu_link_text: 'Menu'
+  mobile_menu_position: 'Left'
+  mobile_menu_breakpoint_group: fett.simple
+  mobile_menu_breakpoint: 'hide-for-large'

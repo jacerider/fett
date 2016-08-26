@@ -6,7 +6,10 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var notify = require('gulp-notify');
+var rename = require('gulp-rename');
 var shell = require('gulp-shell');
+var plumber = require('gulp-plumber');
+var fettBreakpoints = require('fett-breakpoints');
 var browserSync = require('browser-sync').create();
 var fs = require('fs');
 var config = {
@@ -60,20 +63,29 @@ loadConfig();
 
 gulp.task('sassLint', function (){
   gulp.src(['./dev/scss/*.scss', './dev/scss/**/*.scss'])
+    .pipe(plumber())
     .pipe(lint());
+});
+
+gulp.task('sassBreakpoints', function (){
+  gulp.src('./KAST.breakpoints.yml')
+    .pipe(fettBreakpoints.ymlToScss())
+    .pipe(rename('_breakpoints.scss'))
+    .pipe(gulp.dest('./dev/scss/utils'))
 });
 
 gulp.task('sass', function (){
   var s = size({showTotal: false});
 
   gulp.src(['./dev/scss/*.scss'])
+    .pipe(plumber())
     .pipe(s)
     .pipe(sourcemaps.init())
     .pipe(sass({
       noCache: true,
       outputStyle: 'compressed',
       lineNumbers: false,
-      includePaths: ['./dev/scss', './node_modules/foundation-sites/scss']
+      includePaths: ['./dev/scss', './vendor/foundation-sites/scss']
     })).on('error', function(error) {
       gutil.log(error);
       this.emit('end');
@@ -99,6 +111,7 @@ gulp.task('sass', function (){
 
 gulp.task('js', function (){
   gulp.src(['./dev/js/*.js', './dev/js/**/*.js'])
+    .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(uglify())
     .pipe(sourcemaps.write('.'))
@@ -119,12 +132,14 @@ gulp.task('js-watch', ['js'], browserSync.reload);
 
 gulp.task('svgmin', function() {
   gulp.src(['./dev/img/*.svg', './dev/img/**/*.svg'])
+    .pipe(plumber())
     .pipe(svgmin())
     .pipe(gulp.dest('./images'));
 });
 
 gulp.task('imgmin', function () {
   gulp.src(['./dev/img/*', './dev/img/**/*'])
+    .pipe(plumber())
     .pipe(imagemin())
     .pipe(browserSync.stream())
     .pipe(gulp.dest('./images'));
@@ -148,6 +163,7 @@ gulp.task('browser-sync', function() {
 
 gulp.task('drush:css_js', function () {
   gulp.src('', {read: false})
+    .pipe(plumber())
     .pipe(shell([
       config.drush.css_js
     ]))
@@ -161,6 +177,7 @@ gulp.task('drush:css_js', function () {
 
 gulp.task('drush:render', function () {
   gulp.src('', {read: false})
+    .pipe(plumber())
     .pipe(shell([
       config.drush.render
     ]))
@@ -174,6 +191,7 @@ gulp.task('drush:render', function () {
 
 gulp.task('drush:cr', function () {
   gulp.src('', {read: false})
+    .pipe(plumber())
     .pipe(shell([
       config.drush.cr
     ]))
@@ -190,6 +208,7 @@ gulp.task('drush:cr', function () {
 ////////////////////////////////////////////////////////////////////////////////
 
 gulp.task('default', function(){
+  gulp.start('sassBreakpoints');
 
   if (config !== null) {
     if (config.browserSync.enable) {

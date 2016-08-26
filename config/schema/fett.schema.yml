@@ -1,0 +1,6 @@
+# Schema for the configuration files of the Fett theme.
+
+fett.settings:
+  type: theme_settings
+  label: 'Fett settings'
+

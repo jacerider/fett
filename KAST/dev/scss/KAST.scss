@@ -11,6 +11,7 @@
 // load in the Foundation componenets so we can override them.
 
 @import 'foundation';
+@import 'utils/breakpoints';
 @import 'utils/variables';
 @include foundation-everything;
 
@@ -58,6 +59,7 @@
 // or anything along those lines. There are usually a lot of files in
 // components/ since your site should be mostly composed of tiny modules.
 
+@import 'components/nav';
 
 
 

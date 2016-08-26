@@ -1,0 +1,8 @@
+<div{{ attributes }} aria-hidden="true">
+  {% for item in items %}
+    <div{{ item.attributes }}>
+      {{ item.content }}
+    </div>
+  {% endfor %}
+  <a href="#" class="offcanvas-close">Close</a>
+</div>
