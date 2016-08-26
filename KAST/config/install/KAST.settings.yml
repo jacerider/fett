@@ -5,5 +5,5 @@ settings:
   mobile_menu: main
   mobile_menu_position: 'Left'
   mobile_menu_link_text: 'Menu'
-  mobile_menu_breakpoint_group: fett.simple
+  mobile_menu_breakpoint_group: KAST.simple
   mobile_menu_breakpoint: 'hide-for-large'
