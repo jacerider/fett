@@ -1,5 +1,22 @@
+{% set sidebar_first = page.sidebar_first|render|striptags|trim|length %}
+{% set sidebar_last = page.sidebar_last|render|striptags|trim|length %}
+{%
+  set classes = [
+    'page'
+  ]
+%}
+{% if sidebar_first and sidebar_second %}
+  {% set classes = classes|merge(['two-sidebars']) %}
+{% elseif sidebar_first %}
+  {% set classes = classes|merge(['one-sidebar', 'sidebar-first']) %}
+{% elseif sidebar_second %}
+  {% set classes = classes|merge(['one-sidebar', 'sidebar-second']) %}
+{% else %}
+  {% set classes = classes|merge(['no-sidebars']) %}
+{% endif %}
+
 {{ prefix }}
-<div role="document" {{ attributes.addClass('page') }}>
+<div role="document" {{ attributes.addClass(classes) }}>
   {% if page.header %}
     <header class="header">
       <div class="wrapper">
@@ -35,15 +52,15 @@
 
   <main class="main" role="main">
     <div class="wrapper">
+      <section class="content">
+        {{ page.content }}
+      </section>
+
       {% if page.sidebar_first %}
         <aside class="sidebar first" role="complementary">
           {{ page.sidebar_first }}
         </aside>
       {% endif %}
-
-      <section class="content">
-        {{ page.content }}
-      </section>
 
       {% if page.sidebar_second %}
         <aside class="sidebar second" role="complementary">
