@@ -5,8 +5,10 @@
  * Functions to support theming in Fett.
  */
 
-include_once __DIR__ . '/includes/fett.offcanvas.php';
-include_once __DIR__ . '/includes/fett.mobile_menu.php';
+use Drupal\Component\Utility\Html;
+
+include_once('includes/fett.offcanvas.php');
+include_once('includes/fett.mobile_menu.php');
 
 /**
  * Implements hook_theme().
@@ -24,26 +26,6 @@ function fett_theme_registry_alter(&$theme_registry) {
   // Add another page preprocess function that will get called after all child
   // theme preprocess functions.
   $theme_registry['page']['preprocess functions'][] = 'fett_preprocess_page_last';
-}
-
-/**
- * Implements hook_html_head_alter().
- */
-function fett_html_head_alter(&$head_elements) {
-  // HTML5 charset declaration.
-  $head_elements['system_meta_content_type']['#attributes'] = array(
-    'charset' => 'utf-8',
-  );
-
-  // Optimize mobile viewport.
-  $head_elements['mobile_viewport'] = array(
-    '#type' => 'html_tag',
-    '#tag' => 'meta',
-    '#attributes' => array(
-      'name' => 'viewport',
-      'content' => 'width=device-width, initial-scale=1',
-    ),
-  );
 }
 
 /**
@@ -102,6 +84,51 @@ function fett_page_attachments_alter(array &$page) {
     }
 
   }
+
+  // Optimize mobile viewport.
+  $page['#attached']['html_head'][] = array(array(
+    '#type' => 'html_tag',
+    '#tag' => 'meta',
+    '#attributes' => array(
+        'name' => 'viewport',
+        'content' => 'width=device-width',
+      ),
+  ), 'mobile_viewport');
+
+  // Force IE to use Chrome Frame if installed.
+  $page['#attached']['html_head'][] = array(array(
+    '#type' => 'html_tag',
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'content' => 'ie=edge, chrome=1',
+      'http-equiv' => 'x-ua-compatible',
+    ),
+  ), 'chrome_frame');
+
+  // Remove image toolbar in IE.
+  $page['#attached']['html_head'][] = array(array(
+    '#type' => 'html_tag',
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'http-equiv' => 'ImageToolbar',
+      'content' => 'false',
+    ),
+  ), 'ie_image_toolbar');
+}
+
+/**
+ * Implements hook_form_alter().
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function fett_form_alter(&$form, &$form_state, $form_id) {
+  // Sexy submit buttons
+  if (!empty($form['actions']) && !empty($form['actions']['submit'])) {
+    $form['actions']['submit']['#attributes']['class'][] = 'primary';
+    $form['actions']['submit']['#attributes']['class'][] = 'button';
+    $form['actions']['submit']['#attributes']['class'][] = 'radius';
+  }
 }
 
 /**
@@ -132,7 +159,73 @@ function fett_preprocess_page_last(&$vars) {
 }
 
 /**
- * Implements hook_preprocess_html().
+ * Implements hook_preprocess_eck_entity().
  */
-function fett_preprocess_html(&$vars) {
+function fett_preprocess_eck_entity(&$vars) {
+  $content = $vars['entity'];
+  if (isset($content['#' . $content['#entity_type']])) {
+    // We add these classes here because ECK eck_entity.html.twig is jacked.
+    $entity = $content['#' . $content['#entity_type']];
+    $vars['attributes']['class'][] = Html::getClass($entity->getEntityTypeId());
+    $vars['attributes']['class'][] = Html::getClass($entity->bundle());
+  }
+}
+
+/**
+ * Implements theme_menu_local_tasks().
+ */
+function fett_menu_local_tasks(&$vars) {
+  $output = '';
+
+  if (!empty($vars['primary'])) {
+    $vars['primary']['#prefix'] = '<h2 class="visually-hidden">' . t('Primary tabs') . '</h2>';
+    $vars['primary']['#prefix'] .= '<div class="tasks tasks-primary button-group">';
+    $vars['primary']['#suffix'] = '</div>';
+    $output .= drupal_render($vars['primary']);
+  }
+  if (!empty($vars['secondary'])) {
+    $vars['secondary']['#prefix'] = '<h2 class="visually-hidden">' . t('Secondary tabs') . '</h2>';
+    $vars['secondary']['#prefix'] .= '<div class="tasks tasks-secondary button-group">';
+    $vars['secondary']['#suffix'] = '</div>';
+    $output .= drupal_render($vars['secondary']);
+  }
+
+  return $output;
+}
+
+/**
+ * Implements theme_menu_local_task().
+ */
+function fett_menu_local_task(&$vars) {
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  $config = \Drupal::config($theme . '.settings')->get('settings');
+
+  $link = $vars['element']['#link'];
+  $link_text = array(
+    '#markup' => $link['title'],
+  );
+
+  if (!empty($vars['element']['#active'])) {
+    // Add text to indicate active tab for non-visual users.
+    $link_text['#suffix'] = '<span class="visually-hidden">' . t('(active tab)') . '</span>';
+  }
+
+  $state = !empty($vars['element']['#active']) ? 'active' : 'secondary';
+  $link['url']->setOption('attributes', array('class' => array('button', $state)));
+
+  // Iconify integration
+  if (isset($config['enable_extensions']) && $config['enable_extensions'] === 1) {
+    if (isset($config['enable_iconify']) && $config['enable_iconify'] === 1 && !empty($config['iconify_tasks'])) {
+      if (\Drupal::moduleHandler()->moduleExists('iconify')) {
+        $link_text['#markup'] = iconify($link_text['#markup']);
+        if (!empty($config['iconify_tasks_icon_only'])) {
+          $link_text['#markup']->setIconOnly();
+        }
+      }
+    }
+  }
+
+  $a_tag = \Drupal::l($link_text, $link['url']);
+
+  return $a_tag;
 }
