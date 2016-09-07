@@ -38,6 +38,7 @@ var prefix = require('gulp-autoprefixer');
 var clean = require('gulp-clean-css');
 
 // JavaScript
+var eslint = require('gulp-eslint');
 var uglify = require('gulp-uglify');
 
 // Images
@@ -108,6 +109,12 @@ gulp.task('sass', function (){
 ////////////////////////////////////////////////////////////////////////////////
 // Compile Javascript
 ////////////////////////////////////////////////////////////////////////////////
+
+gulp.task('jsLint', function (){
+  return gulp.src(['./dev/js/*.js', './dev/js/**/*.js'])
+    .pipe(eslint())
+    .pipe(eslint.format());
+});
 
 gulp.task('js', function (){
   gulp.src(['./dev/js/*.js', './dev/js/**/*.js'])
@@ -220,7 +227,7 @@ gulp.task('default', function(){
     }
 
     if (config.compileJs) {
-      gulp.watch(['./dev/js/*.js', './dev/js/**/*.js'], ['js']);
+      gulp.watch(['./dev/js/*.js', './dev/js/**/*.js'], ['jsLint', 'js']);
     }
 
     if (config.compressImages) {
