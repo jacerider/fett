@@ -69,6 +69,14 @@ $form['enable_extensions']['settings_enable_mobile_menu'] = array(
   '#default_value' => theme_get_setting('settings.enable_mobile_menu', $theme),
 );
 
+// Iconify
+$form['enable_extensions']['settings_enable_iconify'] = array(
+  '#type' => 'checkbox',
+  '#title' => t('Iconify'),
+  '#description' => t('Enable support for the Iconify module.'),
+  '#default_value' => theme_get_setting('settings.enable_iconify', $theme),
+);
+
 // Legacy browsers
 $form['enable_extensions']['settings_enable_legacy_browsers'] = array(
   '#type' => 'checkbox',
@@ -93,6 +101,7 @@ if (theme_get_setting('settings.enable_extensions', $theme) == 1) {
     // 'ckeditor',
     // 'markup_overrides',
     // 'devel',
+    'iconify',
     'legacy_browsers',
   );
 
