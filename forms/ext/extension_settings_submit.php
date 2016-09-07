@@ -30,7 +30,7 @@ function fett_submit_extension_settings(&$form, \Drupal\Core\Form\FormStateInter
 
   // Flush caches. I really, really tried to avoid this, but if you know a better
   // way of always clearing twig, CSS and the registry?
-  drupal_flush_all_caches();
+  // drupal_flush_all_caches();
 
   // Manage settings and configuration.
   // Must get mutable config otherwise bad things happen.
