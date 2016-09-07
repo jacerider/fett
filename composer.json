@@ -1,0 +1,17 @@
+{
+  "name": "jacerider/fett",
+  "description": "A front-end Drupal base theme of awesomeness built upon Zurb Foundation.",
+  "type": "drupal-module",
+  "license": "GPL-2.0+",
+  "homepage": "https://github.com/jacerider/fett",
+  "minimum-stability": "dev",
+  "keywords": [
+    "Drupal",
+    "Theme"
+  ],
+  "support": {
+    "issues": "https://github.com/jacerider/fett/issues",
+    "source": "https://github.com/jacerider/fett"
+  },
+  "require": {}
+}
