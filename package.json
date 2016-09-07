@@ -1,24 +1,27 @@
 {
   "name": "fett",
   "version": "8.0.0",
-  "description": "A Foundation 6 base theme for Drupal.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jacerider/fett.git"
+  "description": "A front-end Drupal base theme of awesomeness built upon Zurb Foundation.",
+  "license": "GPL-2.0+",
+  "repository": "jacerider/fett",
+  "homepage": "https://github.com/jacerider/fett#readme",
+  "author": {
+    "name": "Cyle Carlson",
+    "email": "jacerider@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/jacerider/fett/issues"
   },
   "scripts": {
     "start": "gulp",
     "postinstall": "./node_modules/bower/bin/bower install"
   },
-  "author": "JaceRider",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/jacerider/fett/issues"
+  "dependencies": {
+    "bower": "^1.7.9"
   },
-  "homepage": "https://github.com/jacerider/fett#readme",
   "devDependencies": {
     "browser-sync": "^2.13.0",
-    "fett-breakpoints": "git+https://github.com/jacerider/fett-breakpoints.git",
+    "fett-breakpoints": "jacerider/fett-breakpoints#6c9c612",
     "fs": "0.0.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
@@ -36,8 +39,5 @@
     "gulp-uglify": "^1.5.4",
     "gulp-util": "^3.0.7",
     "npm": "^3.10.5"
-  },
-  "dependencies": {
-    "bower": "^1.7.9"
   }
 }
