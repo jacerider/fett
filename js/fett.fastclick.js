@@ -1,2 +1,2 @@
-!function(t,a){Drupal.behaviors.FettFastclick={attach:function(t){FastClick.attach(a.body)}}}(jQuery,document);
+!function(t,c){"use strict";Drupal.behaviors.FettFastclick={attach:function(t){FastClick.attach(c.body)}}}(jQuery,document);
 //# sourceMappingURL=fett.fastclick.js.map
