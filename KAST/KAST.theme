@@ -9,45 +9,21 @@ use Drupal\Core\Url;
 
 /**
  * Implements template_preprocess_html().
- * @param array $variables
+ * @param array $vars
  */
-function KAST_preprocess_html(&$variables) {
-  if (!empty($variables['page']['sidebar_first'])) {
-    $sidebar_left = $variables['page']['sidebar_first'];
-  }
-
-  if (!empty($variables['page']['sidebar_second'])) {
-    $sidebar_right = $variables['page']['sidebar_second'];
-  }
-
-  // Dynamic sidebars.
-  if (!empty($sidebar_left) && !empty($sidebar_right)) {
-    $variables['attributes']['class'][] = 'two-sidebars';
-  }
-  elseif (empty($sidebar_left) && !empty($sidebar_right)) {
-    $variables['attributes']['class'][] = 'one-sidebar';
-    $variables['attributes']['class'][] = 'sidebar-second';
-  }
-  elseif (!empty($sidebar_left) && empty($sidebar_right)) {
-    $variables['attributes']['class'][] = 'one-sidebar';
-    $variables['attributes']['class'][] = 'sidebar-first';
-  }
-  else {
-    $variables['attributes']['class'][] = 'no-sidebars';
-  }
-}
+function KAST_preprocess_html(&$vars) {}
 
 /**
  * Implements template_preprocess_page.
- * @param array $variables
+ * @param array $vars
  */
-function KAST_preprocess_page(&$variables) {
+function KAST_preprocess_page(&$vars) {
   $site_name = \Drupal::configFactory()->get('system.site')->get('name');
-  $variables['linked_site_name'] = ['#type' => 'link', '#title' => $site_name, '#url' => Url::fromRoute('<front>')];
+  $vars['linked_site_name'] = ['#type' => 'link', '#title' => $site_name, '#url' => Url::fromRoute('<front>')];
 }
 
 /**
  * Implements template_preprocess_node.
- * @param array $variables
+ * @param array $vars
  */
-function KAST_preprocess_node(&$variables) {}
+function KAST_preprocess_node(&$vars) {}
