@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Custom theme settings.
@@ -45,15 +44,6 @@ function fett_form_system_theme_settings_alter(&$form, FormStateInterface $form_
   // various other places.
   $theme_regions = system_region_list($theme, $show = REGIONS_VISIBLE);
 
-  // Active themes active blocks
-  // $block_module = \Drupal::moduleHandler()->moduleExists('breakpoint');
-  // if ($block_module == TRUE) {
-  //   $theme_blocks = \Drupal::entityTypeManager()->getStorage('block')->loadByProperties(['theme' => $theme]);
-  // }
-  // else {
-  //   $theme_blocks = NULL;
-  // }
-
   // Check for breakpoints module and set a warning and a flag to disable much
   // of the theme settings if its not available.
   $breakpoints_module = \Drupal::moduleHandler()->moduleExists('breakpoint');
@@ -89,7 +79,7 @@ function fett_form_system_theme_settings_alter(&$form, FormStateInterface $form_
 
   // Fett Core
   if ($theme == 'fett') {
-    drupal_set_message(t('Fett has no configuration and cannot be used as a front end theme - it is a base them only. Use <b>drush fett</b> to generate or clone a theme to get started.'), 'error');
+    drupal_set_message(t('Fett has no configuration and cannot be used as a front-end theme - it is a base theme only. Use <b>drush fett</b> to generate or clone a theme to get started.'), 'error');
 
     // Hide form items.
     $form['theme_settings']['#attributes']['class'] = array('visually-hidden');

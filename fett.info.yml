@@ -1,6 +1,7 @@
 name: Fett
+description: 'A front-end Drupal base theme of awesomeness built upon Zurb Foundation.'
+package: JaceRider
 type: theme
-description: "A Foundation 6 base theme for Drupal."
 core: 8.x
 screenshot: images/screenshot.png
 libraries:

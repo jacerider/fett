@@ -4,14 +4,17 @@
   "type": "drupal-theme",
   "license": "GPL-2.0+",
   "homepage": "https://github.com/jacerider/fett",
-  "minimum-stability": "dev",
-  "keywords": [
-    "Drupal",
-    "Theme"
+  "authors": [
+    {
+      "name": "Cyle Carlson (JaceRider)",
+      "email": "jacerider@gmail.com",
+      "role": "Maintainer"
+    }
   ],
   "support": {
     "issues": "https://github.com/jacerider/fett/issues",
     "source": "https://github.com/jacerider/fett"
   },
-  "require": {}
+  "minimum-stability": "dev",
+  "require": { }
 }
