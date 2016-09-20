@@ -147,6 +147,17 @@ function fett_preprocess_page(&$vars) {
 }
 
 /**
+ * Implements hook_preprocess_page().
+ */
+function fett_preprocess_node(&$vars) {
+  $vars['element'] = 'article';
+  $vars['title_element'] = 'h2';
+  $vars['link_title'] = TRUE;
+  $vars['content_element'] = '';
+  $vars['content_attributes'] = [];
+}
+
+/**
  * This page preprocess function will be called after all other preprocessing
  * has been completed.
  */
@@ -211,7 +222,7 @@ function fett_menu_local_task(&$vars) {
   }
 
   $state = !empty($vars['element']['#active']) ? 'active' : 'secondary';
-  $link['url']->setOption('attributes', array('class' => array('button', $state)));
+  $link['url']->setOption('attributes', array('class' => array('button', 'admin', $state)));
 
   // Iconify integration
   if (isset($config['enable_extensions']) && $config['enable_extensions'] === 1) {

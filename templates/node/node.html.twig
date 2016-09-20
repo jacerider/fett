@@ -74,12 +74,24 @@
 * @see template_process()
 */
 #}
-<article id="node-{{ node.id }}" class="{{ attributes.class }}"{{ attributes }}>
+<{{ element }} id="node-{{ node.id }}" class="{{ attributes.class }}"{{ attributes }}>
   {{ title_prefix }}
   {% if not page %}
-    <h2{{ title_attributes }}><a href="{{ url }}" rel="bookmark">{{ label }}</a></h2>
+    <{{ title_element }}{{ title_attributes }}>
+      {% if link_title %}
+        <a href="{{ url }}" rel="bookmark">
+      {% endif %}
+      {{ label }}
+      {% if link_title %}
+        </a>
+      {% endif %}
+    </{{ title_element }}>
   {% endif %}
   {{ title_suffix }}
+
+  {% if content_element %}
+    <{{ content_element}}{{ content_attributes }}>
+  {% endif %}
 
   {% if display_submitted %}
   <div class="posted">
@@ -98,4 +110,8 @@
 
   {{ content.links }}
   {{ content.comments }}
-</article>
+
+  {% if content_element %}
+    </{{ content_element}}>
+  {% endif %}
+</{{ element }}>
