@@ -32,7 +32,7 @@
     {% if menu_level == 0 %}
       <ul>
     {% else %}
-      <ul>
+      <ul {{ attributes.addClass('level-' ~ menu_level) }}>
     {% endif %}
     {% for item in items %}
       {%
@@ -40,7 +40,6 @@
           item.is_expanded ? 'expanded',
           item.is_collapsed ? 'collapsed',
           item.in_active_trail ? 'active-trail',
-          'level-' ~ menu_level
         ]
       %}
       <li{{ item.attributes.addClass(classes) }}>
