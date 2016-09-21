@@ -222,19 +222,22 @@ function fett_menu_local_task(&$vars) {
   }
 
   $state = !empty($vars['element']['#active']) ? 'active' : 'secondary';
-  $link['url']->setOption('attributes', array('class' => array('button', 'admin', $state)));
+  $link_attributes = ['class' => ['button', 'admin', $state]];
 
   // Iconify integration
   if (isset($config['enable_extensions']) && $config['enable_extensions'] === 1) {
     if (isset($config['enable_iconify']) && $config['enable_iconify'] === 1 && !empty($config['iconify_tasks'])) {
       if (\Drupal::moduleHandler()->moduleExists('iconify')) {
-        $link_text['#markup'] = iconify($link_text['#markup']);
+        $title = $link_text['#markup'];
+        $link_text['#markup'] = iconify($title);
         if (!empty($config['iconify_tasks_icon_only'])) {
           $link_text['#markup']->setIconOnly();
+          $link_attributes['title'] = $title;
         }
       }
     }
   }
+  $link['url']->setOption('attributes', $link_attributes);
 
   $a_tag = \Drupal::l($link_text, $link['url']);
 
