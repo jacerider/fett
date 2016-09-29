@@ -108,6 +108,9 @@ function drush_fett_generate($name, $machine_name = NULL) {
   // Replace KAST in KAST.css.map
   drush_op('fett_file_str_replace', "$subtheme_path/css/$machine_name.css.map", 'KAST', "$machine_name");
 
+  // Replace KAST in KAST.js
+  drush_op('fett_file_str_replace', "$subtheme_path/dev/js/$machine_name.js", 'KAST', "$machine_name");
+
   // Replace KAST in the libraries.yml
   drush_op('fett_file_str_replace', "$subtheme_path/$machine_name.libraries.yml", 'KAST', "$machine_name");
 
