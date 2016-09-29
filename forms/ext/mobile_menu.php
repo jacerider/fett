@@ -60,7 +60,7 @@ $form['mobile_menu']['default_settings']['settings_mobile_menu'] = array(
 $form['mobile_menu']['default_settings']['settings_mobile_menu_secondary'] = array(
   '#type' => 'select',
   '#title' => t('Menu: Secondary'),
-  '#options' => $menu_options,
+  '#options' => ['' => t('- None -')] + $menu_options,
   '#default_value' => theme_get_setting('settings.mobile_menu_secondary', $theme),
   '#description' => t('An additional menu that can be appended to the mobile menu.'),
 );
@@ -105,7 +105,7 @@ if (!empty($block_options)) {
   $form['mobile_menu']['default_settings']['settings_mobile_block_header'] = array(
     '#type' => 'select',
     '#title' => t('Block: Header'),
-    '#options' => ['' => '- None -'] + $block_options,
+    '#options' => ['' => t('- None -')] + $block_options,
     '#default_value' => theme_get_setting('settings.mobile_block_header', $theme),
     '#description' => t('A block placed in the header of the mobile menu element.'),
   );
@@ -116,7 +116,7 @@ if (!empty($block_options)) {
   $form['mobile_menu']['default_settings']['settings_mobile_block_footer'] = array(
     '#type' => 'select',
     '#title' => t('Block: Footer'),
-    '#options' => ['' => '- None -'] + $block_options,
+    '#options' => ['' => t('- None -')] + $block_options,
     '#default_value' => theme_get_setting('settings.mobile_block_footer', $theme),
     '#description' => t('A block placed in the footer of the mobile menu element.'),
   );
