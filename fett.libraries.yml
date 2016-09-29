@@ -5,8 +5,8 @@ fett.global:
       css/fett.css: {}
   js:
     js/fett.js: { minified: true }
-  # dependencies:
-  #   - core/jquery
+  dependencies:
+    - core/jquery
   #   - core/jquery.once
   #   - core/drupal.ajax
   #   - core/drupal
@@ -85,6 +85,7 @@ fett.fastclick_initialize:
   js:
     js/fett.fastclick.js: { minified: true }
   dependencies:
+    - core/drupal
     - fett/fett.fastclick
 
 # html5shiv
