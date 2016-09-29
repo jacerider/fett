@@ -20,6 +20,13 @@ else {
   $menu_options['bummer'] = '-- no menus are available --';
 }
 
+$block_options = [];
+if (!empty($theme_blocks)) {
+  foreach ($theme_blocks as $block) {
+    $block_options[$block->id()] = $block->label();
+  }
+}
+
 // Breakpoint options
 $mobile_menu_breakpoint_group = theme_get_setting('settings.mobile_menu_breakpoint_group', $theme);
 $mobile_menu_breakpoints = $breakpoints[$mobile_menu_breakpoint_group];
@@ -47,6 +54,15 @@ $form['mobile_menu']['default_settings']['settings_mobile_menu'] = array(
   '#title' => t('Menu'),
   '#options' => $menu_options,
   '#default_value' => theme_get_setting('settings.mobile_menu', $theme),
+);
+
+// Additional Menu
+$form['mobile_menu']['default_settings']['settings_mobile_menu_secondary'] = array(
+  '#type' => 'select',
+  '#title' => t('Menu: Secondary'),
+  '#options' => $menu_options,
+  '#default_value' => theme_get_setting('settings.mobile_menu_secondary', $theme),
+  '#description' => t('An additional menu that can be appended to the mobile menu.'),
 );
 
 // Link text
@@ -83,6 +99,28 @@ $form['mobile_menu']['default_settings']['settings_mobile_menu_breakpoint'] = ar
     'enabled' => array('select[name="settings_mobile_menu_breakpoint_group"]' => array('value' => $mobile_menu_breakpoint_group)),
   ),
 );
+
+// Header block
+if (!empty($block_options)) {
+  $form['mobile_menu']['default_settings']['settings_mobile_block_header'] = array(
+    '#type' => 'select',
+    '#title' => t('Block: Header'),
+    '#options' => ['' => '- None -'] + $block_options,
+    '#default_value' => theme_get_setting('settings.mobile_block_header', $theme),
+    '#description' => t('A block placed in the header of the mobile menu element.'),
+  );
+}
+
+// Footer block
+if (!empty($block_options)) {
+  $form['mobile_menu']['default_settings']['settings_mobile_block_footer'] = array(
+    '#type' => 'select',
+    '#title' => t('Block: Footer'),
+    '#options' => ['' => '- None -'] + $block_options,
+    '#default_value' => theme_get_setting('settings.mobile_block_footer', $theme),
+    '#description' => t('A block placed in the footer of the mobile menu element.'),
+  );
+}
 
 // Change message
 $form['mobile_menu']['default_settings']['mobile_menu_breakpoint_group_haschanged'] = array(

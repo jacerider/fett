@@ -1,0 +1,18 @@
+<div class="mobile-menu-wrapper">
+  <div class="mobile-menu-top">
+    <div class="mobile-menu-trail"></div>
+  </div>
+  {% if header %}
+    <div class="mobile-menu-header">
+      {{ header }}
+    </div>
+  {% endif %}
+  <div class="mobile-menu-bottom">
+    {{ menu }}
+  </div>
+  {% if footer %}
+    <div class="mobile-menu-footer">
+      {{ footer }}
+    </div>
+  {% endif %}
+</div>

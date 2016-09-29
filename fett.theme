@@ -6,6 +6,7 @@
  */
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Template\Attribute;
 
 include_once('includes/fett.offcanvas.php');
 include_once('includes/fett.mobile_menu.php');
@@ -16,7 +17,9 @@ include_once('includes/fett.mobile_menu.php');
 function fett_theme() {
   $module_path = drupal_get_path('theme', 'fett');
   return [
-  ] + fett_offcanvas_theme($module_path);
+  ]
+  + fett_offcanvas_theme($module_path)
+  + fett_mobile_menu_theme($module_path);
 }
 
 /**
@@ -180,6 +183,29 @@ function fett_preprocess_eck_entity(&$vars) {
     $vars['attributes']['class'][] = Html::getClass($entity->getEntityTypeId());
     $vars['attributes']['class'][] = Html::getClass($entity->bundle());
   }
+}
+
+/**
+ * Implements hook_preprocess_menu().
+ */
+function fett_preprocess_menu(&$vars) {
+  _fett_preprocess_menu_alter_items($vars['items']);
+}
+
+/**
+ * Helper function to recursively alter menu items.
+ */
+function _fett_preprocess_menu_alter_items(&$items) {
+  foreach ($items as &$item) {
+    $options = $item['url']->getOptions();
+    $options['attributes']['class'][] = 'menu-item';
+    $item['url']->setOptions($options);
+    $item['link_attributes'] = new Attribute($options['attributes']);
+    if (!empty($item['below'])) {
+      $item['below'] = _fett_preprocess_menu_alter_items($item['below']);
+    }
+  }
+  return $items;
 }
 
 /**

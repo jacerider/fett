@@ -3,6 +3,9 @@
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Template\Attribute;
 
+/**
+ * Implements hook_theme().
+ */
 function fett_offcanvas_theme($module_path) {
   return [
     // Offcanvas
