@@ -1,9 +1,9 @@
 global-css:
   version: VERSION
   css:
-    base:
+    theme:
       css/KAST.css: {}
 global-js:
   version: VERSION
   js:
-    js/KAST.js: {}
+    js/KAST.js: { minified: true }
