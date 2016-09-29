@@ -4,9 +4,12 @@ settings:
   enable_mobile_menus: 1
   enable_iconify: 1
   mobile_menu: main
+  mobile_menu_secondary: ''
   mobile_menu_link_text: 'Menu'
   mobile_menu_position: 'Left'
   mobile_menu_breakpoint_group: fett.simple
   mobile_menu_breakpoint: 'hide-for-large'
+  mobile_block_header: ''
+  mobile_block_footer: ''
   iconify_tasks: 1
   iconify_tasks_icon_only: 0

@@ -44,6 +44,9 @@ function fett_form_system_theme_settings_alter(&$form, FormStateInterface $form_
   // various other places.
   $theme_regions = system_region_list($theme, $show = REGIONS_VISIBLE);
 
+  // Active themes active blocks
+  $theme_blocks = \Drupal::entityTypeManager()->getStorage('block')->loadByProperties(['theme' => $theme]);
+
   // Check for breakpoints module and set a warning and a flag to disable much
   // of the theme settings if its not available.
   $breakpoints_module = \Drupal::moduleHandler()->moduleExists('breakpoint');
