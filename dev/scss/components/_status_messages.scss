@@ -1,0 +1,25 @@
+
+.status-message {
+  padding: $global-padding;
+  color: $white;
+
+  a {
+    color: $white;
+    font-weight: bold;
+  }
+
+  &.status {
+    background: map-get($foundation-palette, success);
+    text-shadow: 0 1px 1px scale-color(map-get($foundation-palette, success), $lightness: -40%);
+  }
+
+  &.warning {
+    background: map-get($foundation-palette, warning);
+    text-shadow: 0 1px 1px scale-color(map-get($foundation-palette, warning), $lightness: -40%);
+  }
+
+  &.error {
+    background: map-get($foundation-palette, alert);
+    text-shadow: 0 1px 1px scale-color(map-get($foundation-palette, alert), $lightness: -40%);
+  }
+}
