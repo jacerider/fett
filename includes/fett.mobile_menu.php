@@ -98,6 +98,25 @@ function fett_mobile_menu_preprocess_page(&$vars, $config) {
 }
 
 /**
+ * Implements hook_preprocess_block().
+ */
+function fett_mobile_menu_preprocess_block(&$vars, $config) {
+  if (isset($config['enable_extensions']) && $config['enable_extensions'] === 1) {
+    if (isset($config['enable_mobile_menu']) && $config['enable_mobile_menu'] === 1 && $config['mobile_menu'] !== 'bummer') {
+      if ($config['mobile_menu_breakpoint'] && $vars['base_plugin_id'] == 'system_menu_block' && $vars['derivative_plugin_id'] == $config['mobile_menu']) {
+        $breakpoint = $config['mobile_menu_breakpoint'];
+        if (strpos($breakpoint, 'hide') !== FALSE) {
+          $breakpoint = str_replace('hide', 'show', $breakpoint);
+        } else {
+          $breakpoint = str_replace('show', 'hide', $breakpoint);
+        }
+        $vars['attributes']['class'][] = $breakpoint;
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_preprocess_menu__mobile_menu().
  */
 function fett_preprocess_menu__mobile_menu(&$vars) {
