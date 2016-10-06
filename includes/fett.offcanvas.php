@@ -100,7 +100,7 @@ function fett_preprocess_fett_offcanvas_link(&$vars) {
   $vars['attributes']['class'][] = 'offcanvas-link-' . $item['id'];
   $vars['attributes']['class'][] = 'js-hide';
   $vars['attributes']['data-id'] = $item['id'];
-  $vars['text'] = $item['options']['link_text'];
+  $vars['text']['#markup'] = $item['options']['link_text'];
 }
 
 /**
