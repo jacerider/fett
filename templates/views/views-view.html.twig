@@ -37,7 +37,7 @@
     dom_id ? 'js-view-dom-id-' ~ dom_id,
   ]
 %}
-{% if print_attributes == TRUE %}
+{% if attributes.toArray|length %}
   <div{{ attributes.addClass(classes) }}>
 {% endif %}
 
@@ -69,6 +69,6 @@
 
   {{ feed_icons }}
 
-{% if print_attributes == TRUE %}
+{% if attributes.toArray|length %}
   </div>
 {% endif %}
