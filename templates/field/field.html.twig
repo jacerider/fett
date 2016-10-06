@@ -40,7 +40,7 @@
   set classes = [
     'field',
     field_name|replace({'field_':''})|clean_class,
-    label_display != 'visually_hidden' ? 'label-' ~ label_display|clean_class,
+    label_display != 'visually_hidden' and label_display != 'hidden' ? 'label-' ~ label_display|clean_class,
   ]
 %}
 {%
