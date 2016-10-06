@@ -74,7 +74,14 @@
 * @see template_process()
 */
 #}
-<{{ element }} id="node-{{ node.id }}" class="{{ attributes.class }}"{{ attributes }}>
+{%
+ set classes = [
+   'node',
+   node.bundle|clean_class,
+   view_mode|clean_class
+ ]
+%}
+<{{ element }} id="node-{{ node.id }}"{{ attributes.addClass(classes) }}>
   {{ title_prefix }}
   {% if not page %}
     <{{ title_element }}{{ title_attributes }}>
