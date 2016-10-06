@@ -9,21 +9,24 @@ use Drupal\Core\Url;
 
 /**
  * Implements template_preprocess_html().
- * @param array $vars
  */
-function KAST_preprocess_html(&$vars) {}
+//function KAST_preprocess_html(&$vars) {}
 
 /**
- * Implements template_preprocess_page.
- * @param array $vars
+ * Implements template_preprocess_page().
  */
-function KAST_preprocess_page(&$vars) {
-  $site_name = \Drupal::configFactory()->get('system.site')->get('name');
-  $vars['linked_site_name'] = ['#type' => 'link', '#title' => $site_name, '#url' => Url::fromRoute('<front>')];
-}
+//function KAST_preprocess_page(&$vars) {}
 
 /**
- * Implements template_preprocess_node.
- * @param array $vars
+ * Implements template_preprocess_node().
  */
-function KAST_preprocess_node(&$vars) {}
+//function KAST_preprocess_node(&$vars) {
+//  $node = $vars['node'];
+//}
+
+/**
+ * Implements template_preprocess_field().
+ */
+//function KAST_preprocess_field(&$vars) {
+//  $field_name = $vars['field_name'];
+//}
