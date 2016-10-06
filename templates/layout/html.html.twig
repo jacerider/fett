@@ -41,8 +41,8 @@
 #}
 {%
   set body_classes = [
-    not root_path ? 'p-front' : 'body-p-' ~ root_path|clean_class,
-    node_type ? 'body-n-' ~ node_type|clean_class,
+    'body',
+    node_type ? node_type|clean_class,
   ]
 %}
 {{- attach_library('fett/fett.fastclick_initialize') -}}
