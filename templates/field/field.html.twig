@@ -39,47 +39,46 @@
 {%
   set classes = [
     'field',
-    field_name|clean_class,
-    field_type|clean_class,
-    'label-' ~ label_display,
+    field_name|replace({'field_':''})|clean_class,
+    label_display != 'visually_hidden' ? 'label-' ~ label_display|clean_class,
   ]
 %}
 {%
   set title_classes = [
-    'field__label',
+    'field-label',
     label_display == 'visually_hidden' ? 'visually-hidden',
   ]
 %}
 
 {% if label_hidden %}
   {% if multiple %}
-    <div{{ attributes.addClass(classes) }}>
+    <{{ element }}{{ attributes.addClass(classes) }}>
       {% for item in items %}
         {% if item.attributes.toArray()|length %}<div{{ item.attributes }}>{% endif %}
           {{ item.content }}
         {% if item.attributes.toArray()|length %}</div>{% endif %}
       {% endfor %}
-    </div>
+    </{{ element }}>
   {% else %}
     {% for item in items %}
-      {% if attributes.toArray()|length %}<div{{ attributes }}>{% endif %}
+      <{{ element }}{{ attributes.addClass(classes) }}>
         {{ item.content }}
-      {% if attributes.toArray()|length %}</div>{% endif %}
+      </{{ element }}>
     {% endfor %}
   {% endif %}
 {% else %}
-  <div{{ attributes.addClass(classes) }}>
+  <{{ element }}{{ attributes.addClass(classes) }}>
     <div{{ title_attributes.addClass(title_classes) }}>{{ label }}</div>
     {% if multiple %}
       <div>
     {% endif %}
     {% for item in items %}
-      {% if item.attributes.toArray()|length %}<div{{ item.attributes }}>{% endif %}
+      {% if label_display != 'visually_hidden' %}<div{{ item.attributes.addClass('field-content') }}>{% endif %}
         {{ item.content }}
-      {% if item.attributes.toArray()|length %}</div>{% endif %}
+      {% if label_display != 'visually_hidden' %}</div>{% endif %}
     {% endfor %}
     {% if multiple %}
       </div>
     {% endif %}
-  </div>
+  </{{ element }}>
 {% endif %}
