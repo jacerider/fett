@@ -39,28 +39,34 @@
  * @see template_process()
  */
 #}
+{%
+  set body_classes = [
+    not root_path ? 'p-front' : 'body-p-' ~ root_path|clean_class,
+    node_type ? 'body-n-' ~ node_type|clean_class,
+  ]
+%}
 {{- attach_library('fett/fett.fastclick_initialize') -}}
 <!DOCTYPE html>
 <html{{ html_attributes }}>
-<head>
-  <head-placeholder token="{{ placeholder_token|raw }}">
-    <title>{{ head_title|safe_join(' | ') }}</title>
-    <css-placeholder token="{{ placeholder_token|raw }}">
-      <js-placeholder token="{{ placeholder_token|raw }}">
-</head>
-<body{{ attributes }}>
-  {% if page_top %}
-    {{ page_top }}
-  {% endif %}
+  <head>
+    <head-placeholder token="{{ placeholder_token|raw }}">
+      <title>{{ head_title|safe_join(' | ') }}</title>
+      <css-placeholder token="{{ placeholder_token|raw }}">
+        <js-placeholder token="{{ placeholder_token|raw }}">
+  </head>
+  <body{{ attributes.addClass(body_classes) }}>
+    {% if page_top %}
+      {{ page_top }}
+    {% endif %}
 
-  {% if page %}
-    {{ page }}
-  {% endif %}
+    {% if page %}
+      {{ page }}
+    {% endif %}
 
-  {% if page_bottom %}
-    {{ page_bottom }}
-  {% endif %}
+    {% if page_bottom %}
+      {{ page_bottom }}
+    {% endif %}
 
-  <js-bottom-placeholder token="{{ placeholder_token|raw }}">
-</body>
+    <js-bottom-placeholder token="{{ placeholder_token|raw }}">
+  </body>
 </html>
