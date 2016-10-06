@@ -57,6 +57,22 @@ fett.foundation.timerAndImageLoader:
   dependencies:
     - fett/fett.foundation.core
 
+fett.foundation.box:
+  version: VERSION
+  bower: true
+  js:
+    vendor/foundation-sites/js/foundation.util.box.js: {}
+  dependencies:
+    - fett/fett.foundation.core
+
+fett.foundation.triggers:
+  version: VERSION
+  bower: true
+  js:
+    vendor/foundation-sites/js/foundation.util.triggers.js: {}
+  dependencies:
+    - fett/fett.foundation.core
+
 fett.foundation.equalizer:
   version: VERSION
   bower: true
@@ -65,6 +81,16 @@ fett.foundation.equalizer:
   dependencies:
     - fett/fett.foundation.core
     - fett/fett.foundation.timerAndImageLoader
+
+fett.foundation.tooltip:
+  version: VERSION
+  bower: true
+  js:
+    vendor/foundation-sites/js/foundation.tooltip.js: {}
+  dependencies:
+    - fett/fett.foundation.core
+    - fett/fett.foundation.box
+    - fett/fett.foundation.triggers
 
 # Fastclick
 fett.fastclick:
