@@ -36,12 +36,13 @@
 {%
   set classes = [
     'block',
-    'block-' ~ configuration.provider|clean_class,
-    'block-' ~ plugin_id|clean_class,
+    plugin_id|replace({'_block':''})|clean_class,
   ]
 %}
 
-<div{{ attributes.addClass(classes) }}>
+{% if label or attributes.toArray|length %}
+  <div{{ attributes.addClass(classes) }}>
+{% endif %}
   {{ title_prefix }}
   {% if label %}
     <h2 {{ title_attributes }}>{{ label }}</h2>
@@ -50,4 +51,6 @@
   {% block content %}
     {{ content }}
   {% endblock %}
-</div>
+{% if label or attributes.toArray|length %}
+  </div>
+{% endif %}

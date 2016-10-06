@@ -199,6 +199,14 @@ function fett_preprocess_block(&$vars) {
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   $config = \Drupal::config($theme . '.settings')->get('settings');
   fett_mobile_menu_preprocess_block($vars, $config);
+
+  // Remove classes for blocks we don't need wrapper. block.html.twig will
+  // not wrap if attributes are empty.
+  switch ($vars['plugin_id']) {
+    case 'system_main_block':
+      $vars['attributes'] = [];
+      break;
+  }
 }
 
 /**
@@ -209,7 +217,7 @@ function fett_preprocess_menu(&$vars) {
 }
 
 /**
- * Implments template_preprocess_views_view()
+ * Implments template_preprocess_views_view().
  */
 function fett_preprocess_views_view(&$vars){
   $view = $vars['view'];
@@ -220,6 +228,20 @@ function fett_preprocess_views_view(&$vars){
   } else {
     // add an ajax class as well as the dom_id
     $vars['attributes']['class'][] = 'ajax';
+  }
+}
+
+/**
+ * Implments template_preprocess_views_view().
+ */
+function fett_preprocess_container(&$vars){
+  $element = $vars['element'];
+  // Remove classes for containers we don't need wrapper. container.html.twig
+  // will not wrap if attributes are empty.
+  switch ($element['#type']) {
+    case 'view':
+      $vars['attributes'] = [];
+      break;
   }
 }
 
