@@ -62,8 +62,7 @@
     }
   }
 
-  a,
-  span {
+  .menu-item {
     position: relative;
     display: block;
     border: 0;
@@ -76,8 +75,7 @@
 .mobile-menu-trail {
   padding: $global-padding;
 
-  a,
-  span {
+  .menu-item {
     display: inline-block;
     font-size: rem-calc(11);
     font-weight: bold;
