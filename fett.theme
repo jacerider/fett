@@ -285,3 +285,24 @@ function fett_menu_local_task(&$vars) {
 
   return $a_tag;
 }
+
+/**
+ * Implments template_preprocess_views_view()
+ */
+function fett_preprocess_views_view(&$vars){
+  $view = $vars['view'];
+
+  // empty the dom_id if ajax is disabled
+  if($view->ajaxEnabled() == FALSE) {
+    $vars['dom_id'] = '';
+  } else {
+    // add an ajax class as well as the dom_id
+    $vars['attributes']['class'][] = 'ajax';
+  }
+
+  // a check to see if attributes are populated.
+  $vars['print_attributes'] = TRUE;
+  if(empty($vars['attributes'])) {
+    $vars['print_attributes'] = FALSE;
+  }
+}
