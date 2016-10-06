@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Default theme implementation for status messages.
+ * Theme override for status messages.
  *
  * Displays status, error, and warning messages, grouped by type.
  *
@@ -19,23 +19,37 @@
  *   displaying messages of that specific type.
  * - attributes: HTML attributes for the element, including:
  *   - class: HTML classes.
- *
- * @see template_preprocess_status_messages()
- *
- * @ingroup themeable
  */
 #}
+{% block messages %}
 {% for type, messages in message_list %}
-  <div class="{{ attributes.class }} status-messages" role="contentinfo" aria-label="{{ status_headings[type] }}">
-    {% if status_headings[type] %}
-      <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
+  {%
+    set classes = [
+      'status-message',
+      type,
+    ]
+  %}
+  <div role="contentinfo" aria-label="{{ status_headings[type] }}"{{ attributes.addClass(classes)|without('role', 'aria-label') }}>
+    {% if type == 'error' %}
+      <div role="alert">
     {% endif %}
-    {% if messages|length > 0 %}
-      {% for message in messages %}
-        <div class="{{ type }}">{{ message }}</div>
-      {% endfor %}
-    {% else %}
-      {{ messages|first }}
+      {% if status_headings[type] %}
+        <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
+      {% endif %}
+      {% if messages|length > 1 %}
+        <ul class="messages__list">
+          {% for message in messages %}
+            <li class="messages__item">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        {{ messages|first }}
+      {% endif %}
+    {% if type == 'error' %}
+      </div>
     {% endif %}
   </div>
+  {# Remove type specific classes. #}
+  {% set attributes = attributes.removeClass(classes) %}
 {% endfor %}
+{% endblock messages %}
