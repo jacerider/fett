@@ -161,6 +161,13 @@ function fett_preprocess_node(&$vars) {
 }
 
 /**
+ * Implements template_preprocess_node.
+ */
+function fett_preprocess_field(&$vars) {
+  $vars['element'] = 'div';
+}
+
+/**
  * This page preprocess function will be called after all other preprocessing
  * has been completed.
  */
@@ -183,6 +190,15 @@ function fett_preprocess_eck_entity(&$vars) {
     $vars['attributes']['class'][] = Html::getClass($entity->getEntityTypeId());
     $vars['attributes']['class'][] = Html::getClass($entity->bundle());
   }
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function fett_preprocess_block(&$vars) {
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  $config = \Drupal::config($theme . '.settings')->get('settings');
+  fett_mobile_menu_preprocess_block($vars, $config);
 }
 
 /**
