@@ -5,8 +5,6 @@
  * Functions to support theming in the KAST theme.
  */
 
-use Drupal\Core\Url;
-
 /**
  * Implements template_preprocess_html().
  */
@@ -21,12 +19,12 @@ use Drupal\Core\Url;
  * Implements template_preprocess_node().
  */
 //function KAST_preprocess_node(&$vars) {
-//  $node = $vars['node'];
+//   $node = $vars['node'];
 //}
 
 /**
  * Implements template_preprocess_field().
  */
 //function KAST_preprocess_field(&$vars) {
-//  $field_name = $vars['field_name'];
+//   $field_name = $vars['field_name'];
 //}
