@@ -165,6 +165,7 @@ function fett_preprocess_node(&$vars) {
  */
 function fett_preprocess_field(&$vars) {
   $vars['element'] = 'div';
+  $vars['content_element'] = '';
 }
 
 /**

@@ -54,9 +54,13 @@
   {% if multiple %}
     <{{ element }}{{ attributes.addClass(classes) }}>
       {% for item in items %}
-        {% if item.attributes.toArray()|length %}<div{{ item.attributes }}>{% endif %}
+        {% if content_element %}
+          <{{ content_element}}{{ item.attributes }}>
+        {% endif %}
           {{ item.content }}
-        {% if item.attributes.toArray()|length %}</div>{% endif %}
+        {% if content_element %}
+          </{{ content_element}}>
+        {% endif %}
       {% endfor %}
     </{{ element }}>
   {% else %}
@@ -69,15 +73,19 @@
 {% else %}
   <{{ element }}{{ attributes.addClass(classes) }}>
     <div{{ title_attributes.addClass(title_classes) }}>{{ label }}</div>
-    {% if multiple %}
-      <div>
+    {% if label_display != 'visually_hidden' %}
+      <div class="field-content">
     {% endif %}
     {% for item in items %}
-      {% if label_display != 'visually_hidden' %}<div{{ item.attributes.addClass('field-content') }}>{% endif %}
+      {% if content_element %}
+        <{{ content_element}}{{ item.attributes }}>
+      {% endif %}
         {{ item.content }}
-      {% if label_display != 'visually_hidden' %}</div>{% endif %}
+      {% if content_element %}
+        </{{ content_element}}>
+      {% endif %}
     {% endfor %}
-    {% if multiple %}
+    {% if label_display != 'visually_hidden' %}
       </div>
     {% endif %}
   </{{ element }}>
