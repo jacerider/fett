@@ -211,13 +211,6 @@ function fett_preprocess_block(&$vars) {
 }
 
 /**
- * Implements hook_preprocess_menu().
- */
-function fett_preprocess_menu(&$vars) {
-  _fett_preprocess_menu_alter_items($vars['items']);
-}
-
-/**
  * Implments template_preprocess_views_view().
  */
 function fett_preprocess_views_view(&$vars){
@@ -244,6 +237,17 @@ function fett_preprocess_container(&$vars){
       $vars['attributes'] = [];
       break;
   }
+}
+
+/**
+ * Implements hook_preprocess_menu().
+ */
+function fett_preprocess_menu(&$vars) {
+  // Ignore admin menus
+  if ($vars['menu_name'] == 'admin') {
+    return;
+  }
+  _fett_preprocess_menu_alter_items($vars['items']);
 }
 
 /**
