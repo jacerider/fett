@@ -1,0 +1,27 @@
+{%
+  set classes = [
+    'page',
+    'login',
+    'no-sidebar'
+  ]
+%}
+
+{{ prefix }}
+<div role="document" {{ attributes.addClass(classes) }}>
+  {% if messages %}
+    <section class="messages">
+      <div class="wrapper">
+        {{ messages }}
+      </div>
+    </section>
+  {% endif %}
+
+  <main class="main" role="main">
+    <div class="wrapper">
+      <section class="content">
+        {{ page.content }}
+      </section>
+    </div>
+  </main>
+</div>
+{{ suffix }}
