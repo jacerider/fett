@@ -162,7 +162,8 @@ gulp.task('browser-sync', function() {
   browserSync.init({
     port: config.browserSync.port,
     proxy: config.browserSync.hostname,
-    open: config.browserSync.openAutomatically
+    open: config.browserSync.openAutomatically,
+    notify: false
   });
 });
 
