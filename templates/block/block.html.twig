@@ -36,7 +36,8 @@
 {%
   set classes = [
     'block',
-    plugin_id|replace({'_block':''})|clean_class,
+    configuration.provider|clean_class,
+    plugin_id|clean_class,
   ]
 %}
 
