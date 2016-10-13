@@ -37,6 +37,7 @@ var prefix = require('gulp-autoprefixer');
 var clean = require('gulp-clean-css');
 
 // JavaScript
+var babel = require('gulp-babel');
 var eslint = require('gulp-eslint');
 var uglify = require('gulp-uglify');
 
@@ -129,6 +130,16 @@ gulp.task('js', function (){
     }));
 });
 
+gulp.task('jsFoundation', function (){
+  gulp.src(['./vendor/foundation-sites/js/*.js'])
+    .pipe(plumber())
+    .pipe(babel({
+      presets: ['es2015']
+    }))
+    .pipe(uglify())
+    .pipe(gulp.dest('./js/foundation'));
+});
+
 gulp.task('js-watch', ['js'], browserSync.reload);
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -219,6 +230,7 @@ gulp.task('drush:cr', function () {
 
 gulp.task('default', function(){
   gulp.start('sassBreakpoints');
+  gulp.start('jsFoundation');
 
   if (config !== null) {
     if (config.browserSync.enable) {
