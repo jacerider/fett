@@ -1,0 +1,12 @@
+
+form {
+
+  label {
+    font-weight: bold;
+  }
+
+  .description {
+    font-size: rem-calc(12);
+    margin: $global-margin * -0.8 0 $global-margin;
+  }
+}

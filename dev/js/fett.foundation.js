@@ -6,7 +6,7 @@
 
   'use strict';
 
-  Drupal.behaviors.fett = {
+  Drupal.behaviors.fettFoundation = {
     attach: function (context, settings) {
       var $document = $(document);
       if ($document.foundation) {

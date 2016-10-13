@@ -1,3 +1,20 @@
 ////////////////////////////////////////////////////////////////////////////////
 // VARIABLES
 // -----------------------------------------------------------------------------
+
+$foundation-palette: (
+  primary: #2199e8,
+  secondary: #777,
+  success: #5da423,
+  warning: #e3b000,
+  alert: #c60f13,
+);
+
+// Mobile Menu
+// ---------
+$offcanvas-size: rem-calc(320); // iphone5 max size
+
+// Mobile Menu
+// ---------
+$mobile-menu-background: scale-color($black, $lightness: 8%);
+$mobile-menu-color: map-get($foundation-palette, primary);

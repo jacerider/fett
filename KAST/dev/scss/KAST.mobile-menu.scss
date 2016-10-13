@@ -11,6 +11,10 @@
 // load in the Foundation componenets so we can override them.
 
 @import 'foundation';
+@import 'utils/breakpoints';
+// Fett Variables
+@import '../../../fett/dev/scss/utils/variables';
+// Theme Variables
 @import 'utils/variables';
 
 
@@ -34,4 +38,5 @@
 // or anything along those lines. There are usually a lot of files in
 // components/ since your site should be mostly composed of tiny modules.
 
-@import 'components/mobile_menu';
+// Fett Component
+@import '../../../fett/dev/scss/components/mobile-menu';

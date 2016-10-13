@@ -67,6 +67,8 @@ function drush_fett_generate($name, $machine_name = NULL) {
   drush_op('rename', "$subtheme_path/css/KAST.css.map", "$subtheme_path/css/$machine_name.css.map");
   drush_op('rename', "$subtheme_path/js/KAST.js", "$subtheme_path/js/$machine_name.js");
   drush_op('rename', "$subtheme_path/dev/scss/KAST.scss", "$subtheme_path/dev/scss/$machine_name.scss");
+  drush_op('rename', "$subtheme_path/dev/scss/KAST.offcanvas.scss", "$subtheme_path/dev/scss/$machine_name.offcanvas.scss");
+  drush_op('rename', "$subtheme_path/dev/scss/KAST.mobile-menu.scss", "$subtheme_path/dev/scss/$machine_name.mobile-menu.scss");
   drush_op('rename', "$subtheme_path/dev/js/KAST.js", "$subtheme_path/dev/js/$machine_name.js");
   drush_op('rename', "$subtheme_path/templates/layout/page--front.html.twig.txt", "$subtheme_path/templates/layout/page--front.html.twig");
 

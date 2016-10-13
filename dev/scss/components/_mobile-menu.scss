@@ -1,20 +1,27 @@
+
 .mobile-menu-wrapper {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  background: $mobile-menu-background;
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  i {
+    color: $primary-color;
+    padding-right: rem-calc(10);
+  }
 }
 
 .mobile-menu-top {
-  background: darken($black, 2%);
+  background: darken($mobile-menu-background, 2%);
 
   a {
-    color: $primary-color;
+    color: $mobile-menu-color;
     line-height: rem-calc(24);
   }
 }
@@ -39,7 +46,6 @@
     transform: translate3d($offcanvas-size * -3, 0, 0);
   }
 
-  // &,
   ul {
     position: absolute;
     top: 0;
@@ -49,7 +55,6 @@
     margin: 0;
     padding: 0;
     list-style-type: none;
-    // transform-style: preserve-3d;
     transition: transform 500ms;
 
     ul {
@@ -68,14 +73,19 @@
     border: 0;
     padding: $global-padding;
     color: $white;
+    transition: background 300ms;
     cursor: pointer;
+
+    &:hover {
+      background: darken($mobile-menu-background, 2%);
+    }
   }
 }
 
 .mobile-menu-trail {
   padding: $global-padding;
 
-  .menu-item {
+  a {
     display: inline-block;
     font-size: rem-calc(11);
     font-weight: bold;

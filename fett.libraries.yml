@@ -3,20 +3,13 @@ fett.global:
   css:
     theme:
       css/fett.css: {}
-  js:
-    js/fett.js: { minified: true }
   dependencies:
     - core/jquery
-  #   - core/jquery.once
-  #   - core/drupal.ajax
-  #   - core/drupal
-  #   - core/drupalSettings
-  #   - core/modernizr
-  #   - core/underscore
 
 # Offcanvas
 fett.offcanvas:
-  version: "8.x-1.0"
+  version: VERSION
+  override_enable: true
   css:
     theme:
       css/fett.offcanvas.css: {}
@@ -30,63 +23,72 @@ fett.offcanvas:
 
 # Mobile Menu
 fett.mobile_menu:
-  version: "8.x-1.0"
+  version: VERSION
+  override_enable: true
   css:
     theme:
-      css/fett.mobile_menu.css: {}
+      css/fett.mobile-menu.css: {}
   js:
-    js/fett.mobile_menu.js: { minified: true }
+    js/fett.mobile-menu.js: { minified: true }
   dependencies:
     - fett/fett.offcanvas
 
 # Foundation
+fett.foundation:
+  version: VERSION
+  js:
+    js/fett.foundation.js: { minified: true }
+  dependencies:
+    - core/drupal
+
 fett.foundation.core:
   version: VERSION
-  bower: true
+  override_enable: true
   js:
-    vendor/foundation-sites/js/foundation.core.js: {}
-    vendor/foundation-sites/js/foundation.util.mediaQuery.js: {}
+    js/foundation/foundation.core.js: { minified: true }
+    js/foundation/foundation.util.mediaQuery.js: { minified: true }
   dependencies:
-    - core/jquery
+    - fett/fett.foundation
 
 fett.foundation.timerAndImageLoader:
   version: VERSION
-  bower: true
+  override_enable: true
   js:
-    vendor/foundation-sites/js/foundation.util.timerAndImageLoader.js: {}
+    js/foundation/foundation.util.timerAndImageLoader.js: { minified: true }
   dependencies:
     - fett/fett.foundation.core
 
 fett.foundation.box:
   version: VERSION
-  bower: true
+  override_enable: true
   js:
-    vendor/foundation-sites/js/foundation.util.box.js: {}
+    js/foundation/foundation.util.box.js: { minified: true }
   dependencies:
     - fett/fett.foundation.core
 
 fett.foundation.triggers:
   version: VERSION
-  bower: true
+  override_enable: true
   js:
-    vendor/foundation-sites/js/foundation.util.triggers.js: {}
+    js/foundation/foundation.util.triggers.js: { minified: true }
   dependencies:
     - fett/fett.foundation.core
 
 fett.foundation.equalizer:
   version: VERSION
-  bower: true
+  override_enable: true
   js:
-    vendor/foundation-sites/js/foundation.equalizer.js: {}
+    js/foundation/foundation.equalizer.js: { minified: true }
   dependencies:
     - fett/fett.foundation.core
     - fett/fett.foundation.timerAndImageLoader
+    - fett/fett.foundation.triggers
 
 fett.foundation.tooltip:
   version: VERSION
-  bower: true
+  override_enable: true
   js:
-    vendor/foundation-sites/js/foundation.tooltip.js: {}
+    js/foundation/foundation.tooltip.js: { minified: true }
   dependencies:
     - fett/fett.foundation.core
     - fett/fett.foundation.box
@@ -107,7 +109,7 @@ fett.fastclick:
 
 # Fastclick initialize
 fett.fastclick_initialize:
-  version: "8.x-1.0"
+  version: VERSION
   js:
     js/fett.fastclick.js: { minified: true }
   dependencies:
