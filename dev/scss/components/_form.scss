@@ -24,6 +24,7 @@ form {
 // AutoComplete
 // --------
 
+// scss-lint:disable QualifyingElement
 .js input.form-autocomplete {
 
   &,
@@ -45,7 +46,7 @@ form {
     color: foreground($dropbutton-background);
     font-size: rem-calc(14);
     line-height: 2em;
-    padding: 0 $global-padding 0 $global-padding;
+    padding: 0 $global-padding;
     margin: 0 $global-padding * 2 0 0;
     transition: background 300ms;
 
@@ -65,7 +66,7 @@ form {
 
     .dropbutton-arrow {
       @include css-triangle(5px, foreground($dropbutton-background), down);
-      top: .9em;
+      top: 0.9em;
     }
 
     &.open {
@@ -76,7 +77,7 @@ form {
 
       .dropbutton-arrow {
         @include css-triangle(5px, foreground($dropbutton-background), up);
-        top: .9em;
+        top: 0.9em;
       }
     }
   }
