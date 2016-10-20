@@ -13,7 +13,6 @@ body {
 .offcanvas-wrapper {
   position: relative;
   overflow: hidden;
-  // perspective: 1500px;
 
   /**
    * When offcanvas element is active.
@@ -30,7 +29,6 @@ body {
     }
   }
 }
-
 
 .offcanvas-scroll {
   overflow-y: scroll;
