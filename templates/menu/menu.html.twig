@@ -44,6 +44,9 @@
         {% else %}
           <span {{ item.link_attributes }}>{{ item.title|raw }}</span>
         {% endif %}
+        {% if item.attachment %}
+          {{ item.attachment }}
+        {% endif %}
         {% if item.below %}
           {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
         {% endif %}
