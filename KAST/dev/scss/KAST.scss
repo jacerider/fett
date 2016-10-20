@@ -59,6 +59,8 @@
 // or anything along those lines. There are usually a lot of files in
 // components/ since your site should be mostly composed of tiny modules.
 
+@import '../../../fett/dev/scss/components/form';
+@import '../../../fett/dev/scss/components/file';
 @import '../../../fett/dev/scss/components/status-messages';
 @import 'components/nav';
 
@@ -72,6 +74,5 @@
 // have very specific styles for the home page, so you’d have a _home.scss file
 // in pages/ dealing with this.
 
-@import '../../../fett/dev/scss/components/form';
 @import '../../../fett/dev/scss/pages/user-login';
 @import 'pages/home';
