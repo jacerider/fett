@@ -38,44 +38,13 @@ body {
 }
 
 .offcanvas-close {
-  position: absolute;
-  top: 0;
+  @include close-button;
+  color: $primary-color;
+  padding:0 $global-padding;
   right: 0;
-  color: transparent;
-  height: rem-calc(56);
-  width: rem-calc(56);
-  display: block;
-  text-indent: -9999px;
-  border: 0;
-  text-align: center;
-
-  &::before,
-  &::after {
-    width: 0;
-    height: 6px;
-    content: '';
-    background-color: $white;
-    display: block;
-    margin: 50% auto 0;
-    transform: rotate(45deg);
-    border-radius: 4px;
-    transition: width 300ms ease 500ms, left 300ms, background-color 300ms;
-  }
-
-  &::after {
-    bottom: 0;
-    transform: rotate(-45deg);
-    margin: -54% auto 0;
-  }
 
   &:hover {
-    border: 0;
-    color: transparent;
-
-    &::before,
-    &::after {
-      background-color: $primary-color;
-    }
+    color: smart-scale($primary-color, 15%);
   }
 }
 
