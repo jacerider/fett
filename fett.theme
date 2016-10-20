@@ -208,6 +208,7 @@ function fett_preprocess_eck_entity(&$vars) {
     $entity = $content['#' . $content['#entity_type']];
     $vars['attributes']['class'][] = Html::getClass($entity->getEntityTypeId());
     $vars['attributes']['class'][] = Html::getClass($entity->bundle());
+    $vars['attributes']['class'][] = Html::getClass($content['#view_mode']);
   }
 }
 
@@ -255,6 +256,13 @@ function fett_preprocess_container(&$vars){
       $vars['attributes'] = [];
       break;
   }
+}
+
+/**
+ * Implements template_preprocess_file().
+ */
+function fett_preprocess_file_link(&$vars) {
+  $vars['attributes']['class'][] = 'icon';
 }
 
 /**
