@@ -13,8 +13,13 @@ $foundation-palette: (
 // Mobile Menu
 // ---------
 $offcanvas-size: rem-calc(320); // iphone5 max size
+$offcanvas-header-height: rem-calc(50);
 
 // Mobile Menu
 // ---------
 $mobile-menu-background: scale-color($black, $lightness: 8%);
 $mobile-menu-color: map-get($foundation-palette, primary);
+
+// Dropbutton
+// --------
+$dropbutton-background: $secondary-color;

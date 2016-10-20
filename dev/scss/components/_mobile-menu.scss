@@ -10,11 +10,6 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-
-  i {
-    color: $primary-color;
-    padding-right: rem-calc(10);
-  }
 }
 
 .mobile-menu-top {
@@ -67,6 +62,11 @@
     }
   }
 
+  i {
+    color: $primary-color;
+    padding-right: rem-calc(10);
+  }
+
   .menu-item {
     position: relative;
     display: block;
@@ -77,13 +77,13 @@
     cursor: pointer;
 
     &:hover {
-      background: darken($mobile-menu-background, 2%);
+      background: smart-scale($mobile-menu-background);
     }
   }
 }
 
 .mobile-menu-trail {
-  padding: $global-padding;
+  padding:0 $global-padding;
 
   a {
     display: inline-block;
@@ -91,6 +91,7 @@
     font-weight: bold;
     text-transform: uppercase;
     border: 0;
+    line-height: $offcanvas-header-height;
 
     &::after {
       content: ':';

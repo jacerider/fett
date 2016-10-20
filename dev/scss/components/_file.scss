@@ -1,11 +1,67 @@
 /* File icons.*/
-
-.file {
+.file.icon {
   padding-left: 20px; /* LTR */
   display: inline-block;
   min-height: 16px;
   background-repeat: no-repeat;
   background-position: left center; /* LTR */
+
+  &.file--general,
+  &.file--application-octet-stream {
+    background-image: url('../../fett/images/icons/application-octet-stream.png');
+  }
+
+  &.file--package-x-generic {
+    background-image: url('../../fett/images/icons/package-x-generic.png');
+  }
+
+  &.file--x-office-spreadsheet {
+    background-image: url('../../fett/images/icons/x-office-spreadsheet.png');
+  }
+
+  &.file--x-office-document {
+    background-image: url('../../fett/images/icons/x-office-document.png');
+  }
+
+  &.file--x-office-presentation {
+    background-image: url('../../fett/images/icons/x-office-presentation.png');
+  }
+
+  &.file--text-x-script {
+    background-image: url('../../fett/images/icons/text-x-script.png');
+  }
+
+  &.file--text-html {
+    background-image: url('../../fett/images/icons/text-html.png');
+  }
+
+  &.file--text-plain {
+    background-image: url('../../fett/images/icons/text-plain.png');
+  }
+
+  &.file--application-pdf {
+    background-image: url('../../fett/images/icons/application-pdf.png');
+  }
+
+  &.file--application-x-executable {
+    background-image: url('../../fett/images/icons/application-x-executable.png');
+  }
+
+  &.file--audio {
+    background-image: url('../../fett/images/icons/audio-x-generic.png');
+  }
+
+  &.file--video {
+    background-image: url('../../fett/images/icons/video-x-generic.png');
+  }
+
+  &.file--text {
+    background-image: url('../../fett/images/icons/text-x-generic.png');
+  }
+
+  &.file--image {
+    background-image: url('../../fett/images/icons/image-x-generic.png');
+  }
 }
 
 [dir="rtl"] .file {
@@ -14,59 +70,4 @@
   background-position: right center;
 }
 
-.file--general,
-.file--application-octet-stream {
-  background-image: url('../images/icons/application-octet-stream.png');
-}
 
-.file--package-x-generic {
-  background-image: url('../images/icons/package-x-generic.png');
-}
-
-.file--x-office-spreadsheet {
-  background-image: url('../images/icons/x-office-spreadsheet.png');
-}
-
-.file--x-office-document {
-  background-image: url('../images/icons/x-office-document.png');
-}
-
-.file--x-office-presentation {
-  background-image: url('../images/icons/x-office-presentation.png');
-}
-
-.file--text-x-script {
-  background-image: url('../images/icons/text-x-script.png');
-}
-
-.file--text-html {
-  background-image: url('../images/icons/text-html.png');
-}
-
-.file--text-plain {
-  background-image: url('../images/icons/text-plain.png');
-}
-
-.file--application-pdf {
-  background-image: url('../images/icons/application-pdf.png');
-}
-
-.file--application-x-executable {
-  background-image: url('../images/icons/application-x-executable.png');
-}
-
-.file--audio {
-  background-image: url('../images/icons/audio-x-generic.png');
-}
-
-.file--video {
-  background-image: url('../images/icons/video-x-generic.png');
-}
-
-.file--text {
-  background-image: url('../images/icons/text-x-generic.png');
-}
-
-.file--image {
-  background-image: url('../images/icons/image-x-generic.png');
-}

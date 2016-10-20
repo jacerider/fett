@@ -10,3 +10,79 @@ form {
     margin: $global-margin * -0.8 0 $global-margin;
   }
 }
+
+/**
+ * Foundation buttons ignore .js-hide implementation.
+ */
+.js .js-hide.button {
+
+  @media #{$medium-up} {
+    display: none;
+  }
+}
+
+// AutoComplete
+// --------
+
+.js input.form-autocomplete {
+
+  &,
+  &.ui-autocomplete-loading {
+    background-position: right rem-calc(10) center;
+  }
+}
+
+// Dropbutton
+// --------
+.js .dropbutton-wrapper {
+
+  .dropbutton-widget {
+    background: $dropbutton-background;
+    padding: 0;
+  }
+
+  .dropbutton-action a {
+    color: foreground($dropbutton-background);
+    font-size: rem-calc(14);
+    line-height: 2em;
+    padding: 0 $global-padding 0 $global-padding;
+    margin: 0 $global-padding * 2 0 0;
+    transition: background 300ms;
+
+    &:hover {
+      background: smart-scale($dropbutton-background, 20%);
+    }
+  }
+
+  &.dropbutton-multiple {
+
+    .dropbutton-toggle button {
+
+      &:hover {
+        background: smart-scale($dropbutton-background, 20%);
+      }
+    }
+
+    .dropbutton-arrow {
+      @include css-triangle(5px, foreground($dropbutton-background), down);
+      top: .9em;
+    }
+
+    &.open {
+
+      .dropbutton-widget {
+        box-shadow: 1px 1px 4px rgba($black, 0.3);
+      }
+
+      .dropbutton-arrow {
+        @include css-triangle(5px, foreground($dropbutton-background), up);
+        top: .9em;
+      }
+    }
+  }
+}
+
+.js td .dropbutton-wrapper {
+  padding: 0;
+  margin: 0;
+}
