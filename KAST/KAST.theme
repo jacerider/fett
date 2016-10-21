@@ -5,26 +5,57 @@
  * Functions to support theming in the KAST theme.
  */
 
-/**
- * Implements template_preprocess_html().
- */
-//function KAST_preprocess_html(&$vars) {}
+ /**
+  * Implements template_preprocess_html().
+  *
+  * Default template: html.html.twig.
+  *
+  * @param array $variables
+  *   An associative array containing:
+  *   - page: A render element representing the page.
+  *
+  * function KAST_preprocess_html(&$variables) {}
+  */
 
 /**
  * Implements template_preprocess_page().
+ *
+ * Default template: page.html.twig.
+ *
+ * See the page.html.twig template for the list of variables.
+ *
+ * function KAST_preprocess_page(&$variables) {}
  */
-//function KAST_preprocess_page(&$vars) {}
 
-/**
- * Implements template_preprocess_node().
- */
-//function KAST_preprocess_node(&$vars) {
-//   $node = $vars['node'];
-//}
+ /**
+  * Implements template_preprocess_node().
+  *
+  * Default template: node.html.twig.
+  *
+  * @param array $variables
+  *   An associative array containing:
+  *   - elements: An array of elements to display in view mode.
+  *   - node: The node object.
+  *   - view_mode: View mode; e.g., 'full', 'teaser', etc.
+  *
+  * function KAST_preprocess_node(&$variables) {
+  *   $node = $variables['node'];
+  *   $view_mode = $variables['view_mode'];
+  * }
+  */
 
-/**
- * Implements template_preprocess_field().
- */
-//function KAST_preprocess_field(&$vars) {
-//   $field_name = $vars['field_name'];
-//}
+ /**
+  * Implements template_preprocess_field().
+  *
+  * Default template: field.html.twig.
+  *
+  * @param array $variables
+  *   An associative array containing:
+  *   - element: A render element representing the field.
+  *   - attributes: A string containing the attributes for the wrapping div.
+  *   - title_attributes: A string containing the attributes for the title.
+  *
+  * function KAST_preprocess_field(&$variables) {
+  *   $field_name = $variables['field_name'];
+  * }
+  */
