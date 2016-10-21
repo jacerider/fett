@@ -42,22 +42,36 @@ form {
     padding: 0;
   }
 
-  .dropbutton-action a {
-    color: foreground($dropbutton-background);
-    font-size: rem-calc(14);
-    line-height: 2em;
-    padding: 0 $global-padding;
-    margin: 0 $global-padding * 2 0 0;
-    transition: background 300ms;
+  .dropbutton-action {
 
-    &:hover {
-      background: smart-scale($dropbutton-background, 20%);
+    > * {
+      display: block;
+      background: $dropbutton-background;
+      color: foreground($dropbutton-background);
+      font-size: rem-calc(14);
+      line-height: 2em;
+      padding: 0 $global-padding;
+      margin: 0 $global-padding * 2 0 0;
+      transition: background 300ms;
+
+      &:hover {
+        background: smart-scale($dropbutton-background, 20%);
+      }
     }
   }
 
   &.dropbutton-multiple {
 
+    .dropbutton-action {
+
+      > * {
+        width: 100%;
+        text-align: left;
+      }
+    }
+
     .dropbutton-toggle button {
+      background: $dropbutton-background;
 
       &:hover {
         background: smart-scale($dropbutton-background, 20%);
