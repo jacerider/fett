@@ -82,8 +82,8 @@
  ]
 %}
 <{{ element }} id="node-{{ node.id }}"{{ attributes.addClass(classes) }}>
-  {{ title_prefix }}
   {% if not page %}
+    {{ title_prefix }}
     <{{ title_element }}{{ title_attributes }}>
       {% if link_title %}
         <a href="{{ url }}" rel="bookmark">
@@ -93,8 +93,8 @@
         </a>
       {% endif %}
     </{{ title_element }}>
+    {{ title_suffix }}
   {% endif %}
-  {{ title_suffix }}
 
   {% if content_element %}
     <{{ content_element}}{{ content_attributes }}>
