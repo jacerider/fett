@@ -231,7 +231,7 @@ function fett_preprocess_eck_entity(&$vars) {
   if (isset($content['#entity'])) {
     $entity = $content['#entity'];
   }
-  if (isset($content['#entity_type']) && isset($content['#' . $content['#entity_type']])) {
+  elseif (isset($content['#entity_type']) && isset($content['#' . $content['#entity_type']])) {
     $entity = $content['#' . $content['#entity_type']];
   }
   if ($entity) {
