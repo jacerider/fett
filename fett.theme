@@ -227,9 +227,14 @@ function fett_preprocess_page_last(&$vars) {
  */
 function fett_preprocess_eck_entity(&$vars) {
   $content = $vars['entity'];
-  if (isset($content['#' . $content['#entity_type']])) {
-    // We add these classes here because ECK eck_entity.html.twig is jacked.
+  $entity = '';
+  if (isset($content['#entity'])) {
+    $entity = $content['#entity'];
+  }
+  if (isset($content['#entity_type']) && isset($content['#' . $content['#entity_type']])) {
     $entity = $content['#' . $content['#entity_type']];
+  }
+  if ($entity) {
     $vars['attributes']['class'][] = Html::getClass($entity->getEntityTypeId());
     $vars['attributes']['class'][] = Html::getClass($entity->bundle());
     $vars['attributes']['class'][] = Html::getClass($content['#view_mode']);
