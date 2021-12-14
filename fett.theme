@@ -6,6 +6,7 @@
  */
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Link;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Render\Element;
 
@@ -160,7 +161,6 @@ function fett_form_alter(&$form, &$form_state, $form_id) {
 function fett_preprocess_page(&$vars) {
   $active_theme = \Drupal::theme()->getActiveTheme();
   $theme = $active_theme->getName();
-  $theme_path = $active_theme->getPath();
   $config = \Drupal::config($theme . '.settings')->get('settings');
 
   $vars['logo'] = [
@@ -193,7 +193,7 @@ function fett_preprocess_page(&$vars) {
  * Implements hook_preprocess_page().
  */
 function fett_preprocess_node(&$vars) {
-  $vars['element'] = 'article';
+  $vars['tag'] = 'article';
   $vars['title_element'] = 'h2';
   $vars['link_title'] = TRUE;
   $vars['content_element'] = '';
@@ -204,7 +204,7 @@ function fett_preprocess_node(&$vars) {
  * Implements template_preprocess_node.
  */
 function fett_preprocess_field(&$vars) {
-  $vars['element'] = 'div';
+  $vars['tag'] = 'div';
   $vars['content_element'] = '';
 }
 
@@ -290,7 +290,7 @@ function fett_preprocess_file_link(&$vars) {
  */
 function fett_preprocess_menu(&$vars) {
   // Ignore admin menus.
-  if ($vars['menu_name'] == 'admin') {
+  if (isset($vars['theme_hook_original']) && $vars['theme_hook_original'] == 'menu__toolbar__admin') {
     return;
   }
   _fett_preprocess_menu_alter_items($vars['items']);
@@ -312,64 +312,12 @@ function _fett_preprocess_menu_alter_items(&$items) {
   return $items;
 }
 
-/**
- * Implements theme_menu_local_tasks().
- */
-function fett_menu_local_tasks(&$vars) {
-  $output = '';
-
-  if (!empty($vars['primary'])) {
-    $vars['primary']['#prefix'] = '<h2 class="visually-hidden">' . t('Primary tabs') . '</h2>';
-    $vars['primary']['#prefix'] .= '<div class="tasks tasks-primary button-group">';
-    $vars['primary']['#suffix'] = '</div>';
-    $output .= drupal_render($vars['primary']);
-  }
-  if (!empty($vars['secondary'])) {
-    $vars['secondary']['#prefix'] = '<h2 class="visually-hidden">' . t('Secondary tabs') . '</h2>';
-    $vars['secondary']['#prefix'] .= '<div class="tasks tasks-secondary button-group">';
-    $vars['secondary']['#suffix'] = '</div>';
-    $output .= drupal_render($vars['secondary']);
-  }
-
-  return $output;
-}
-
-/**
- * Implements theme_menu_local_task().
- */
-function fett_menu_local_task(&$vars) {
-  $theme = \Drupal::theme()->getActiveTheme()->getName();
-  $config = \Drupal::config($theme . '.settings')->get('settings');
-
-  $link = $vars['element']['#link'];
-  $link_text = array(
-    '#markup' => $link['title'],
-  );
-
-  if (!empty($vars['element']['#active'])) {
-    // Add text to indicate active tab for non-visual users.
-    $link_text['#suffix'] = '<span class="visually-hidden">' . t('(active tab)') . '</span>';
-  }
-
-  $state = !empty($vars['element']['#active']) ? 'active' : 'secondary';
-  $link_attributes = ['class' => ['button', 'admin', $state]];
-
-  // Iconify integration.
-  if (isset($config['enable_extensions']) && $config['enable_extensions'] === 1) {
-    if (isset($config['enable_iconify']) && $config['enable_iconify'] === 1 && !empty($config['iconify_tasks'])) {
-      if (\Drupal::moduleHandler()->moduleExists('iconify')) {
-        $title = $link_text['#markup'];
-        $link_text['#markup'] = iconify($title);
-        if (!empty($config['iconify_tasks_icon_only'])) {
-          $link_text['#markup']->setIconOnly();
-          $link_attributes['title'] = $title;
-        }
-      }
-    }
-  }
-  $link['url']->setOption('attributes', $link_attributes);
-
-  $a_tag = \Drupal::l($link_text, $link['url']);
-
-  return $a_tag;
+function fett_preprocess_menu_local_task(&$variables) {
+  $url = $variables['link']['#url'];
+  $state = !empty($variables['element']['#active']) ? 'active' : 'secondary';
+  $options = $url->getOptions();
+  $options['attributes']['class'][] = 'button';
+  $options['attributes']['class'][] = 'admin';
+  $options['attributes']['class'][] = $state;
+  $url->setOptions($options);
 }

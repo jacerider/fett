@@ -81,7 +81,7 @@
    view_mode|clean_class
  ]
 %}
-<{{ element }} id="node-{{ node.id }}"{{ attributes.addClass(classes) }}>
+<{{ tag }} id="node-{{ node.id }}"{{ attributes.addClass(classes) }}>
   {% if not page %}
     {{ title_prefix }}
     <{{ title_element }}{{ title_attributes }}>
@@ -121,4 +121,4 @@
   {% if content_element %}
     </{{ content_element}}>
   {% endif %}
-</{{ element }}>
+</{{ tag }}>

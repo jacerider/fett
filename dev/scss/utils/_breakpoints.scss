@@ -4,9 +4,9 @@
  */
 
 $breakpoints: (
-  small: 0,
-  medium: all and (min-width: 40em),
-  large: all and (min-width: 64em),
-  xlarge: all and (min-width: 120em),
+  small: 0, // converted from "0"
+  medium: 40em, // converted from "all and (min-width: 40em)"
+  large: 64em, // converted from "all and (min-width: 64em)"
+  xlarge: 120em, // converted from "all and (min-width: 120em)"
 );
 $breakpoint-classes: (small medium large xlarge);

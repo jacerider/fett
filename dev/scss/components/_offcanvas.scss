@@ -3,7 +3,7 @@ body,
 .offcanvas-wrapper,
 .offcanvas-push,
 .offcanvas-scroll {
-  height: 100vh;
+  height: 100%;
 }
 
 body {
@@ -55,7 +55,7 @@ body {
   position: relative;
   left: 0;
   z-index: 100;
-  transform-style: preserve-3d;
+  // transform-style: preserve-3d;
   transition: all 500ms;
 
   .active & {
