@@ -2,7 +2,7 @@ name: Fett
 description: 'A front-end Drupal base theme of awesomeness built upon Zurb Foundation.'
 package: JaceRider
 type: theme
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 screenshot: images/screenshot.png
 regions:
   header: Header
@@ -12,3 +12,4 @@ regions:
   sidebar_second: 'Sidebar second'
   footer_top: 'Footer Top'
   footer_bottom: 'Footer Bottom'
+base theme: false
